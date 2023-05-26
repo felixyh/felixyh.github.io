@@ -6,7 +6,7 @@
   <link href="https://blog.excelsre.com/atom.xml" rel="self"/>
   
   <link href="https://blog.excelsre.com/"/>
-  <updated>2023-05-26T12:20:47.084Z</updated>
+  <updated>2023-05-26T12:34:12.252Z</updated>
   <id>https://blog.excelsre.com/</id>
   
   <author>
@@ -21,14 +21,15 @@
     <link href="https://blog.excelsre.com/2023/05/26/ke-xue-shang-wang/"/>
     <id>https://blog.excelsre.com/2023/05/26/ke-xue-shang-wang/</id>
     <published>2023-05-26T12:19:51.078Z</published>
-    <updated>2023-05-26T12:20:47.084Z</updated>
+    <updated>2023-05-26T12:34:12.252Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1&gt; 科学上网 &lt;/h1&gt;
+    <summary type="html">&lt;hr&gt;
+&lt;h1&gt; 科学上网 &lt;/h1&gt;
 
 &lt;p&gt;作者：左耳朵 &lt;a href=&quot;http://coolshell.cn/&quot;&gt;http://coolshell.cn&lt;/a&gt;&lt;br&gt;更新时间：2023-05-02&lt;/p&gt;
 &lt;p&gt;这篇文章可以写的更好，欢迎到 &lt;a</summary>
@@ -136,6 +137,28 @@
   </entry>
   
   <entry>
+    <title></title>
+    <link href="https://blog.excelsre.com/1984/01/24/cicd-lab/"/>
+    <id>https://blog.excelsre.com/1984/01/24/cicd-lab/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-05-26T10:31:51.995Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;p&gt;&lt;a class=&quot;simple-lightbox&quot; href=&quot;https://felixyanghui.synology.me:8441/images/2022/10/04/image-20221002110216278.png&quot;&gt;&lt;img  </summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>Azure AKS</title>
     <link href="https://blog.excelsre.com/1984/01/24/azure/"/>
     <id>https://blog.excelsre.com/1984/01/24/azure/</id>
@@ -158,28 +181,6 @@
     <category term="Azure" scheme="https://blog.excelsre.com/tags/Azure/"/>
     
     <category term="AKS" scheme="https://blog.excelsre.com/tags/AKS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="https://blog.excelsre.com/1984/01/24/cicd-lab/"/>
-    <id>https://blog.excelsre.com/1984/01/24/cicd-lab/</id>
-    <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2023-05-26T10:31:51.995Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;p&gt;&lt;a class=&quot;simple-lightbox&quot; href=&quot;https://felixyanghui.synology.me:8441/images/2022/10/04/image-20221002110216278.png&quot;&gt;&lt;img  </summary>
-        
-      
-    
-    
-    
     
   </entry>
   
