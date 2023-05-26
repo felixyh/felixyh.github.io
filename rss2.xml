@@ -87,6 +87,34 @@
     </item>
     
     <item>
+      <title>Azure AKS</title>
+      <link>https://blog.excelsre.com/1984/01/24/azure/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/azure/</guid>
+      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/tags/Azure/">Azure</category>
+      
+      <category domain="https://blog.excelsre.com/tags/AKS/">AKS</category>
+      
+      
+      <comments>https://blog.excelsre.com/1984/01/24/azure/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>AWS Technical Essentials - Lab</title>
       <link>https://blog.excelsre.com/1984/01/24/aws-saa/</link>
       <guid>https://blog.excelsre.com/1984/01/24/aws-saa/</guid>
@@ -143,34 +171,6 @@
     </item>
     
     <item>
-      <title>Azure AKS</title>
-      <link>https://blog.excelsre.com/1984/01/24/azure/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/azure/</guid>
-      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</description>
-          
-        
-      
-      
-      
-      
-      
-      <category domain="https://blog.excelsre.com/tags/Azure/">Azure</category>
-      
-      <category domain="https://blog.excelsre.com/tags/AKS/">AKS</category>
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/azure/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
       <title>Github 教程</title>
       <link>https://blog.excelsre.com/1984/01/24/github-workflow/</link>
       <guid>https://blog.excelsre.com/1984/01/24/github-workflow/</guid>
@@ -195,6 +195,31 @@
     </item>
     
     <item>
+      <title>内置函数，工厂函数和魔法函数</title>
+      <link>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/</guid>
+      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;内置函数，工厂函数-和-魔法函数&quot;&gt;&lt;a href=&quot;#内置函数，工厂函数-和-魔法函数&quot; class=&quot;headerlink&quot; title=&quot;内置函数，工厂函数 和 魔法函数&quot;&gt;&lt;/a&gt;内置函数，工厂函数 和 魔法函数&lt;/h1&gt;&lt;h2 id=&quot;内置函数-Built-in-Functions&quot;&gt;&lt;a</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/tags/python/">python</category>
+      
+      
+      <comments>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>k8s 和 CICD lab</title>
       <link>https://blog.excelsre.com/1984/01/24/cicd-lab/</link>
       <guid>https://blog.excelsre.com/1984/01/24/cicd-lab/</guid>
@@ -213,34 +238,12 @@
       
       
       
+      <category domain="https://blog.excelsre.com/tags/k8s/">k8s</category>
+      
+      <category domain="https://blog.excelsre.com/tags/cicd/">cicd</category>
+      
       
       <comments>https://blog.excelsre.com/1984/01/24/cicd-lab/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>内置函数，工厂函数和魔法函数</title>
-      <link>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/</guid>
-      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;hr&gt;
-&lt;h1 id=&quot;内置函数，工厂函数-和-魔法函数&quot;&gt;&lt;a href=&quot;#内置函数，工厂函数-和-魔法函数&quot; class=&quot;headerlink&quot; title=&quot;内置函数，工厂函数 和 魔法函数&quot;&gt;&lt;/a&gt;内置函数，工厂函数 和 魔法函数&lt;/h1&gt;&lt;h2</description>
-          
-        
-      
-      
-      
-      
-      
-      <category domain="https://blog.excelsre.com/tags/python/">python</category>
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/#disqus_thread</comments>
       
     </item>
     
