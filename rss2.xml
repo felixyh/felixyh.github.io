@@ -143,30 +143,6 @@
     </item>
     
     <item>
-      <title></title>
-      <link>https://blog.excelsre.com/1984/01/24/cicd-lab/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/cicd-lab/</guid>
-      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;p&gt;&lt;a class=&quot;simple-lightbox&quot; href=&quot;https://felixyanghui.synology.me:8441/images/2022/10/04/image-20221002110216278.png&quot;&gt;&lt;img  </description>
-          
-        
-      
-      
-      
-      
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/cicd-lab/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
       <title>Azure AKS</title>
       <link>https://blog.excelsre.com/1984/01/24/azure/</link>
       <guid>https://blog.excelsre.com/1984/01/24/azure/</guid>
@@ -219,7 +195,31 @@
     </item>
     
     <item>
-      <title></title>
+      <title>k8s 和 CICD lab</title>
+      <link>https://blog.excelsre.com/1984/01/24/cicd-lab/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/cicd-lab/</guid>
+      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;p&gt;&lt;a class=&quot;simple-lightbox&quot; href=&quot;https://felixyanghui.synology.me:8441/images/2022/10/04/image-20221002110216278.png&quot;&gt;&lt;img  </description>
+          
+        
+      
+      
+      
+      
+      
+      
+      <comments>https://blog.excelsre.com/1984/01/24/cicd-lab/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>内置函数，工厂函数和魔法函数</title>
       <link>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/</link>
       <guid>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/</guid>
       <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
@@ -236,6 +236,8 @@
       
       
       
+      
+      <category domain="https://blog.excelsre.com/tags/python/">python</category>
       
       
       <comments>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/#disqus_thread</comments>

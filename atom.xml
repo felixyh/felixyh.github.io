@@ -137,28 +137,6 @@
   </entry>
   
   <entry>
-    <title></title>
-    <link href="https://blog.excelsre.com/1984/01/24/cicd-lab/"/>
-    <id>https://blog.excelsre.com/1984/01/24/cicd-lab/</id>
-    <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2023-05-26T10:31:51.995Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;p&gt;&lt;a class=&quot;simple-lightbox&quot; href=&quot;https://felixyanghui.synology.me:8441/images/2022/10/04/image-20221002110216278.png&quot;&gt;&lt;img  </summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>Azure AKS</title>
     <link href="https://blog.excelsre.com/1984/01/24/azure/"/>
     <id>https://blog.excelsre.com/1984/01/24/azure/</id>
@@ -207,11 +185,33 @@
   </entry>
   
   <entry>
-    <title></title>
+    <title>k8s 和 CICD lab</title>
+    <link href="https://blog.excelsre.com/1984/01/24/cicd-lab/"/>
+    <id>https://blog.excelsre.com/1984/01/24/cicd-lab/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-05-26T12:35:03.580Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;p&gt;&lt;a class=&quot;simple-lightbox&quot; href=&quot;https://felixyanghui.synology.me:8441/images/2022/10/04/image-20221002110216278.png&quot;&gt;&lt;img  </summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>内置函数，工厂函数和魔法函数</title>
     <link href="https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/"/>
     <id>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/</id>
     <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2023-05-26T10:29:33.491Z</updated>
+    <updated>2023-05-26T12:34:56.915Z</updated>
     
     
       
@@ -225,6 +225,8 @@
     
     
     
+    
+    <category term="python" scheme="https://blog.excelsre.com/tags/python/"/>
     
   </entry>
   
