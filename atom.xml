@@ -60,11 +60,11 @@
   </entry>
   
   <entry>
-    <title></title>
+    <title>AWS Technical Essentials - Lab</title>
     <link href="https://blog.excelsre.com/1984/01/24/aws-saa/"/>
     <id>https://blog.excelsre.com/1984/01/24/aws-saa/</id>
     <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2023-02-20T09:40:52.000Z</updated>
+    <updated>2023-05-26T10:33:07.987Z</updated>
     
     
       
@@ -79,14 +79,44 @@
     
     
     
+    <category term="AWS" scheme="https://blog.excelsre.com/tags/AWS/"/>
+    
+    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
+    
   </entry>
   
   <entry>
-    <title></title>
+    <title>Ansible lab</title>
+    <link href="https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/"/>
+    <id>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-05-26T10:33:39.784Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Infra-preparation&quot;&gt;&lt;a href=&quot;#Infra-preparation&quot; class=&quot;headerlink&quot; title=&quot;Infra preparation&quot;&gt;&lt;/a&gt;Infra preparation&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
+    
+    <category term="Ansible" scheme="https://blog.excelsre.com/tags/Ansible/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure AKS</title>
     <link href="https://blog.excelsre.com/1984/01/24/azure/"/>
     <id>https://blog.excelsre.com/1984/01/24/azure/</id>
     <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2023-01-28T08:22:39.000Z</updated>
+    <updated>2023-05-26T10:32:37.095Z</updated>
     
     
       
@@ -101,14 +131,18 @@
     
     
     
+    <category term="Azure" scheme="https://blog.excelsre.com/tags/Azure/"/>
+    
+    <category term="AKS" scheme="https://blog.excelsre.com/tags/AKS/"/>
+    
   </entry>
   
   <entry>
-    <title></title>
+    <title>Github 教程</title>
     <link href="https://blog.excelsre.com/1984/01/24/github-workflow/"/>
     <id>https://blog.excelsre.com/1984/01/24/github-workflow/</id>
     <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2022-10-08T05:13:17.000Z</updated>
+    <updated>2023-05-26T10:30:43.522Z</updated>
     
     
       
@@ -127,17 +161,40 @@
   
   <entry>
     <title></title>
+    <link href="https://blog.excelsre.com/1984/01/24/cicd-lab/"/>
+    <id>https://blog.excelsre.com/1984/01/24/cicd-lab/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-05-26T10:31:51.995Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;p&gt;&lt;a class=&quot;simple-lightbox&quot; href=&quot;https://felixyanghui.synology.me:8441/images/2022/10/04/image-20221002110216278.png&quot;&gt;&lt;img  </summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
     <link href="https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/"/>
     <id>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/</id>
     <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2023-05-26T10:14:48.507Z</updated>
+    <updated>2023-05-26T10:29:33.491Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;内置函数，工厂函数-和-魔法函数&quot;&gt;&lt;a href=&quot;#内置函数，工厂函数-和-魔法函数&quot; class=&quot;headerlink&quot; title=&quot;内置函数，工厂函数 和 魔法函数&quot;&gt;&lt;/a&gt;内置函数，工厂函数 和 魔法函数&lt;/h1&gt;&lt;h2 id=&quot;内置函数-Built-in-Functions&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;hr&gt;
+&lt;h1 id=&quot;内置函数，工厂函数-和-魔法函数&quot;&gt;&lt;a href=&quot;#内置函数，工厂函数-和-魔法函数&quot; class=&quot;headerlink&quot; title=&quot;内置函数，工厂函数 和 魔法函数&quot;&gt;&lt;/a&gt;内置函数，工厂函数 和 魔法函数&lt;/h1&gt;&lt;h2</summary>
         
       
     

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>Ansible lab</title>
+<meta name="keywords" content="Ansible lab, Python,SRE,Flask,AWS,Azure,运维， 读书">
+<meta name="description" content="[TOC]
+Infra preparationServers List
+
+
+Server Name
+IP address
+Role
+OS
+
+
+
+Ansible01
+192.168.22.67
+Web Server - 1
+CentOS8
+
+">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+
+
+  <link rel="stylesheet" href="/style/simple-lightbox.min.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Felix Yang's Blog" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Felix Yang's Blog" type="application/rss+xml">
+</head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://blog.excelsre.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="https://blog.excelsre.com">
+        <h1 class="site-title">Felix Yang&#39;s Blog</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags/" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">Ansible lab</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 1984-01-24</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/lab/">
+              lab
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/Ansible/">
+              Ansible
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p>[TOC]</p>
+<h1 id="Infra-preparation"><a href="#Infra-preparation" class="headerlink" title="Infra preparation"></a>Infra preparation</h1><h2 id="Servers-List"><a href="#Servers-List" class="headerlink" title="Servers List"></a>Servers List</h2><table>
+<thead>
+<tr>
+<th>Server Name</th>
+<th>IP address</th>
+<th>Role</th>
+<th>OS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ansible01</td>
+<td>192.168.22.67</td>
+<td>Web Server - 1</td>
+<td>CentOS8</td>
+</tr>
+<tr>
+<td>Ansible02</td>
+<td>192.168.22.68</td>
+<td>Web Server - 2</td>
+<td>CentOS8</td>
+</tr>
+<tr>
+<td>Ansible03</td>
+<td>192.168.22.69</td>
+<td>HAProxy</td>
+<td>CentOS8</td>
+</tr>
+</tbody></table>
+<h2 id="Topology"><a href="#Topology" class="headerlink" title="Topology"></a>Topology</h2><p>Overall topology is like below:</p>
+<p>![image-20220311092828023](&#x2F;Users&#x2F;felix&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20220311092828023.png)</p>
+<h2 id="Provision-Infra-with-Terraform-and-vSphere"><a href="#Provision-Infra-with-Terraform-and-vSphere" class="headerlink" title="Provision Infra with Terraform and vSphere"></a>Provision Infra with Terraform and vSphere</h2><p>Leverage terraform to provision the servers, create below main.tf file:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Configure the VMware vSphere Provider</span></span><br><span class="line"><span class="string">provider</span> <span class="string">&quot;vsphere&quot;</span> &#123;</span><br><span class="line">  <span class="string">user</span>           <span class="string">=</span> <span class="string">&quot;administrator@vsphere.local&quot;</span></span><br><span class="line">  <span class="string">password</span>       <span class="string">=</span> <span class="string">&quot;xxx&quot;</span></span><br><span class="line">  <span class="string">vsphere_server</span> <span class="string">=</span> <span class="string">&quot;192.168.20.251&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># if you have a self-signed cert</span></span><br><span class="line">  <span class="string">allow_unverified_ssl</span> <span class="string">=</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Deploy 3 linux VMs</span></span><br><span class="line"><span class="string">module</span> <span class="string">&quot;centos-server-linuxvm&quot;</span> &#123;</span><br><span class="line">  <span class="string">source</span>    <span class="string">=</span> <span class="string">&quot;Terraform-VMWare-Modules/vm/vsphere&quot;</span></span><br><span class="line">  <span class="comment">#source    = &quot;.terraform/modules/centos-server-linuxvm&quot;</span></span><br><span class="line">  <span class="string">version</span>   <span class="string">=</span> <span class="string">&quot;3.4.1&quot;</span></span><br><span class="line">  <span class="string">vmtemp</span>    <span class="string">=</span> <span class="string">&quot;CentOS8&quot;</span></span><br><span class="line">  <span class="string">instances</span> <span class="string">=</span> <span class="number">3</span></span><br><span class="line">  <span class="string">vmname</span>    <span class="string">=</span> <span class="string">&quot;Ansible&quot;</span></span><br><span class="line">  <span class="string">vmrp</span>      <span class="string">=</span> <span class="string">&quot;Felix-Cluster/Resources/ansiblelab&quot;</span></span><br><span class="line">  <span class="string">network</span> <span class="string">=</span> &#123;</span><br><span class="line">    <span class="string">&quot;VM Network&quot;</span> <span class="string">=</span> [<span class="string">&quot;192.168.22.67&quot;</span>, <span class="string">&quot;192.168.22.68&quot;</span>, <span class="string">&quot;192.168.22.69&quot;</span>] <span class="comment"># To use DHCP create Empty list [&quot;&quot;,&quot;&quot;]; You can also use a CIDR annotation;</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="string">vmgateway</span> <span class="string">=</span> <span class="string">&quot;192.168.0.250&quot;</span></span><br><span class="line">  <span class="string">dc</span>        <span class="string">=</span> <span class="string">&quot;Felix-DC&quot;</span></span><br><span class="line">  <span class="string">datastore</span> <span class="string">=</span> <span class="string">&quot;Data&quot;</span></span><br><span class="line">  <span class="string">ipv4submask</span>  <span class="string">=</span> [<span class="string">&quot;16&quot;</span>, <span class="string">&quot;16&quot;</span>, <span class="string">&quot;16&quot;</span>]</span><br><span class="line">  <span class="string">network_type</span> <span class="string">=</span> [<span class="string">&quot;vmxnet3&quot;</span>, <span class="string">&quot;vmxnet3&quot;</span>, <span class="string">&quot;vmxnet3&quot;</span>]</span><br><span class="line">  <span class="string">dns_server_list</span>  <span class="string">=</span> [<span class="string">&quot;192.168.22.1&quot;</span>, <span class="string">&quot;192.168.22.1&quot;</span>, <span class="string">&quot;192.168.22.1&quot;</span>]</span><br><span class="line">  <span class="string">is_windows_image</span> <span class="string">=</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">output</span> <span class="string">&quot;vmnames&quot;</span> &#123;</span><br><span class="line">  <span class="string">value</span> <span class="string">=</span> <span class="string">module.centos-server-linuxvm.VM</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">output</span> <span class="string">&quot;vmnameswip&quot;</span> &#123;</span><br><span class="line">  <span class="string">value</span> <span class="string">=</span> <span class="string">module.centos-server-linuxvm.ip</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">terrform init</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">terrform plan</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">terrform apply</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Step-by-step-to-set-up-webservers-and-haproxy-with-ansible"><a href="#Step-by-step-to-set-up-webservers-and-haproxy-with-ansible" class="headerlink" title="Step by step to set up webservers and haproxy with ansible"></a><a target="_blank" rel="noopener" href="https://github.com/felixyh/ansiblelab">Step by step to set up webservers and haproxy with ansible</a></h1><h2 id="Lab-01"><a href="#Lab-01" class="headerlink" title="Lab-01"></a>Lab-01</h2><h3 id="Initialize-lab-environment"><a href="#Initialize-lab-environment" class="headerlink" title="Initialize lab environment"></a>Initialize lab environment</h3><p>Create hosts file</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[web]</span><br><span class="line">ansible01 ansible_host=192.168.22.67</span><br><span class="line">ansible02 ansible_host=192.168.22.68</span><br><span class="line"></span><br><span class="line">[haproxy]</span><br><span class="line">ansible03 ansible_host=192.168.22.69</span><br><span class="line"></span><br><span class="line">[web:vars]</span><br><span class="line">ansible_ssh_user=root</span><br><span class="line"></span><br><span class="line">[haproxy:vars]</span><br><span class="line">ansible_ssh_user=root</span><br></pre></td></tr></table></figure>
+
+<p>Ignore SSH authenticity checking, to avoid any human intervention in the middle of the script execution for below prompts:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># GATHERING FACTS ***************************************************************</span><br><span class="line"># The authenticity of host &#x27;xxx.xxx.xxx.xxx (xxx.xxx.xxx.xxx)&#x27; can&#x27;t be established.</span><br><span class="line"># RSA key fingerprint is xx:yy:zz:....</span><br><span class="line"># Are you sure you want to continue connecting (yes/no)?</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Edit the <em>ansible.cfg</em>, set <code>host_key_checking=false</code></p>
+<blockquote>
+<p>ansible configuration file is only created automatically during the installation if you perform the installation with package managers like yum or apt-get. If you installed ansible using pip you should create the configuration file manually.</p>
+<p>See <a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/reference_appendices/config.html#the-configuration-file">The configuration file</a>. Ansible searches configuration files in this order</p>
+<ol>
+<li>ansible.cfg (in the current directory)</li>
+<li>~&#x2F;.ansible.cfg (in the home directory)</li>
+<li>&#x2F;etc&#x2F;ansible&#x2F;ansible.cfg</li>
+</ol>
+<p>If there isn’t any configuration file the defaults will apply. See the hardcoded defaults in <a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/reference_appendices/config.html#ansible-configuration-settings">Ansible Configuration Settings</a>. </p>
+<p> <code>ansible-config dump</code> can help show the default ansible.cfg file.</p>
+<p><code>ansible-config init --disabled &gt; ansible.cfg</code> can help generate ansible.cfg file with all options disabled by default</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">felix@Felixs-MacBook-Pro 01-Environment % cat /etc/ansible/ansible.cfg | grep host_key</span><br><span class="line">host_key_checking=false</span><br></pre></td></tr></table></figure>
+
+<p>Upload the key to servers in batch with Ansible module: <code>authorized_key</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ansible -i 01-Environment/hosts all  -m authorized_key -a &quot;user=root key=&#x27;&#123;&#123; lookup(&#x27;file&#x27;,&#x27;~/.ssh/id_rsa.pub&#x27;)&#125;&#125;&#x27; path=&#x27;/root/.ssh/authorized_keys&#x27; manage_dir=no&quot; --ask-pass -c paramiko</span><br><span class="line">#因为密码都一样，所以只需要输入一次密码即可，如果密码不同  需要自定义</span><br><span class="line"> </span><br><span class="line">#说明：</span><br><span class="line">user=root    #将秘钥推送到远程主机的哪个用户下</span><br><span class="line">key=&#x27;&#123;&#123; lookup(&#x27;file&#x27;,&#x27;/root/.ssh/id_rsa.pub&#x27;)&#125;&#125;&#x27;    #指定要推送的秘钥文件所在的路径</span><br><span class="line">path=&#x27;/root/.ssh/authorized_keys&#x27;    #将秘钥推送到远程主机的哪个目录下并重命名</span><br><span class="line">manage_dir=no       #指定模块是否应该管理authorized_keys文件所在的目录，如果设置为yes,模块会创建目录，以及设置一个已存在目录的拥有者和权限。如果通过 path 选项，重新指定了一个 authorized key 文件所在目录，那么应该将该选项设置为 no</span><br><span class="line">exclusive [default: no]： #是否移除 authorized_keys 文件中其它非指定 key</span><br><span class="line">state (Choices: present, absent) [Default: present]： #present 添加指定 key 到 authorized_keys 文件中；absent 从 authorized_keys 文件中移除指定 key</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Lastly, add key footprint into known host in localhost and disable firewall on all servers</p>
+<p>Create the setup.yaml file as below:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: all</span><br><span class="line">  become: true</span><br><span class="line">  become_user: root</span><br><span class="line">  remote_user: root</span><br><span class="line">  gather_facts: false</span><br><span class="line"></span><br><span class="line">  tasks:</span><br><span class="line">    - name: wait for ssh to be up</span><br><span class="line">      become: false</span><br><span class="line">      wait_for:</span><br><span class="line">        port: 22</span><br><span class="line">        delay: 5</span><br><span class="line">        connect_timeout: 5</span><br><span class="line">        timeout: 360</span><br><span class="line">        host: &quot;&#123;&#123; ansible_host &#125;&#125;&quot;</span><br><span class="line">      delegate_to: localhost</span><br><span class="line"></span><br><span class="line">    - name: add footprints</span><br><span class="line">      shell: &quot;ssh-keyscan -H &#123;&#123; ansible_host &#125;&#125; &gt;&gt; ~/.ssh/known_hosts&quot;</span><br><span class="line"></span><br><span class="line">    - name: diable firewall</span><br><span class="line">      service:</span><br><span class="line">        name: firewalld</span><br><span class="line">        state: stopped</span><br><span class="line">        enabled: false</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Run <code>setup.yaml </code> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># To add key footprint into known host in localhost</span><br><span class="line">ansible-playbook -i 01-Environment/hosts 01-Environment/setup.yaml</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Lab-02"><a href="#Lab-02" class="headerlink" title="Lab-02"></a>Lab-02</h2><h3 id="Install-necesssary-packages-and-set-global-proxy"><a href="#Install-necesssary-packages-and-set-global-proxy" class="headerlink" title="Install necesssary packages and set global proxy"></a>Install necesssary packages and set global proxy</h3><p>Create httpd.yaml file and create tasks for package installation</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">web</span></span><br><span class="line">  <span class="attr">gather_facts:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">environment:</span></span><br><span class="line">    <span class="attr">http_proxy:</span> <span class="number">10.64</span><span class="number">.1</span><span class="number">.81</span><span class="string">:8080</span></span><br><span class="line">    <span class="attr">https_proxy:</span> <span class="number">10.64</span><span class="number">.1</span><span class="number">.81</span><span class="string">:8080</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Installs</span> <span class="string">necessary</span> <span class="string">packages</span></span><br><span class="line">      <span class="attr">yum:</span></span><br><span class="line">        <span class="attr">name:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">httpd</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">php*</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">git</span></span><br><span class="line">        <span class="attr">state:</span> <span class="string">latest</span></span><br><span class="line">        <span class="attr">update_cache:</span> <span class="literal">true</span>  </span><br></pre></td></tr></table></figure>
+
+<h3 id="Setup-the-virtual-hosts"><a href="#Setup-the-virtual-hosts" class="headerlink" title="Setup the virtual hosts"></a>Setup the virtual hosts</h3><p>Create the virtual host configuration file: awesome-app</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/swl0221/p/11752080.html">A good article for virtual hosts</a> setup to understand the concept: </p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># Listen 8067</span><br><span class="line"># <span class="tag">&lt;<span class="name">VirtualHost</span> *<span class="attr">:8067</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">VirtualHost</span> *<span class="attr">:80</span>&gt;</span></span><br><span class="line">  DocumentRoot /var/www/awesome-app</span><br><span class="line">  # ServerName www.awesomeapp.com</span><br><span class="line">  ErrorLog /var/log/httpd/error_log</span><br><span class="line">  CustomLog /var/log/httpd/access_log combined</span><br><span class="line">  <span class="tag">&lt;<span class="name">Directory</span> /<span class="attr">var</span>/<span class="attr">www</span>/<span class="attr">awesome-app</span>&gt;</span></span><br><span class="line">    Options -Indexes +FollowSymlinks</span><br><span class="line">    Require all granted</span><br><span class="line">    AllowOverride All</span><br><span class="line">  <span class="tag">&lt;/<span class="name">Directory</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">VirtualHost</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>@httpd.yaml file, create task to copy awesome-app configuration file to webserver: &#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Push</span> <span class="string">default</span> <span class="string">virtual</span> <span class="string">host</span> <span class="string">configuration</span></span><br><span class="line">  <span class="attr">copy:</span></span><br><span class="line">    <span class="attr">src:</span> <span class="string">files/awesome-app</span></span><br><span class="line">    <span class="attr">dest:</span> <span class="string">/etc/httpd/conf.d/awesome-app.conf</span></span><br><span class="line">    <span class="attr">mode:</span> <span class="number">0640</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Deploy-the-web-servers"><a href="#Deploy-the-web-servers" class="headerlink" title="Deploy the web servers"></a>Deploy the web servers</h3><p>@httpd.yaml file, create task to deploy awesome application</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">our</span> <span class="string">awesome</span> <span class="string">application</span></span><br><span class="line">  <span class="attr">git:</span></span><br><span class="line">    <span class="attr">repo:</span> <span class="string">https://github.com/leucos/ansible-tuto-demosite.git</span></span><br><span class="line">    <span class="attr">dest:</span> <span class="string">/var/www/awesome-app</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">deploy</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Check-configuration-and-roll-back-to-default-http-server-as-needed"><a href="#Check-configuration-and-roll-back-to-default-http-server-as-needed" class="headerlink" title="Check configuration and roll back to default http server as needed"></a>Check configuration and roll back to default http server as needed</h3><p>@httpd.yaml file, create tasks to check configuration and rollback as needed</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Check</span> <span class="string">that</span> <span class="string">our</span> <span class="string">config</span> <span class="string">is</span> <span class="string">valid</span></span><br><span class="line">   <span class="attr">command:</span> <span class="string">apachectl</span> <span class="string">configtest</span></span><br><span class="line">   <span class="attr">register:</span> <span class="string">result</span></span><br><span class="line">   <span class="attr">ignore_errors:</span> <span class="literal">true</span></span><br><span class="line">   <span class="attr">notify:</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">restart</span> <span class="string">httpd</span></span><br><span class="line"></span><br><span class="line"> <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Rolling</span> <span class="string">back</span> <span class="bullet">-</span> <span class="string">Removing</span> <span class="string">the</span> <span class="string">virtualhost</span></span><br><span class="line">   <span class="attr">file:</span></span><br><span class="line">     <span class="attr">path:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">/etc/httpd/conf.d/awesome-app.conf</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">/var/www/awesome-app</span></span><br><span class="line">     <span class="attr">state:</span> <span class="string">absent</span></span><br><span class="line">   <span class="attr">when:</span> <span class="string">result</span> <span class="string">is</span> <span class="string">failed</span></span><br><span class="line"></span><br><span class="line"> <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Rolling</span> <span class="string">back</span> <span class="bullet">-</span> <span class="string">Ending</span> <span class="string">playbook</span></span><br><span class="line">   <span class="attr">fail:</span></span><br><span class="line">     <span class="attr">msg:</span> <span class="string">&quot;Configuration file is not valid. Please  check that before re-running the playbook&quot;</span></span><br><span class="line">   <span class="attr">when:</span> <span class="string">result</span> <span class="string">is</span> <span class="string">failed</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Run-command-to-deploy"><a href="#Run-command-to-deploy" class="headerlink" title="Run command to deploy"></a>Run command to deploy</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -i hosts httpd.yaml</span><br></pre></td></tr></table></figure>
+
+<a class="simple-lightbox" href="/Users/felix/Library/Application Support/typora-user-images/image-20220311102203398.png"><img   src="/images/loading.svg" data-src="/Users/felix/Library/Application Support/typora-user-images/image-20220311102203398.png"  alt="image-20220311102203398" style="zoom:50%;"  lazyload></a>
+
+
+
+<h2 id="Lab-03"><a href="#Lab-03" class="headerlink" title="Lab-03"></a>Lab-03</h2><h3 id="Create-haproxy-template-to-be-rendered"><a href="#Create-haproxy-template-to-be-rendered" class="headerlink" title="Create haproxy template to be rendered"></a>Create haproxy template to be rendered</h3><p>create <code>haproxy.cfg.j2</code> file under teamplate folder</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">global</span><br><span class="line">    daemon</span><br><span class="line">    maxconn 256</span><br><span class="line"></span><br><span class="line">defaults</span><br><span class="line">    mode http</span><br><span class="line">    timeout connect 5000ms</span><br><span class="line">    timeout client 50000ms</span><br><span class="line">    timeout server 50000ms</span><br><span class="line"></span><br><span class="line">listen cluster</span><br><span class="line">    bind &#123;&#123; ansible_host &#125;&#125;:80</span><br><span class="line">    mode http</span><br><span class="line">    stats enable</span><br><span class="line">    balance roundrobin</span><br><span class="line">&#123;% for backend in groups[&#x27;web&#x27;] %&#125;</span><br><span class="line">    server &#123;&#123; hostvars[backend][&#x27;ansible_hostname&#x27;] &#125;&#125; &#123;&#123; hostvars[backend].ansible_host &#125;&#125; check port 80</span><br><span class="line">&#123;% endfor %&#125;</span><br><span class="line">    option httpchk HEAD /index.php HTTP/1.0</span><br></pre></td></tr></table></figure>
+
+<h3 id="Install-haproxy-for-two-web-servers"><a href="#Install-haproxy-for-two-web-servers" class="headerlink" title="Install haproxy for two web servers"></a>Install haproxy for two web servers</h3><p>Create <code>haproxy.yaml</code> file and create tasks to install haproxy and enable service on server boot</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">web</span></span><br><span class="line">  <span class="attr">gather_facts:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">haproxy</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Installs</span> <span class="string">haproxy</span> <span class="string">load</span> <span class="string">balancer</span></span><br><span class="line">      <span class="attr">yum:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">haproxy</span></span><br><span class="line">        <span class="attr">state:</span> <span class="string">present</span></span><br><span class="line">        <span class="attr">update_cache:</span> <span class="literal">yes</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Enable</span> <span class="string">and</span> <span class="string">Allow</span> <span class="string">haproxy</span> <span class="string">to</span> <span class="string">restart</span> <span class="string">automatically</span> <span class="string">at</span> <span class="string">system</span> <span class="string">boot-up</span></span><br><span class="line">      <span class="attr">service:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">haproxy</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">notify:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">restart</span> <span class="string">haproxy</span></span><br></pre></td></tr></table></figure>
+
+<p>Create tasks to push template to haproxy server</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Pushes</span> <span class="string">configuration</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">src:</span> <span class="string">templates/haproxy.cfg.j2</span></span><br><span class="line">    <span class="attr">dest:</span> <span class="string">/etc/haproxy/haproxy.cfg</span></span><br><span class="line">    <span class="attr">mode:</span> <span class="number">0640</span></span><br><span class="line">    <span class="attr">owner:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">group:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">notify:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">restart</span> <span class="string">haproxy</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Run-command-to-deploy-haproxy"><a href="#Run-command-to-deploy-haproxy" class="headerlink" title="Run command to deploy haproxy"></a>Run command to deploy haproxy</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook -i hosts httpd.yaml haproxy.yaml</span><br></pre></td></tr></table></figure>
+
+<a class="simple-lightbox" href="/Users/felix/Library/Application Support/typora-user-images/image-20220311102500323.png"><img   src="/images/loading.svg" data-src="/Users/felix/Library/Application Support/typora-user-images/image-20220311102500323.png"  alt="image-20220311102500323" style="zoom:50%;"  lazyload></a>
+
+
+
+<p>Access <a target="_blank" rel="noopener" href="http://haproxy-ip/haproxy?stats">http://haproxy-IP/haproxy?stats</a></p>
+<a class="simple-lightbox" href="/Users/felix/Library/Application Support/typora-user-images/image-20220311102526388.png"><img   src="/images/loading.svg" data-src="/Users/felix/Library/Application Support/typora-user-images/image-20220311102526388.png"  alt="image-20220311102526388" style="zoom:50%;"  lazyload></a>
+
+<h2 id="Lab-04"><a href="#Lab-04" class="headerlink" title="Lab-04"></a>Lab-04</h2><h3 id="set-variables-for-tempalte-associated-with-hosts-x2F-groups"><a href="#set-variables-for-tempalte-associated-with-hosts-x2F-groups" class="headerlink" title="set variables for tempalte associated with hosts&#x2F;groups"></a>set variables for tempalte associated with hosts&#x2F;groups</h3><p>create two folders named as <code>group_vars</code> and <code>host_vars</code></p>
+<h4 id="Group-vars"><a href="#Group-vars" class="headerlink" title="Group vars"></a>Group vars</h4><p>The check interval will be set in a group_vars file for haproxy. This will ensure all haproxies will inherit from it.</p>
+<p>We just need to create the file <code>group_vars/haproxy.yml</code> below the inventory directory. <strong>The file has to be named after the group you want to define the variables for</strong>. <strong>If we wanted to define variables for the web group, the file would be named <code>group_vars/web.yml</code>.</strong></p>
+<p>@haproxy.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">haproxy_check_interval:</span> <span class="number">3000</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>Note that the <code>.yml</code> is optionalm: we could name haproxy group vars file <code>group_vars/haproxy</code> and Ansible would be ok with it. The extension just helps editors picking the right syntax highlighter.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">haproxy_check_interval: 3000</span><br><span class="line">haproxy_stats_socket: /tmp/sock</span><br></pre></td></tr></table></figure>
+
+<p>The name is arbitrary. Meaningful names are recommended of course, but there is no required syntax. You could even use complex variables (a.k.a. Python dict) like this:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">haproxy:</span><br><span class="line">    check_interval: 3000</span><br><span class="line">    stats_socket: /tmp/sock</span><br></pre></td></tr></table></figure>
+
+<p>This is just a matter of taste. Complex vars can help group stuff logically. They can also, under some circumstances, merge subsequently defined keys (note however that this is not the default ansible behaviour). For now we’ll just use simple variables.</p>
+<h4 id="Hosts-vars"><a href="#Hosts-vars" class="headerlink" title="Hosts vars"></a>Hosts vars</h4><p>Hosts vars follow exactly the same rules, but live in files under <code>host_vars</code> directory.</p>
+<p>Let’s define weights for our backends in <code>host_vars/host1.example.com</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">haproxy_backend_weight: 100</span><br></pre></td></tr></table></figure>
+
+<p>and <code>host_vars/host2.example.com</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">haproxy_backend_weight: 150</span><br></pre></td></tr></table></figure>
+
+<p>If we’d define <code>haproxy_backend_weight</code> in <code>group_vars/web</code>, it would be used as a ‘default’: variables defined in <code>host_vars</code> files overrides variables defined in <code>group_vars</code>.</p>
+<p>@ansible01.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">haproxy_backend_weight:</span> <span class="number">150</span></span><br></pre></td></tr></table></figure>
+
+<p>@ansible02.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">haproxy_backend_weight:</span> <span class="number">100</span></span><br></pre></td></tr></table></figure>
+
+<p>@ansible03.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">haproxy_backend_weight:</span> <span class="number">150</span></span><br><span class="line"><span class="attr">haproxy_stats_socket:</span> <span class="string">/run/sock</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Update-the-template-file-with-defined-variables"><a href="#Update-the-template-file-with-defined-variables" class="headerlink" title="Update the template file with defined variables"></a>Update the template file with defined variables</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">global</span></span><br><span class="line">    <span class="string">daemon</span></span><br><span class="line">    <span class="string">maxconn</span> <span class="number">256</span></span><br><span class="line">&#123;<span class="string">%</span> <span class="string">if</span> <span class="string">haproxy_stats_socket</span> <span class="string">%</span>&#125;</span><br><span class="line">    <span class="string">stats</span> <span class="string">socket</span> &#123;&#123; <span class="string">haproxy_stats_socket</span> &#125;&#125; <span class="comment"># use variables: haproxy_stats_socket defined in host var</span></span><br><span class="line">&#123;<span class="string">%</span> <span class="string">endif</span> <span class="string">%</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">defaults</span></span><br><span class="line">    <span class="string">mode</span> <span class="string">http</span></span><br><span class="line">    <span class="string">timeout</span> <span class="string">connect</span> <span class="string">5000ms</span></span><br><span class="line">    <span class="string">timeout</span> <span class="string">client</span> <span class="string">50000ms</span></span><br><span class="line">    <span class="string">timeout</span> <span class="string">server</span> <span class="string">50000ms</span></span><br><span class="line"></span><br><span class="line"><span class="string">listen</span> <span class="string">cluster</span></span><br><span class="line">    <span class="string">bind</span> &#123;&#123; <span class="string">ansible_host</span> &#125;&#125;<span class="string">:80</span></span><br><span class="line">    <span class="string">mode</span> <span class="string">http</span></span><br><span class="line">    <span class="string">stats</span> <span class="string">enable</span></span><br><span class="line">    <span class="string">balance</span> <span class="string">roundrobin</span></span><br><span class="line">&#123;<span class="string">%</span> <span class="string">for</span> <span class="string">backend</span> <span class="string">in</span> <span class="string">groups</span>[<span class="string">&#x27;web&#x27;</span>] <span class="string">%</span>&#125;</span><br><span class="line">    <span class="string">server</span> &#123;&#123; <span class="string">hostvars</span>[<span class="string">backend</span>][<span class="string">&#x27;ansible_hostname&#x27;</span>] &#125;&#125; &#123;&#123; <span class="string">hostvars</span>[<span class="string">backend</span>]<span class="string">.ansible_host</span> &#125;&#125; <span class="string">check</span> <span class="string">port</span> <span class="number">80</span></span><br><span class="line">&#123;<span class="string">%</span> <span class="string">endfor</span> <span class="string">%</span>&#125;</span><br><span class="line">    <span class="string">option</span> <span class="string">httpchk</span> <span class="string">HEAD</span> <span class="string">/index.php</span> <span class="string">HTTP/1.0</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Run-command-to-update"><a href="#Run-command-to-update" class="headerlink" title="Run command to update"></a>Run command to update</h3><p>ansible-playbook -i hosts haproxy.yaml</p>
+<blockquote>
+<p>we don’t need to run httpd.yaml any more, as there’s no change to web servers. However we added an empty play for web hosts at the top. It does nothing except <code>gather_facts: true</code>. But it’s here because it will trigger facts gathering on hosts in group <code>web</code>. This is required because the haproxy playbook needs to pick facts from hosts in this group. If we don’t do this, ansible will complain saying that <code>ansible_all_ipv4_addresses</code> key doesn’t exist.</p>
+</blockquote>
+<p>@haproxy.yaml </p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">web</span></span><br><span class="line">  <span class="attr">gather_facts:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">haproxy</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Installs</span> <span class="string">haproxy</span> <span class="string">load</span> <span class="string">balancer</span></span><br><span class="line">      <span class="attr">yum:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">haproxy</span></span><br><span class="line">        <span class="attr">state:</span> <span class="string">present</span></span><br><span class="line">        <span class="attr">update_cache:</span> <span class="literal">yes</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Pushes</span> <span class="string">configuration</span></span><br><span class="line">      <span class="attr">template:</span></span><br><span class="line">        <span class="attr">src:</span> <span class="string">templates/haproxy.cfg.j2</span></span><br><span class="line">        <span class="attr">dest:</span> <span class="string">/etc/haproxy/haproxy.cfg</span></span><br><span class="line">        <span class="attr">mode:</span> <span class="number">0640</span></span><br><span class="line">        <span class="attr">owner:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">group:</span> <span class="string">root</span></span><br><span class="line">      <span class="attr">notify:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">restart</span> <span class="string">haproxy</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Enable</span> <span class="string">and</span> <span class="string">Allow</span> <span class="string">haproxy</span> <span class="string">to</span> <span class="string">restart</span> <span class="string">automatically</span> <span class="string">at</span> <span class="string">system</span> <span class="string">boot-up</span></span><br><span class="line">      <span class="attr">service:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">haproxy</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">notify:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">restart</span> <span class="string">haproxy</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">handlers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">restart</span> <span class="string">haproxy</span></span><br><span class="line">      <span class="attr">service:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">haproxy</span></span><br><span class="line">        <span class="attr">state:</span> <span class="string">restarted</span></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#Infra-preparation"><span class="top-box-text">Infra preparation</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Servers-List"><span class="top-box-text">Servers List</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Topology"><span class="top-box-text">Topology</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Provision-Infra-with-Terraform-and-vSphere"><span class="top-box-text">Provision Infra with Terraform and vSphere</span></a></li></ol></li><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#Step-by-step-to-set-up-webservers-and-haproxy-with-ansible"><span class="top-box-text">Step by step to set up webservers and haproxy with ansible</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Lab-01"><span class="top-box-text">Lab-01</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#Initialize-lab-environment"><span class="top-box-text">Initialize lab environment</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Lab-02"><span class="top-box-text">Lab-02</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#Install-necesssary-packages-and-set-global-proxy"><span class="top-box-text">Install necesssary packages and set global proxy</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#Setup-the-virtual-hosts"><span class="top-box-text">Setup the virtual hosts</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#Deploy-the-web-servers"><span class="top-box-text">Deploy the web servers</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#Check-configuration-and-roll-back-to-default-http-server-as-needed"><span class="top-box-text">Check configuration and roll back to default http server as needed</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#Run-command-to-deploy"><span class="top-box-text">Run command to deploy</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Lab-03"><span class="top-box-text">Lab-03</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#Create-haproxy-template-to-be-rendered"><span class="top-box-text">Create haproxy template to be rendered</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#Install-haproxy-for-two-web-servers"><span class="top-box-text">Install haproxy for two web servers</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#Run-command-to-deploy-haproxy"><span class="top-box-text">Run command to deploy haproxy</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Lab-04"><span class="top-box-text">Lab-04</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#set-variables-for-tempalte-associated-with-hosts-x2F-groups"><span class="top-box-text">set variables for tempalte associated with hosts&#x2F;groups</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#Update-the-template-file-with-defined-variables"><span class="top-box-text">Update the template file with defined variables</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#Run-command-to-update"><span class="top-box-text">Run command to update</span></a></li></ol></li></ol></li></ol>
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/1984/01/24/azure/">
+          <h3 class="post-title">
+            下一篇：Azure AKS
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/felixyh" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTZ2R5KJKX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-RTZ2R5KJKX');
+    </script>
+
+
+
+
+
+  <script src="/js/simple-lightbox.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {new SimpleLightbox('.post-detail .simple-lightbox', {fileExt: false,captionsData:'alt'});});</script></body>
+</html>
+
