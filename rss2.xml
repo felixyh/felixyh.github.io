@@ -88,9 +88,9 @@
     </item>
     
     <item>
-      <title>Ansible lab</title>
-      <link>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</guid>
+      <title>Github 教程</title>
+      <link>https://blog.excelsre.com/1984/01/24/github-workflow/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/github-workflow/</guid>
       <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
       
         
@@ -98,7 +98,7 @@
           
           
       <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Infra-preparation&quot;&gt;&lt;a href=&quot;#Infra-preparation&quot; class=&quot;headerlink&quot; title=&quot;Infra preparation&quot;&gt;&lt;/a&gt;Infra preparation&lt;/h1&gt;&lt;h2</description>
+&lt;h1 id=&quot;Step-by-step&quot;&gt;&lt;a href=&quot;#Step-by-step&quot; class=&quot;headerlink&quot; title=&quot;Step by step&quot;&gt;&lt;/a&gt;Step by step&lt;/h1&gt;&lt;iframe</description>
           
         
       
@@ -106,12 +106,8 @@
       
       
       
-      <category domain="https://blog.excelsre.com/tags/lab/">lab</category>
       
-      <category domain="https://blog.excelsre.com/tags/Ansible/">Ansible</category>
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/#disqus_thread</comments>
+      <comments>https://blog.excelsre.com/1984/01/24/github-workflow/#disqus_thread</comments>
       
     </item>
     
@@ -140,30 +136,6 @@
       
       
       <comments>https://blog.excelsre.com/1984/01/24/azure/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Github 教程</title>
-      <link>https://blog.excelsre.com/1984/01/24/github-workflow/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/github-workflow/</guid>
-      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Step-by-step&quot;&gt;&lt;a href=&quot;#Step-by-step&quot; class=&quot;headerlink&quot; title=&quot;Step by step&quot;&gt;&lt;/a&gt;Step by step&lt;/h1&gt;&lt;iframe</description>
-          
-        
-      
-      
-      
-      
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/github-workflow/#disqus_thread</comments>
       
     </item>
     
@@ -212,6 +184,34 @@
       
       
       <comments>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Ansible lab</title>
+      <link>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</guid>
+      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Infra-preparation&quot;&gt;&lt;a href=&quot;#Infra-preparation&quot; class=&quot;headerlink&quot; title=&quot;Infra preparation&quot;&gt;&lt;/a&gt;Infra preparation&lt;/h1&gt;&lt;h2</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/tags/lab/">lab</category>
+      
+      <category domain="https://blog.excelsre.com/tags/Ansible/">Ansible</category>
+      
+      
+      <comments>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/#disqus_thread</comments>
       
     </item>
     
