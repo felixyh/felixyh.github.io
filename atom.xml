@@ -60,11 +60,11 @@
   </entry>
   
   <entry>
-    <title>Azure AKS</title>
-    <link href="https://blog.excelsre.com/1984/01/24/azure/"/>
-    <id>https://blog.excelsre.com/1984/01/24/azure/</id>
+    <title>AWS Technical Essentials - Lab</title>
+    <link href="https://blog.excelsre.com/1984/01/24/aws-saa/"/>
+    <id>https://blog.excelsre.com/1984/01/24/aws-saa/</id>
     <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2023-05-26T10:32:37.095Z</updated>
+    <updated>2023-05-26T10:33:07.987Z</updated>
     
     
       
@@ -72,16 +72,16 @@
         
         
     <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</summary>
+&lt;a class=&quot;simple-lightbox&quot; href=&quot;https://felixyanghui.synology.me:8441/images/2022/12/02/image-20221129160103938.png&quot;&gt;&lt;img  </summary>
         
       
     
     
     
     
-    <category term="Azure" scheme="https://blog.excelsre.com/tags/Azure/"/>
+    <category term="AWS" scheme="https://blog.excelsre.com/tags/AWS/"/>
     
-    <category term="AKS" scheme="https://blog.excelsre.com/tags/AKS/"/>
+    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
     
   </entry>
   
@@ -105,9 +105,35 @@
     
     
     
+    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
+    
     <category term="Ansible" scheme="https://blog.excelsre.com/tags/Ansible/"/>
     
-    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
+  </entry>
+  
+  <entry>
+    <title>Azure AKS</title>
+    <link href="https://blog.excelsre.com/1984/01/24/azure/"/>
+    <id>https://blog.excelsre.com/1984/01/24/azure/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-05-26T10:32:37.095Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://blog.excelsre.com/tags/Azure/"/>
+    
+    <category term="AKS" scheme="https://blog.excelsre.com/tags/AKS/"/>
     
   </entry>
   
@@ -152,32 +178,6 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>AWS Technical Essentials - Lab</title>
-    <link href="https://blog.excelsre.com/1984/01/24/aws-saa/"/>
-    <id>https://blog.excelsre.com/1984/01/24/aws-saa/</id>
-    <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2023-05-26T10:33:07.987Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;a class=&quot;simple-lightbox&quot; href=&quot;https://felixyanghui.synology.me:8441/images/2022/12/02/image-20221129160103938.png&quot;&gt;&lt;img  </summary>
-        
-      
-    
-    
-    
-    
-    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
-    
-    <category term="AWS" scheme="https://blog.excelsre.com/tags/AWS/"/>
     
   </entry>
   
