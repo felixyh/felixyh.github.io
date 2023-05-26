@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>Felix Yang&#39;s Blog</title>
+<meta name="keywords" content="Felix Yang&#39;s Blog, Python,SRE,Flask,AWS,Azure,运维， 读书">
+<meta name="description" content="[TOC]
+Azure AKSCreate Azure AKS via AZ CLI
+Login Azure
+1az login
+
+
+
+Create Azure resource group
+1az group create --name ">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+
+
+  <link rel="stylesheet" href="/style/simple-lightbox.min.css"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Felix Yang's Blog" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Felix Yang's Blog" type="application/rss+xml">
+</head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://blog.excelsre.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="https://blog.excelsre.com">
+        <h1 class="site-title">Felix Yang&#39;s Blog</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags/" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title"></h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 1984-01-24</span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p>[TOC]</p>
+<h1 id="Azure-AKS"><a href="#Azure-AKS" class="headerlink" title="Azure AKS"></a>Azure AKS</h1><h2 id="Create-Azure-AKS-via-AZ-CLI"><a href="#Create-Azure-AKS-via-AZ-CLI" class="headerlink" title="Create Azure AKS via AZ CLI"></a>Create Azure AKS via AZ CLI</h2><ul>
+<li><p>Login Azure</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">az login</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>Create Azure resource group</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">az group create --name felix_test</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>Create Azure AKS Cluster</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">az aks create --resource-group felix_test --name K8sCluster --node-count 1 --generate-ssh-keys --node-vm-size=Standard_B2s --disable-rbac</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>Access AKS cluster through kubectl</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">az aks get-credentials --resource-group=felix_test --name=K8sCluster</span><br><span class="line">Merged &quot;K8sCluster&quot; as current context in /Users/felix_yang/.kube/config</span><br></pre></td></tr></table></figure>
+
+<p><a class="simple-lightbox" target="_blank" rel="noopener" href="https://felixyanghui.synology.me:8441/images/2022/12/30/image-20221230212633255.png"><img   src="/images/loading.svg" data-src="https://felixyanghui.synology.me:8441/images/2022/12/30/image-20221230212633255.png"  alt="image-20221230212633255" lazyload></a></p>
+<blockquote>
+<p>all the configuration of Azure AKS cluster written into kubectl config file: <em>&#x2F;Users&#x2F;felix_yang&#x2F;.kube&#x2F;config</em></p>
+</blockquote>
+</li>
+<li><p>Verify the access via Kubectl commands</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">felix_yang@nj-felix-yang-mba ~ % kubectl get nodes</span><br><span class="line">NAME                                STATUS   ROLES   AGE    VERSION</span><br><span class="line">aks-nodepool1-19839722-vmss000000   Ready    agent   6m2s   v1.24.6</span><br><span class="line"></span><br><span class="line">felix_yang@nj-felix-yang-mba ~ % kubectl get namespaces   </span><br><span class="line">NAME              STATUS   AGE</span><br><span class="line">default           Active   19m</span><br><span class="line">kube-node-lease   Active   19m</span><br><span class="line">kube-public       Active   19m</span><br><span class="line">kube-system       Active   19m</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">felix_yang@nj-felix-yang-mba ~ % kubectl get pods --all-namespaces -o wide</span><br><span class="line">NAMESPACE     NAME                                  READY   STATUS    RESTARTS   AGE     IP            NODE                                NOMINATED NODE   READINESS GATES</span><br><span class="line">kube-system   azure-ip-masq-agent-5nb4w             1/1     Running   0          9m29s   10.224.0.4    aks-nodepool1-19839722-vmss000000   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">kube-system   cloud-node-manager-bjghg              1/1     Running   0          9m29s   10.224.0.4    aks-nodepool1-19839722-vmss000000   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">kube-system   coredns-59b6bf8b4f-9bnk9              1/1     Running   0          8m39s   10.244.0.8    aks-nodepool1-19839722-vmss000000   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">kube-system   coredns-59b6bf8b4f-sktkk              1/1     Running   0          19m     10.244.0.7    aks-nodepool1-19839722-vmss000000   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">kube-system   coredns-autoscaler-5655d66f64-dv487   1/1     Running   0          19m     10.244.0.5    aks-nodepool1-19839722-vmss000000   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">kube-system   csi-azuredisk-node-hkzb6              3/3     Running   0          9m29s   10.224.0.4    aks-nodepool1-19839722-vmss000000   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">kube-system   csi-azurefile-node-vgh7t              3/3     Running   0          9m29s   10.224.0.4    aks-nodepool1-19839722-vmss000000   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">kube-system   konnectivity-agent-676cb95b4d-dj9f5   1/1     Running   0          8m36s   10.244.0.9    aks-nodepool1-19839722-vmss000000   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">kube-system   konnectivity-agent-676cb95b4d-pfv8c   1/1     Running   0          19m     10.244.0.2    aks-nodepool1-19839722-vmss000000   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">kube-system   kube-proxy-9n8wm                      1/1     Running   0          9m29s   10.224.0.4    aks-nodepool1-19839722-vmss000000   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">kube-system   metrics-server-7dd74d8758-vnkwn       2/2     Running   0          8m34s   10.244.0.11   aks-nodepool1-19839722-vmss000000   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">kube-system   metrics-server-7dd74d8758-xvj5h       2/2     Running   0          8m34s   10.244.0.10   aks-nodepool1-19839722-vmss000000   &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Delete AKS cluster</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">az aks delete --resource-group felix_test --name K8sCluster</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Useful-Links-of-Kubectl"><a href="#Useful-Links-of-Kubectl" class="headerlink" title="Useful Links of Kubectl"></a>Useful Links of Kubectl</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://go.microsoft.com/fwlink/?linkid=2135816">kubectl 概述</a> </li>
+<li><a target="_blank" rel="noopener" href="https://go.microsoft.com/fwlink/?linkid=2135746">Kubectl 入门</a> </li>
+<li><a target="_blank" rel="noopener" href="https://go.microsoft.com/fwlink/?linkid=2135748">Kubectl 速查表</a> </li>
+<li><a target="_blank" rel="noopener" href="https://go.microsoft.com/fwlink/?linkid=2135818">Kubectl 参考</a> </li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/reference/kubectl/jsonpath/">JSONPath Support</a></li>
+</ul>
+<h2 id="Organizing-Cluster-Access-Using-kubeconfig-Files"><a href="#Organizing-Cluster-Access-Using-kubeconfig-Files" class="headerlink" title="Organizing Cluster Access Using kubeconfig Files"></a><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/">Organizing Cluster Access Using kubeconfig Files</a></h2><p>Use kubeconfig files to organize information about clusters, users, namespaces, and authentication mechanisms. The <code>kubectl</code> command-line tool uses kubeconfig files to find the information it needs to choose a cluster and communicate with the API server of a cluster.</p>
+<blockquote>
+<p><strong>Note:</strong> A file that is used to configure access to clusters is called a <em>kubeconfig file</em>. This is a generic way of referring to configuration files. It does not mean that there is a file named <code>kubeconfig</code>.</p>
+</blockquote>
+<blockquote>
+<p><strong>Warning:</strong> Only use kubeconfig files from trusted sources. Using a specially-crafted kubeconfig file could result in malicious code execution or file exposure. If you must use an untrusted kubeconfig file, inspect it carefully first, much as you would a shell script.</p>
+</blockquote>
+<p>By default, <code>kubectl</code> looks for a file named <code>config</code> in the <code>$HOME/.kube</code> directory. You can specify other kubeconfig files by setting the <code>KUBECONFIG</code> environment variable or by setting the <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/reference/generated/kubectl/kubectl/"><code>--kubeconfig</code></a> flag.</p>
+<p>For step-by-step instructions on creating and specifying kubeconfig files, see <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters">Configure Access to Multiple Clusters</a>.</p>
+<h2 id="Azure-CLI-Commands"><a href="#Azure-CLI-Commands" class="headerlink" title="Azure CLI Commands"></a>Azure CLI Commands</h2><ul>
+<li><p>use query to filter the output</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">felix_yang@nj-felix-yang-mba ~ % az group list --query &quot;[*].name&quot;                        </span><br><span class="line">[</span><br><span class="line">  &quot;rg-vm-jpwest&quot;,</span><br><span class="line">  &quot;NetworkWatcherRG&quot;,</span><br><span class="line">  &quot;felix_test&quot;,</span><br><span class="line">  &quot;MC_felix_test_K8sCluster_eastus&quot;,</span><br><span class="line">  &quot;rg-vm-eastasia&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p><em><a target="_blank" rel="noopener" href="https://jmespath.org/tutorial.html">https://jmespath.org/tutorial.html</a></em></p>
+</li>
+<li><p>set default subscription</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">az account set -s 138250aa-021a-4cb4-81ff-537da09d0e72</span><br><span class="line"></span><br><span class="line">felix_yang@nj-felix-yang-mba ~ % az account show</span><br><span class="line">&#123;</span><br><span class="line">  &quot;environmentName&quot;: &quot;AzureCloud&quot;,</span><br><span class="line">  &quot;homeTenantId&quot;: &quot;3e04753a-ae5b-42d4-a86d-d6f05460f9e4&quot;,</span><br><span class="line">  &quot;id&quot;: &quot;138250aa-021a-4cb4-81ff-537da09d0e72&quot;,</span><br><span class="line">  &quot;isDefault&quot;: true,      -------------------------&gt;&gt;&gt;&gt; set to default</span><br><span class="line">  &quot;managedByTenants&quot;: [],</span><br><span class="line">  &quot;name&quot;: &quot;Cloud Service Engineering lab test&quot;,</span><br><span class="line">  &quot;state&quot;: &quot;Enabled&quot;,</span><br><span class="line">  &quot;tenantId&quot;: &quot;3e04753a-ae5b-42d4-a86d-d6f05460f9e4&quot;,</span><br><span class="line">  &quot;user&quot;: &#123;</span><br><span class="line">    &quot;name&quot;: &quot;felix_yang@trendmicro.com&quot;,</span><br><span class="line">    &quot;type&quot;: &quot;user&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><a class="simple-lightbox" target="_blank" rel="noopener" href="https://felixyanghui.synology.me:8441/images/2022/12/30/image-20221230214050304.png"><img   src="/images/loading.svg" data-src="https://felixyanghui.synology.me:8441/images/2022/12/30/image-20221230214050304.png"  alt="image-20221230214050304" style="zoom:33%;"  lazyload></a></li>
+</ul>
+
+        </div>
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#Azure-AKS"><span class="top-box-text">Azure AKS</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Create-Azure-AKS-via-AZ-CLI"><span class="top-box-text">Create Azure AKS via AZ CLI</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Useful-Links-of-Kubectl"><span class="top-box-text">Useful Links of Kubectl</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Organizing-Cluster-Access-Using-kubeconfig-Files"><span class="top-box-text">Organizing Cluster Access Using kubeconfig Files</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Azure-CLI-Commands"><span class="top-box-text">Azure CLI Commands</span></a></li></ol></li></ol>
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/1984/01/24/github-workflow/">
+          <h3 class="post-title">
+            下一篇：
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/felixyh" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTZ2R5KJKX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-RTZ2R5KJKX');
+    </script>
+
+
+
+
+
+  <script src="/js/simple-lightbox.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {new SimpleLightbox('.post-detail .simple-lightbox', {fileExt: false,captionsData:'alt'});});</script></body>
+</html>
+
