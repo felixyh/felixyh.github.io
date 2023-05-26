@@ -6,7 +6,7 @@
   <link href="https://blog.excelsre.com/atom.xml" rel="self"/>
   
   <link href="https://blog.excelsre.com/"/>
-  <updated>2023-05-26T10:00:46.530Z</updated>
+  <updated>2023-05-26T12:20:47.084Z</updated>
   <id>https://blog.excelsre.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>科学上网</title>
+    <link href="https://blog.excelsre.com/2023/05/26/ke-xue-shang-wang/"/>
+    <id>https://blog.excelsre.com/2023/05/26/ke-xue-shang-wang/</id>
+    <published>2023-05-26T12:19:51.078Z</published>
+    <updated>2023-05-26T12:20:47.084Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt; 科学上网 &lt;/h1&gt;
+
+&lt;p&gt;作者：左耳朵 &lt;a href=&quot;http://coolshell.cn/&quot;&gt;http://coolshell.cn&lt;/a&gt;&lt;br&gt;更新时间：2023-05-02&lt;/p&gt;
+&lt;p&gt;这篇文章可以写的更好，欢迎到 &lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
@@ -60,32 +84,6 @@
   </entry>
   
   <entry>
-    <title>Ansible lab</title>
-    <link href="https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/"/>
-    <id>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</id>
-    <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2023-05-26T10:38:34.168Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Infra-preparation&quot;&gt;&lt;a href=&quot;#Infra-preparation&quot; class=&quot;headerlink&quot; title=&quot;Infra preparation&quot;&gt;&lt;/a&gt;Infra preparation&lt;/h1&gt;&lt;h2</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Ansible" scheme="https://blog.excelsre.com/tags/Ansible/"/>
-    
-    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
-    
-  </entry>
-  
-  <entry>
     <title>AWS Technical Essentials - Lab</title>
     <link href="https://blog.excelsre.com/1984/01/24/aws-saa/"/>
     <id>https://blog.excelsre.com/1984/01/24/aws-saa/</id>
@@ -105,9 +103,35 @@
     
     
     
+    <category term="AWS" scheme="https://blog.excelsre.com/tags/AWS/"/>
+    
     <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
     
-    <category term="AWS" scheme="https://blog.excelsre.com/tags/AWS/"/>
+  </entry>
+  
+  <entry>
+    <title>Ansible lab</title>
+    <link href="https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/"/>
+    <id>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-05-26T10:38:34.168Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Infra-preparation&quot;&gt;&lt;a href=&quot;#Infra-preparation&quot; class=&quot;headerlink&quot; title=&quot;Infra preparation&quot;&gt;&lt;/a&gt;Infra preparation&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
+    
+    <category term="Ansible" scheme="https://blog.excelsre.com/tags/Ansible/"/>
     
   </entry>
   
