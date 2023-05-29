@@ -114,6 +114,34 @@
     </item>
     
     <item>
+      <title>Ansible lab</title>
+      <link>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</guid>
+      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Infra-preparation&quot;&gt;&lt;a href=&quot;#Infra-preparation&quot; class=&quot;headerlink&quot; title=&quot;Infra preparation&quot;&gt;&lt;/a&gt;Infra preparation&lt;/h1&gt;&lt;h2</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/tags/Ansible/">Ansible</category>
+      
+      <category domain="https://blog.excelsre.com/tags/lab/">lab</category>
+      
+      
+      <comments>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>Azure AKS</title>
       <link>https://blog.excelsre.com/1984/01/24/azure/</link>
       <guid>https://blog.excelsre.com/1984/01/24/azure/</guid>
@@ -160,9 +188,9 @@
       
       
       
-      <category domain="https://blog.excelsre.com/tags/AWS/">AWS</category>
-      
       <category domain="https://blog.excelsre.com/tags/lab/">lab</category>
+      
+      <category domain="https://blog.excelsre.com/tags/AWS/">AWS</category>
       
       
       <comments>https://blog.excelsre.com/1984/01/24/aws-saa/#disqus_thread</comments>
@@ -170,9 +198,9 @@
     </item>
     
     <item>
-      <title>Ansible lab</title>
-      <link>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</guid>
+      <title>k8s 和 CICD lab</title>
+      <link>https://blog.excelsre.com/1984/01/24/cicd-lab/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/cicd-lab/</guid>
       <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
       
         
@@ -180,7 +208,7 @@
           
           
       <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Infra-preparation&quot;&gt;&lt;a href=&quot;#Infra-preparation&quot; class=&quot;headerlink&quot; title=&quot;Infra preparation&quot;&gt;&lt;/a&gt;Infra preparation&lt;/h1&gt;&lt;h2</description>
+&lt;p&gt;&lt;a class=&quot;simple-lightbox&quot; href=&quot;https://felixyanghui.synology.me:8441/images/2022/10/04/image-20221002110216278.png&quot;&gt;&lt;img  </description>
           
         
       
@@ -188,12 +216,12 @@
       
       
       
-      <category domain="https://blog.excelsre.com/tags/lab/">lab</category>
+      <category domain="https://blog.excelsre.com/tags/k8s/">k8s</category>
       
-      <category domain="https://blog.excelsre.com/tags/Ansible/">Ansible</category>
+      <category domain="https://blog.excelsre.com/tags/cicd/">cicd</category>
       
       
-      <comments>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/#disqus_thread</comments>
+      <comments>https://blog.excelsre.com/1984/01/24/cicd-lab/#disqus_thread</comments>
       
     </item>
     
@@ -243,34 +271,6 @@
       
       
       <comments>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>k8s 和 CICD lab</title>
-      <link>https://blog.excelsre.com/1984/01/24/cicd-lab/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/cicd-lab/</guid>
-      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;p&gt;&lt;a class=&quot;simple-lightbox&quot; href=&quot;https://felixyanghui.synology.me:8441/images/2022/10/04/image-20221002110216278.png&quot;&gt;&lt;img  </description>
-          
-        
-      
-      
-      
-      
-      
-      <category domain="https://blog.excelsre.com/tags/k8s/">k8s</category>
-      
-      <category domain="https://blog.excelsre.com/tags/cicd/">cicd</category>
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/cicd-lab/#disqus_thread</comments>
       
     </item>
     
