@@ -6,7 +6,7 @@
   <link href="https://blog.excelsre.com/atom.xml" rel="self"/>
   
   <link href="https://blog.excelsre.com/"/>
-  <updated>2023-05-26T12:34:12.252Z</updated>
+  <updated>2023-05-29T03:50:35.259Z</updated>
   <id>https://blog.excelsre.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hexo 博客搭建</title>
+    <link href="https://blog.excelsre.com/2023/05/29/hexo-bo-ke-da-jian/"/>
+    <id>https://blog.excelsre.com/2023/05/29/hexo-bo-ke-da-jian/</id>
+    <published>2023-05-29T02:45:54.200Z</published>
+    <updated>2023-05-29T03:50:35.259Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;博客基本搭建&quot;&gt;&lt;a href=&quot;#博客基本搭建&quot; class=&quot;headerlink&quot; title=&quot;博客基本搭建&quot;&gt;&lt;/a&gt;博客基本搭建&lt;/h1&gt;&lt;h2 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="hero" scheme="https://blog.excelsre.com/tags/hero/"/>
+    
+  </entry>
   
   <entry>
     <title>科学上网</title>
