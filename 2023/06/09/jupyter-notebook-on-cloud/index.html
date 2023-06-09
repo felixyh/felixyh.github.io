@@ -157,7 +157,7 @@ notebook 用来学习测试chatgpt，所以需要在外网
 
 <blockquote>
 <p>证书默认生成在 <code>/etc/letsencrypt/live/&lt;YOUR.DOMAIN.COM/&gt;</code> 目录下，这个证书90天后就过期了，所以，需要使用一个 cron job 来定期更新, 使用命令 <code>crontab -e</code> 来编辑定时任务</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0 1 * * /usr/bin/certbot renew --force-renewal</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0 0 1 * * /usr/bin/certbot renew --force-renewal</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">还需要添加一个任务来重启jupyter notebook service，这里有一个脚本可供参考https://github.com/libuliduobuqiuqiu/Jupyter_Control/blob/master/jupyter.sh</span></span><br></pre></td></tr></table></figure>
 </blockquote>
 </li>
 <li><p>生成的证书，默认owner是root。如果后续用当前user 启动jupyter server，需要修改owner 权限，不然会报错</p>
