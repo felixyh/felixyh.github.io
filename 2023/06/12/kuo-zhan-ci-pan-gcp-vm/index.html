@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>扩展磁盘-GCP VM</title>
+<meta name="keywords" content="扩展磁盘-GCP VM, Python,SRE,Flask,AWS,Azure,运维， 读书">
+<meta name="description" content="
+[TOC]
+
+Weeks ago, I created a GCP VM for the VPN and Jupyter notebook server, however I used the minimum spec in order ">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+
+
+  <meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Felix Yang's Blog" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Felix Yang's Blog" type="application/rss+xml">
+</head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://blog.excelsre.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="https://blog.excelsre.com">
+        <h1 class="site-title">Felix Yang&#39;s Blog</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags/" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">扩展磁盘-GCP VM</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2023-06-12</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/GCP/">
+              GCP
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/Pytorch/">
+              Pytorch
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/Disk/">
+              Disk
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <hr>
+<p>[TOC]</p>
+<blockquote>
+<p>Weeks ago, I created a GCP VM for the VPN and Jupyter notebook server, however I used the minimum spec in order to save the cost. The disk was only 10G, which could not meet the requirements of Pytorch installation, so I got to extend the capacity of my vm disk to which is 20G in my case.</p>
+<p>The Pytorch is required in transformers.GPT2LMHeadModel</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="comment"># Import the necessary libraries</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">from</span> transformers <span class="keyword">import</span> GPT2Tokenizer, GPT2LMHeadModel</span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span> <span class="comment"># Load the pre-trained GPT-2 tokenizer and model</span></span><br><span class="line"><span class="number">5</span> tokenizer = GPT2Tokenizer.from_pretrained(<span class="string">&#x27;gpt2&#x27;</span>)</span><br><span class="line"><span class="number">6</span> model = GPT2LMHeadModel.from_pretrained(<span class="string">&#x27;gpt2&#x27;</span>)</span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">8</span> <span class="comment"># Set the model to evaluation mode</span></span><br><span class="line"><span class="number">9</span> model.<span class="built_in">eval</span>()</span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">11</span> <span class="comment"># Define a prompt for the model to complete</span></span><br><span class="line"><span class="number">12</span> prompt = <span class="built_in">input</span>(<span class="string">&quot;You: &quot;</span>)</span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">14</span> <span class="comment"># Tokenize the prompt and generate text</span></span><br><span class="line"><span class="number">15</span> input_ids = tokenizer.encode(prompt, return_tensors=<span class="string">&#x27;pt&#x27;</span>)</span><br><span class="line"><span class="number">16</span> output = model.generate(input_ids, max_length=<span class="number">50</span>, do_sample=<span class="literal">True</span>)</span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="number">18</span> <span class="comment"># Decode the generated text and print it to the console</span></span><br><span class="line"><span class="number">19</span> generated_text = tokenizer.decode(output[<span class="number">0</span>], skip_special_tokens=<span class="literal">True</span>)</span><br><span class="line"><span class="number">20</span> <span class="built_in">print</span>(<span class="string">&quot;AI: &quot;</span> + generated_text)</span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+<h1 id="Install-Pytorch"><a href="#Install-Pytorch" class="headerlink" title="Install Pytorch"></a>Install Pytorch</h1><h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>Refer to <a target="_blank" rel="noopener" href="https://pytorch.org/get-started/locally/">PyTorch</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install torch torchvision --no-cache-dir</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>By default, pip will download all the packages into memory instead of the disk for installation, use <code>--no-cache-dir</code> to avoid downloading them into memory.</p>
+</blockquote>
+<h2 id="VERIFICATION"><a href="#VERIFICATION" class="headerlink" title="VERIFICATION"></a>VERIFICATION</h2><p>To ensure that PyTorch was installed correctly, we can verify the installation by running sample PyTorch code. Here we will construct a randomly initialized tensor.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line">x = torch.rand(5, 3)</span><br><span class="line">print(x)</span><br></pre></td></tr></table></figure>
+
+<p>The output should be something similar to:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tensor([[0.3380, 0.3845, 0.3217],</span><br><span class="line">        [0.8337, 0.9050, 0.2650],</span><br><span class="line">        [0.2979, 0.7141, 0.9069],</span><br><span class="line">        [0.1449, 0.1132, 0.1375],</span><br><span class="line">        [0.4675, 0.3947, 0.1426]])</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Extend-disk-of-GCP-VM"><a href="#Extend-disk-of-GCP-VM" class="headerlink" title="Extend disk of GCP VM"></a>Extend disk of GCP VM</h1><p>Refer to <a target="_blank" rel="noopener" href="https://cloud.google.com/compute/docs/disks/resize-persistent-disk?hl=zh-cn">Increase the size of a persistent disk</a></p>
+
+        </div>
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#Install-Pytorch"><span class="top-box-text">Install Pytorch</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Installation"><span class="top-box-text">Installation</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#VERIFICATION"><span class="top-box-text">VERIFICATION</span></a></li></ol></li><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#Extend-disk-of-GCP-VM"><span class="top-box-text">Extend disk of GCP VM</span></a></li></ol>
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2023/06/09/jupyter-notebook-on-cloud/">
+          <h3 class="post-title">
+            下一篇：Jupyter Notebook on Cloud
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/felixyh" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTZ2R5KJKX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-RTZ2R5KJKX');
+    </script>
+
+
+
+
+
+  </body>
+</html>
+
