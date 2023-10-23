@@ -227,6 +227,34 @@
   </entry>
   
   <entry>
+    <title>AWS Technical Essentials - Lab</title>
+    <link href="https://blog.excelsre.com/1984/01/24/aws-saa/"/>
+    <id>https://blog.excelsre.com/1984/01/24/aws-saa/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-05-26T10:33:07.980Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;img src=&quot;https://felixyanghui.synology.me:8441/images/2022/12/02/image-20221129160103938.png&quot; style=&quot;zoom:50%;&quot; /&gt;
+
+&lt;h1</summary>
+        
+      
+    
+    
+    
+    
+    <category term="AWS" scheme="https://blog.excelsre.com/tags/AWS/"/>
+    
+    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Ansible lab</title>
     <link href="https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/"/>
     <id>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</id>
@@ -246,9 +274,9 @@
     
     
     
-    <category term="Ansible" scheme="https://blog.excelsre.com/tags/Ansible/"/>
-    
     <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
+    
+    <category term="Ansible" scheme="https://blog.excelsre.com/tags/Ansible/"/>
     
   </entry>
   
@@ -275,34 +303,6 @@
     <category term="Azure" scheme="https://blog.excelsre.com/tags/Azure/"/>
     
     <category term="AKS" scheme="https://blog.excelsre.com/tags/AKS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AWS Technical Essentials - Lab</title>
-    <link href="https://blog.excelsre.com/1984/01/24/aws-saa/"/>
-    <id>https://blog.excelsre.com/1984/01/24/aws-saa/</id>
-    <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2023-05-26T10:33:07.980Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;img src=&quot;https://felixyanghui.synology.me:8441/images/2022/12/02/image-20221129160103938.png&quot; style=&quot;zoom:50%;&quot; /&gt;
-
-&lt;h1</summary>
-        
-      
-    
-    
-    
-    
-    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
-    
-    <category term="AWS" scheme="https://blog.excelsre.com/tags/AWS/"/>
     
   </entry>
   
