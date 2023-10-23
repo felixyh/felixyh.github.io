@@ -1,0 +1,737 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Felix Yang">
+  <meta name="keywords" content="Python,SRE,Flask,AWS,Azure,运维， 读书">
+  
+    <meta name="description" content="[TOC]   1. AWS Technical Essentials - Lab1.1 Lab-1 Topology 1.1.1 Create VPC and web server (AWS Console) Create VPC (VPC can be accross AZ, but shall be within one region) Create Internet Gateway and">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AWS Technical Essentials - Lab">
+<meta property="og:url" content="https://blog.excelsre.com/1984/01/24/aws-saa/index.html">
+<meta property="og:site_name" content="Felix Yang&#39;s Blog">
+<meta property="og:description" content="[TOC]   1. AWS Technical Essentials - Lab1.1 Lab-1 Topology 1.1.1 Create VPC and web server (AWS Console) Create VPC (VPC can be accross AZ, but shall be within one region) Create Internet Gateway and">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2022/12/02/image-20221129160103938.png">
+<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2022/12/02/image-20221202103555079.png">
+<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2022/12/12/image-20221212112639946.png">
+<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2022/12/02/image-20221129160103938.png">
+<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2022/12/12/image-20221212135325032.png">
+<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2022/12/12/image-20221212141947725.png">
+<meta property="article:published_time" content="1984-01-24T08:00:00.000Z">
+<meta property="article:modified_time" content="2023-05-26T10:33:07.980Z">
+<meta property="article:author" content="Felix Yang">
+<meta property="article:tag" content="AWS">
+<meta property="article:tag" content="lab">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://felixyanghui.synology.me:8441/images/2022/12/02/image-20221129160103938.png">
+  
+  
+  
+  <title>AWS Technical Essentials - Lab - Felix Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.excelsre.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Felix Yang's Blog" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Felix Yang's Blog" type="application/rss+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>大良造</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="AWS Technical Essentials - Lab"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="1984-01-24 16:00" pubdate>
+          1984年1月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          15k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          126 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">AWS Technical Essentials - Lab</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<img src="https://felixyanghui.synology.me:8441/images/2022/12/02/image-20221129160103938.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+
+<h1 id="1-AWS-Technical-Essentials-Lab"><a href="#1-AWS-Technical-Essentials-Lab" class="headerlink" title="1. AWS Technical Essentials - Lab"></a>1. AWS Technical Essentials - Lab</h1><h2 id="1-1-Lab-1-Topology"><a href="#1-1-Lab-1-Topology" class="headerlink" title="1.1 Lab-1 Topology"></a>1.1 Lab-1 Topology</h2><p><img src="https://felixyanghui.synology.me:8441/images/2022/12/02/image-20221202103555079.png" srcset="/img/loading.gif" lazyload alt="image-20221202103555079"></p>
+<h3 id="1-1-1-Create-VPC-and-web-server-AWS-Console"><a href="#1-1-1-Create-VPC-and-web-server-AWS-Console" class="headerlink" title="1.1.1 Create VPC and web server (AWS Console)"></a>1.1.1 Create VPC and web server (AWS Console)</h3><ul>
+<li>Create VPC (VPC can be accross AZ, but shall be within one region)</li>
+<li>Create Internet Gateway and attach it to the VPC</li>
+<li>Create Subnet (associate with VPC, AZ)</li>
+<li>Create NAT gateway (associate with the subnet)  - depends on IGW created firstly</li>
+<li>Create Route Table<ul>
+<li>By default, a “Main” type route table already created for the VPC.  Edit the route table to associate it with two priviate subnets and add a default route destinated to NAT GW created before, finally rename the route table name as “private route table”</li>
+<li>Create one more route table: “public route table”, associate with two public subnets. and add a default route destinated to Internet GW created before</li>
+</ul>
+</li>
+<li>Create VPC security group</li>
+<li>Create EC2 - web instance</li>
+</ul>
+<h3 id="1-1-2-Create-VPC-and-web-server-Terraform-Module"><a href="#1-1-2-Create-VPC-and-web-server-Terraform-Module" class="headerlink" title="1.1.2 Create VPC and web server (Terraform -  Module)"></a>1.1.2 Create VPC and web server (Terraform -  Module)</h3><ul>
+<li><p>main.tf</p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs tcl">provider <span class="hljs-string">&quot;aws&quot;</span> &#123;<br>    region = <span class="hljs-string">&quot;us-east-2&quot;</span><br><br>    default_tags &#123;<br>      tags = &#123;<br>        Environment = <span class="hljs-string">&quot;lab-test&quot;</span><br>        Owner = <span class="hljs-string">&quot;Felix&quot;</span><br>        Project = <span class="hljs-string">&quot;AWS-boto3-SDK&quot;</span><br><br>      &#125;<br>    &#125;<br>  <br>&#125;<br><br>module <span class="hljs-string">&quot;vpc&quot;</span> &#123;<br>    <span class="hljs-keyword">source</span> = <span class="hljs-string">&quot;terraform-aws-modules/vpc/aws&quot;</span><br><br>    name = var.vpc_name<br>    cidr = var.vpc_cidr<br><br>    azs = var.vpc_azs<br>    public_subnets = var.vpc_public_subnets<br>    private_subnets = var.vpc_private_subnets<br><br>    enable_nat_gateway = var.vpc_enable_nat_gateway<br>    single_nat_gateway = var.vpc_single_nat_gateway<br>    one_nat_gateway_per_az = var.vpc_one_nat_gateway_per_az<br><br>    enable_dns_hostnames = var.vpc_enable_dns_hostnames<br><br><br><br>    tags = var.vpc_tags<br>&#125;<br><br>module <span class="hljs-string">&quot;web_server_sg&quot;</span> &#123;<br>  <span class="hljs-keyword">source</span> = <span class="hljs-string">&quot;terraform-aws-modules/security-group/aws//modules/http-80&quot;</span><br><br>  name        = <span class="hljs-string">&quot;web-server&quot;</span><br>  description = <span class="hljs-string">&quot;Security group for web-server with HTTP ports open within VPC&quot;</span><br>  vpc_id      = module.vpc.vpc_id<br><br>  ingress_cidr_blocks = var.web_server_sg_ingress_cidr_blocks<br><br>&#125;<br><br>module <span class="hljs-string">&quot;ssh_sg&quot;</span> &#123;<br>  <span class="hljs-keyword">source</span> = <span class="hljs-string">&quot;terraform-aws-modules/security-group/aws//modules/ssh&quot;</span><br>  name = <span class="hljs-string">&quot;ssh&quot;</span><br>  vpc_id      = module.vpc.vpc_id<br>  ingress_cidr_blocks = var.ssh_sg_ingress_cidr_blocks<br>  <br>&#125;<br><br>module <span class="hljs-string">&quot;ec2_instance&quot;</span> &#123;<br>  <span class="hljs-keyword">source</span>  = <span class="hljs-string">&quot;terraform-aws-modules/ec2-instance/aws&quot;</span><br><br>  name = var.ec2_instance_name<br><br>  ami                    = var.ec2_instance_ami<br>  instance_type          = var.ec2_instance_instance_type<br>  key_name               = var.ec2_instance_key_name<br>  vpc_security_group_ids = [module.web_server_sg.security_group_id, module.ssh_sg.security_group_id]<br>  subnet_id              = module.vpc.public_subnets[<span class="hljs-number">1</span>]<br><br>  user_data = <span class="hljs-string">&quot;$&#123;file(&quot;</span>install_web_server.sh<span class="hljs-string">&quot;)&#125;&quot;</span><br><br>  tags = var.ec2_instance_tags<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>variables.tf</p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br></pre></td><td class="code"><pre><code class="hljs tcl"><span class="hljs-comment">###</span><br><span class="hljs-comment"># define variables for vpc</span><br><span class="hljs-comment">###</span><br><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;vpc_name&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;Name of VPC&quot;</span><br>    type = <span class="hljs-keyword">string</span><br>    default = <span class="hljs-string">&quot;Lab-VPC&quot;</span><br>  <br>&#125;<br><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;vpc_cidr&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;CIDR block for VPC&quot;</span><br>    type = <span class="hljs-keyword">string</span><br>    default = <span class="hljs-string">&quot;10.0.0.0/16&quot;</span><br>  <br>&#125;<br><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;vpc_azs&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;Availability zones for VPC&quot;</span><br>    type = <span class="hljs-keyword">list</span>(<span class="hljs-keyword">string</span>)<br>    default = [<span class="hljs-string">&quot;us-east-2a&quot;</span>, <span class="hljs-string">&quot;us-east-2b&quot;</span>]<br>  <br>&#125;<br><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;vpc_private_subnets&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;Private subnets for VPC&quot;</span><br>    type = <span class="hljs-keyword">list</span>(<span class="hljs-keyword">string</span>)<br>    default = [ <span class="hljs-string">&quot;10.0.1.0/24&quot;</span>, <span class="hljs-string">&quot;10.0.3.0/24&quot;</span> ]<br>  <br>&#125;<br><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;vpc_public_subnets&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;Public subnets for VPC&quot;</span><br>    type = <span class="hljs-keyword">list</span>(<span class="hljs-keyword">string</span>)<br>    default = [ <span class="hljs-string">&quot;10.0.0.0/24&quot;</span>, <span class="hljs-string">&quot;10.0.2.0/24&quot;</span> ]<br>  <br>&#125;<br><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;vpc_enable_nat_gateway&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;Enable NAT gateway for VPC&quot;</span><br>    default = true<br>  <br>&#125;<br><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;vpc_single_nat_gateway&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;Enable Single NAT gateway for VPC&quot;</span><br>    default = true<br>  <br>&#125;<br><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;vpc_one_nat_gateway_per_az&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;Enable one NAT gateway per az for VPC&quot;</span><br>    default = false<br>  <br>&#125;<br><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;vpc_enable_dns_hostnames&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;enable DNS hostnames&quot;</span><br>    default = true<br>  <br>&#125;<br><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;vpc_tags&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;Tags to apply to resources created by VPC module&quot;</span><br>    type = map(<span class="hljs-keyword">string</span>)<br>    default = &#123;<br>      <span class="hljs-string">&quot;Terrform&quot;</span> = <span class="hljs-string">&quot;True&quot;</span><br>    &#125;<br>  <br>&#125;<br><br><br><span class="hljs-comment">###</span><br><span class="hljs-comment"># define variables for ec2 instance</span><br><span class="hljs-comment">###</span><br><br><span class="hljs-comment">#name = var.ec2_instance_name</span><br><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;ec2_instance_name&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;Name of EC2 instance&quot;</span><br>    type = <span class="hljs-keyword">string</span><br>    default = <span class="hljs-string">&quot;web server for testing&quot;</span><br><br>&#125;<br><br><span class="hljs-comment"># ami = var.ec2_instance_ami</span><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;ec2_instance_ami&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;AMI of EC2 instance&quot;</span><br>    type = <span class="hljs-keyword">string</span><br>    default = <span class="hljs-string">&quot;ami-0beaa649c482330f7&quot;</span><br>    <br>&#125;<br><br><span class="hljs-comment"># instance_type = var.ec2_instance_instance_type</span><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;ec2_instance_instance_type&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;Instance type of EC2 instance&quot;</span><br>    type = <span class="hljs-keyword">string</span><br>    default = <span class="hljs-string">&quot;t2.micro&quot;</span><br>    <br>&#125;<br><br><span class="hljs-comment"># key_name = var.ec2_instance_key_name</span><br><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;ec2_instance_key_name&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;Key name of EC2 instance&quot;</span><br>    type = <span class="hljs-keyword">string</span><br>    default = <span class="hljs-string">&quot;felix-key-pair&quot;</span><br>    <br>&#125;<br><br><br><span class="hljs-comment"># tags = var.ec2_instance_tags</span><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;ec2_instance_tags&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;Tags to apply to EC2 instance&quot;</span><br>    type = map(<span class="hljs-keyword">string</span>)<br>    default = &#123;<br>      <span class="hljs-string">&quot;Terrform&quot;</span> = <span class="hljs-string">&quot;True&quot;</span><br>    &#125;<br>  <br>&#125;<br><br><span class="hljs-comment">###</span><br><span class="hljs-comment"># define variables for security group</span><br><span class="hljs-comment">###</span><br><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;web_server_sg_ingress_cidr_blocks&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;List of IPv4 CIDR ranges to use on all ingress rules for web server HTTP&quot;</span><br>    type = <span class="hljs-keyword">list</span>(<span class="hljs-keyword">string</span>)<br>    default =   [<br>    <span class="hljs-string">&quot;36.152.113.203/32&quot;</span>, <span class="hljs-string">&quot;218.2.208.75/32&quot;</span>, <span class="hljs-string">&quot;172.31.0.0/16&quot;</span>, <span class="hljs-string">&quot;18.162.220.99/32&quot;</span>,<br>    <span class="hljs-string">&quot;18.162.103.100/32&quot;</span>, <span class="hljs-string">&quot;18.162.171.88/32&quot;</span>, <span class="hljs-string">&quot;58.212.197.96/32&quot;</span>, <span class="hljs-string">&quot;18.162.198.138/32&quot;</span> <br>    ]<br>&#125;<br><br><span class="hljs-keyword">variable</span> <span class="hljs-string">&quot;ssh_sg_ingress_cidr_blocks&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;List of IPv4 CIDR ranges to use on all ingress rules for ssh&quot;</span><br>    type = <span class="hljs-keyword">list</span>(<span class="hljs-keyword">string</span>)<br>    default =   [<br>    <span class="hljs-string">&quot;36.152.113.203/32&quot;</span>, <span class="hljs-string">&quot;218.2.208.75/32&quot;</span>, <span class="hljs-string">&quot;172.31.0.0/16&quot;</span>, <span class="hljs-string">&quot;18.162.220.99/32&quot;</span>,<br>    <span class="hljs-string">&quot;18.162.103.100/32&quot;</span>, <span class="hljs-string">&quot;18.162.171.88/32&quot;</span>, <span class="hljs-string">&quot;58.212.197.96/32&quot;</span>, <span class="hljs-string">&quot;18.162.198.138/32&quot;</span><br>    ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>outputs.tf</p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs tcl">output <span class="hljs-string">&quot;vpc_public_subnets&quot;</span> &#123;<br>  description = <span class="hljs-string">&quot;IDs of the VPC&#x27;s public subnets&quot;</span><br>  value       = module.vpc.public_subnets<br>&#125;<br><br>output <span class="hljs-string">&quot;ec2_instance_public_dns&quot;</span> &#123;<br>  description = <span class="hljs-string">&quot;The public DNS name assigned to the instance.&quot;</span><br>  value = module.ec2_instance.public_dns<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>install_web_server.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/bash</span><br>yum install -y httpd mysql php<br>wget https://us-west-2-tcprod.s3.amazonaws.com/courses/ILT-TF-100-TECESS/v4.7.10/lab-1-build-a-web-server/scripts/lab-app.zip<br>unzip lab-app.zip -d /var/www/html/<br>chkconfig httpd on<br>service httpd start<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="1-2-Lab-2-Topology"><a href="#1-2-Lab-2-Topology" class="headerlink" title="1.2 Lab-2 Topology"></a>1.2 Lab-2 Topology</h2><img src="https://felixyanghui.synology.me:8441/images/2022/12/12/image-20221212112639946.png" srcset="/img/loading.gif" lazyload alt="image-20221212112639946" style="zoom:50%;" />
+
+
+
+<h3 id="1-2-1-Create-database-and-interact-with-web-server-web-console"><a href="#1-2-1-Create-database-and-interact-with-web-server-web-console" class="headerlink" title="1.2.1 Create database and interact with web server (web console)"></a>1.2.1 Create database and interact with web server (web console)</h3><ul>
+<li>Create security group for RDS instance</li>
+<li>Create subnet groups for database</li>
+<li>Create RDS database instance</li>
+<li>Configure web instance on web browser to connect to RDS database instance</li>
+</ul>
+<h3 id="1-2-2-Create-database-and-interact-with-web-server-Terraform-module"><a href="#1-2-2-Create-database-and-interact-with-web-server-Terraform-module" class="headerlink" title="1.2.2 Create database and interact with web server (Terraform - module)"></a>1.2.2 Create database and interact with web server (Terraform - module)</h3><ul>
+<li><p>Add variables for Dymanadb - MYSQL</p>
+<ul>
+<li>Use “locals” to define parameters for DB</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">###</span><br><span class="hljs-comment"># define variables for security group</span><br><span class="hljs-comment">###</span><br><br>variable <span class="hljs-string">&quot;web_server_sg_ingress_cidr_blocks&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;List of IPv4 CIDR ranges to use on all ingress rules for web server HTTP&quot;</span><br>    <span class="hljs-built_in">type</span> = <span class="hljs-built_in">list</span>(string)<br>    default =   [<br>    <span class="hljs-string">&quot;36.152.113.203/32&quot;</span>, <span class="hljs-string">&quot;218.2.208.75/32&quot;</span>, <span class="hljs-string">&quot;172.31.0.0/16&quot;</span>, <span class="hljs-string">&quot;18.162.220.99/32&quot;</span>,<br>    <span class="hljs-string">&quot;18.162.103.100/32&quot;</span>, <span class="hljs-string">&quot;18.162.171.88/32&quot;</span>, <span class="hljs-string">&quot;58.212.197.96/32&quot;</span>, <span class="hljs-string">&quot;18.162.198.138/32&quot;</span>,<br>    <span class="hljs-string">&quot;117.89.135.187/32&quot;</span> <br>    ]<br>&#125;<br><br>variable <span class="hljs-string">&quot;ssh_sg_ingress_cidr_blocks&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;List of IPv4 CIDR ranges to use on all ingress rules for ssh&quot;</span><br>    <span class="hljs-built_in">type</span> = <span class="hljs-built_in">list</span>(string)<br>    default =   [<br>    <span class="hljs-string">&quot;36.152.113.203/32&quot;</span>, <span class="hljs-string">&quot;218.2.208.75/32&quot;</span>, <span class="hljs-string">&quot;172.31.0.0/16&quot;</span>, <span class="hljs-string">&quot;18.162.220.99/32&quot;</span>,<br>    <span class="hljs-string">&quot;18.162.103.100/32&quot;</span>, <span class="hljs-string">&quot;18.162.171.88/32&quot;</span>, <span class="hljs-string">&quot;58.212.197.96/32&quot;</span>, <span class="hljs-string">&quot;18.162.198.138/32&quot;</span>,<br>    <span class="hljs-string">&quot;117.89.135.187/32&quot;</span><br>    ]<br>&#125;<br><br><span class="hljs-comment">###</span><br><span class="hljs-comment"># define variables for db</span><br><span class="hljs-comment">###</span><br><br>variable <span class="hljs-string">&quot;db_sg_name&quot;</span> &#123;<br>    <span class="hljs-built_in">type</span> = string<br>    default = <span class="hljs-string">&quot;lab&quot;</span><br>  <br>&#125;<br><br><span class="hljs-built_in">locals</span> &#123;<br>    web_server_sg_name = <span class="hljs-string">&quot;web_server&quot;</span><br>    ssh_sg_name = <span class="hljs-string">&quot;ssh&quot;</span><br>    db_identifier = <span class="hljs-string">&quot;lab-db&quot;</span><br><br>    db_engine            = <span class="hljs-string">&quot;mysql&quot;</span><br>    db_engine_version    = <span class="hljs-string">&quot;8.0.28&quot;</span><br>    db_instance_class    = <span class="hljs-string">&quot;db.t3.micro&quot;</span><br>    db_allocated_storage = <span class="hljs-number">5</span><br><br>    db_db_name  = <span class="hljs-string">&quot;lab&quot;</span><br>    db_username = <span class="hljs-string">&quot;lab_admin&quot;</span><br>    db_password = <span class="hljs-string">&quot;lab-password&quot;</span><br>    db_port     = <span class="hljs-string">&quot;3306&quot;</span><br>    db_sg_ingress_with_source_security_group_id = [ <br>        &#123;<br>            from_port   = <span class="hljs-number">3306</span><br>            to_port     = <span class="hljs-number">3306</span><br>            protocol    = <span class="hljs-string">&quot;tcp&quot;</span><br>            description = <span class="hljs-string">&quot;mysql&quot;</span><br>            source_security_group_id = module.web_server_sg.security_group_id<br>      &#125;,<br>    ]<br>    db_major_engine_version = <span class="hljs-string">&quot;8.0&quot;</span><br>    db_family = <span class="hljs-string">&quot;mysql8.0&quot;</span><br>    db_create_db_subnet_group = true<br>    db_multi_az = true<br>    db_skip_final_snapshot = true<br>&#125;<br><br>variable <span class="hljs-string">&quot;db_identifier&quot;</span> &#123;<br>    <span class="hljs-built_in">type</span> = string<br>    default = <span class="hljs-string">&quot;lab-db&quot;</span><br><br>&#125;<br><br>variable <span class="hljs-string">&quot;db_tags&quot;</span> &#123;<br>    description = <span class="hljs-string">&quot;Tags to apply to db&quot;</span><br>    <span class="hljs-built_in">type</span> = <span class="hljs-built_in">map</span>(string)<br>    default = &#123;<br>      <span class="hljs-string">&quot;Terrform&quot;</span> = <span class="hljs-string">&quot;True&quot;</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>Add DB in main.tf</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># for db security group</span><br>module <span class="hljs-string">&quot;db_sg&quot;</span> &#123;<br>  source = <span class="hljs-string">&quot;terraform-aws-modules/security-group/aws&quot;</span><br><br>  name        = var.db_sg_name<br>  vpc_id      = module.vpc.vpc_id<br><br>  ingress_with_source_security_group_id = local.db_sg_ingress_with_source_security_group_id<br>&#125;<br><br>module <span class="hljs-string">&quot;db&quot;</span> &#123;<br>  source  = <span class="hljs-string">&quot;terraform-aws-modules/rds/aws&quot;</span><br><br>  identifier = local.db_identifier<br><br>  engine            = local.db_engine<br>  engine_version    = local.db_engine_version<br>  instance_class    = local.db_instance_class<br>  allocated_storage = local.db_allocated_storage<br>  db_name  = local.db_db_name<br>  username = local.db_username<br>  password = local.db_password<br>  port     = local.db_port<br>  major_engine_version = local.db_major_engine_version<br>  family = local.db_family<br>  multi_az = local.db_multi_az<br>  skip_final_snapshot = local.db_skip_final_snapshot<br>  vpc_security_group_ids = [module.db_sg.security_group_id]<br>  tags = var.db_tags<br>  <span class="hljs-comment"># DB subnet group</span><br>  create_db_subnet_group = local.db_create_db_subnet_group<br>  subnet_ids = module.vpc.private_subnets<br>  <br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>output.tf</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">output <span class="hljs-string">&quot;db_db_instance_endpoint&quot;</span> &#123;<br>  description = <span class="hljs-string">&quot;The connection endpoint&quot;</span><br>  value = module.db.db_instance_endpoint<br>  <br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="1-3-Lab-3-Topology"><a href="#1-3-Lab-3-Topology" class="headerlink" title="1.3 Lab-3 Topology"></a>1.3 Lab-3 Topology</h2><img src="https://felixyanghui.synology.me:8441/images/2022/12/02/image-20221129160103938.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+
+<h3 id="1-3-1-Autoscalaing-Loadbalancer-and-Cloud-Watch"><a href="#1-3-1-Autoscalaing-Loadbalancer-and-Cloud-Watch" class="headerlink" title="1.3.1 Autoscalaing, Loadbalancer and Cloud Watch"></a>1.3.1 Autoscalaing, Loadbalancer and Cloud Watch</h3><ul>
+<li><p>Create AMI from running EC2 - web server</p>
+</li>
+<li><p>Create loadbalancer:  ALB</p>
+<p><img src="https://felixyanghui.synology.me:8441/images/2022/12/12/image-20221212135325032.png" srcset="/img/loading.gif" lazyload alt="image-20221212135325032"></p>
+</li>
+<li><p>Create EC2 launch template</p>
+</li>
+<li><p>Create auto-scalling group, enable load balancer and choose the target group which configured in ALB creation step</p>
+<p><img src="https://felixyanghui.synology.me:8441/images/2022/12/12/image-20221212141947725.png" srcset="/img/loading.gif" lazyload alt="image-20221212141947725"></p>
+</li>
+<li><p>Validate load balancer if run probably, by accessing the load balancer DNS name. Refresh browser will show different EC2 name as load balancer load balance the traffic to different EC2 in target group</p>
+</li>
+<li><p>Create ASG policy “Target tracking scalling policy”, which automatically create CloudWatch alarm to monitor the CPU utilization of ASG</p>
+</li>
+</ul>
+<h3 id="1-3-2-Autoscalaing-Loadbalancer-and-Cloud-Watch-Terraform-Module"><a href="#1-3-2-Autoscalaing-Loadbalancer-and-Cloud-Watch-Terraform-Module" class="headerlink" title="1.3.2 Autoscalaing, Loadbalancer and Cloud Watch (Terraform - Module)"></a>1.3.2 Autoscalaing, Loadbalancer and Cloud Watch (Terraform - Module)</h3><ul>
+<li><p>Add ALB, ASG and related security groups in main.tf</p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><code class="hljs tcl"><span class="hljs-comment">## Creat loadbalancer ALB</span><br>module <span class="hljs-string">&quot;alb&quot;</span> &#123;<br>  <span class="hljs-keyword">source</span>  = <span class="hljs-string">&quot;terraform-aws-modules/alb/aws&quot;</span><br>  version = <span class="hljs-string">&quot;~&gt; 8.0&quot;</span><br><br>  name = local.alb_name<br><br>  load_balancer_type = local.alb_load_balancer_type<br><br>  vpc_id             = module.vpc.vpc_id<br>  subnets            = module.vpc.public_subnets<br>  security_groups    = [module.web_server_sg.security_group_id]<br><br><span class="hljs-comment">  # access_logs = &#123;</span><br><span class="hljs-comment">  #   bucket = &quot;my-alb-logs&quot;</span><br><span class="hljs-comment">  # &#125;</span><br><br>  target_groups = local.alb_target_groups<br><br><br>  http_tcp_listeners = local.alb_http_tcp_listeners<br><br>  tags = local.alb_tags<br><br>&#125;<br><br><br><span class="hljs-comment">## create auto scalling</span><br><br><span class="hljs-comment"># for asg security group</span><br>module <span class="hljs-string">&quot;asg_sg&quot;</span> &#123;<br>  <span class="hljs-keyword">source</span> = <span class="hljs-string">&quot;terraform-aws-modules/security-group/aws&quot;</span><br><br>  name        = local.asg_sg_name<br>  vpc_id      = module.vpc.vpc_id<br><br>  ingress_with_source_security_group_id = local.asg_sg_ingress_with_source_security_group_id<br>  egress_with_cidr_blocks = local.asg_sg_egress_with_cidr_blocks<br>&#125;<br><br>module <span class="hljs-string">&quot;asg&quot;</span> &#123;<br>  <span class="hljs-keyword">source</span>  = <span class="hljs-string">&quot;terraform-aws-modules/autoscaling/aws&quot;</span><br><br><span class="hljs-comment">  # Autoscaling group</span><br>  name = local.asg_name<br><br><span class="hljs-comment">  # combine ASG with loadbalancer alb through target_group_arns</span><br>  target_group_arns = module.alb.target_group_arns<br><br>  min_size                  = local.asg_min_size<br>  max_size                  = local.asg_max_size<br>  desired_capacity          = local.asg_desired_capacity<br>  wait_for_capacity_timeout = local.asg_wait_for_capacity_timeout<br>  health_check_type         = local.asg_health_check_type<br>  vpc_zone_identifier       = module.vpc.private_subnets<br><br>  instance_refresh = local.asg_instance_refresh<br><br><span class="hljs-comment">  # Launch configuration</span><br>  launch_template_name = local.asg_lc_name<br><br>  image_id          = local.asg_image_id<br>  instance_type     = local.asg_instance_type<br>  key_name          = var.ec2_instance_key_name<br>  <br><span class="hljs-comment">	# use pre-defined sg, only allow the access from loadbalancers or others in sg: web server group</span><br>  security_groups = [module.asg_sg.security_group_id]<br><br><span class="hljs-comment">  # create autoscaling policy based on avgCPUutilization</span><br>  scaling_policies = local.asg_scaling_policies<br><br><br>  tags = local.asg_tags<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Define related variables and locals in variables.tf</p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><code class="hljs tcl">locals &#123;<br>    ...<br><br><span class="hljs-comment">    # alb</span><br>    alb_load_balancer_type = <span class="hljs-string">&quot;application&quot;</span><br>    alb_name = <span class="hljs-string">&quot;lab-alb&quot;</span><br>    alb_target_groups = [<br>        &#123;<br>        name_prefix      = <span class="hljs-string">&quot;pref-&quot;</span><br>        backend_protocol = <span class="hljs-string">&quot;HTTP&quot;</span><br>        backend_port     = <span class="hljs-number">80</span><br>        &#125;<br>    ]<br><br>    alb_http_tcp_listeners = [<br>        &#123;<br>            port               = <span class="hljs-number">80</span><br>            protocol           = <span class="hljs-string">&quot;HTTP&quot;</span><br>            target_group_index = <span class="hljs-number">0</span><br>        &#125;<br>    ]<br><br>    alb_tags = &#123;<br><br>        <span class="hljs-string">&quot;Terrform&quot;</span> = <span class="hljs-string">&quot;True&quot;</span><br>    &#125;<br><br><span class="hljs-comment">    #asg</span><br>    asg_sg_ingress_with_source_security_group_id = [ <br>        &#123;<br>            from_port   = <span class="hljs-number">80</span><br>            to_port     = <span class="hljs-number">80</span><br>            protocol    = <span class="hljs-string">&quot;tcp&quot;</span><br>            description = <span class="hljs-string">&quot;web&quot;</span><br>            source_security_group_id = module.web_server_sg.security_group_id<br>      &#125;,<br>        &#123;<br>            from_port   = <span class="hljs-number">22</span><br>            to_port     = <span class="hljs-number">22</span><br>            protocol    = <span class="hljs-string">&quot;tcp&quot;</span><br>            description = <span class="hljs-string">&quot;ssh&quot;</span><br>            source_security_group_id = module.web_server_sg.security_group_id<br>      &#125;,<br>    ]<br>		<br><span class="hljs-comment">		# define egress policy to allow all protocols for EC2 in private subnet to access internet</span><br>    asg_sg_egress_with_cidr_blocks = [<br>        &#123;<br>            from_port = <span class="hljs-number">-1</span><br>            to_port = <span class="hljs-number">-1</span><br><span class="hljs-comment">            # value = &quot;all&quot; to allow all protocols</span><br>            protocol    = <span class="hljs-string">&quot;all&quot;</span><br>            description = <span class="hljs-string">&quot;all ports for egress of EC2&quot;</span><br>            cidr_blocks = <span class="hljs-string">&quot;0.0.0.0/0&quot;</span><br>        &#125;,<br>    ]<br><br>    asg_name = <span class="hljs-string">&quot;lab-asg&quot;</span><br>    asg_min_size                  = <span class="hljs-number">2</span><br>    asg_max_size                  = <span class="hljs-number">4</span><br>    asg_desired_capacity          = <span class="hljs-number">2</span><br>    asg_wait_for_capacity_timeout = <span class="hljs-number">0</span><br>    asg_health_check_type         = <span class="hljs-string">&quot;EC2&quot;</span><br>    asg_instance_refresh = &#123;<br>        strategy = <span class="hljs-string">&quot;Rolling&quot;</span><br>        preferences = &#123;<br>            checkpoint_delay       = <span class="hljs-number">600</span><br>            checkpoint_percentages = [<span class="hljs-number">35</span>, <span class="hljs-number">70</span>, <span class="hljs-number">100</span>]<br>            instance_warmup        = <span class="hljs-number">300</span><br>            min_healthy_percentage = <span class="hljs-number">50</span><br>        &#125;<br>        triggers = [<span class="hljs-string">&quot;tag&quot;</span>]<br>    &#125;<br><br><br>    asg_lc_name           = <span class="hljs-string">&quot;lab-asg-launch-configuration&quot;</span><br>    asg_image_id          = <span class="hljs-string">&quot;ami-0366e7e36827b904b&quot;</span><br>    asg_instance_type     = <span class="hljs-string">&quot;t2.micro&quot;</span><br>    asg_ebs_optimized     = true<br>    asg_enable_monitoring = true<br><br><br>    asg_tags = &#123;<br>        <span class="hljs-string">&quot;Terrform&quot;</span> = <span class="hljs-string">&quot;True&quot;</span><br>    &#125;<br><br>    asg_sg_name = <span class="hljs-string">&quot;lab-asg-sg&quot;</span><br><br>    asg_scaling_policies = &#123;<br>        lab-autoscaling-policy = &#123;<br>            policy_type               = <span class="hljs-string">&quot;TargetTrackingScaling&quot;</span><br>            target_tracking_configuration = &#123;<br>                predefined_metric_specification = &#123;<br>                predefined_metric_type = <span class="hljs-string">&quot;ASGAverageCPUUtilization&quot;</span><br><span class="hljs-comment">                # resource_label         = &quot;Lab-Label&quot;</span><br>                &#125;<br>                target_value = <span class="hljs-number">50.0</span><br>            &#125;<br>        &#125;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="1-3-3-Learning-and-Summary"><a href="#1-3-3-Learning-and-Summary" class="headerlink" title="1.3.3 Learning and Summary"></a>1.3.3 Learning and Summary</h3><ul>
+<li>Issue not resolved:  Configure launch template with <code>user_data</code>  and EC2 in private network, even though NAT gateway and egress rules (allow all protocols) already set. Only EC2 AMI works</li>
+<li>Create ALB, ASG<ul>
+<li>ALB:  two components : “alb_target_groups” and “alb_http_tcp_listeners”</li>
+<li>ASG: <ul>
+<li>launch_template</li>
+<li>autoscaling group</li>
+<li>target_group_arns:  associate ASG with loadbalancer alb target groups</li>
+<li>scaling_policies:  automatically create CloudWatch alarms for ASG scaling</li>
+</ul>
+</li>
+</ul>
+</li>
+<li></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/AWS/" class="print-no-link">#AWS</a>
+      
+        <a href="/tags/lab/" class="print-no-link">#lab</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>AWS Technical Essentials - Lab</div>
+      <div>https://blog.excelsre.com/1984/01/24/aws-saa/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Felix Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>1984年1月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/05/26/xiaojiayu/" title="python 学习之旅总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">python 学习之旅总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/1984/01/24/ansible-web-haproxy/" title="Ansible lab">
+                        <span class="hidden-mobile">Ansible lab</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,803 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Felix Yang">
+  <meta name="keywords" content="Python,SRE,Flask,AWS,Azure,运维， 读书">
+  
+    <meta name="description" content="[TOC] Infra preparationServers List   Server Name IP address Role OS    Ansible01 192.168.22.67 Web Server - 1 CentOS8   Ansible02 192.168.22.68 Web Server - 2 CentOS8   Ansible03 192.168.22.69 HAProx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ansible lab">
+<meta property="og:url" content="https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/index.html">
+<meta property="og:site_name" content="Felix Yang&#39;s Blog">
+<meta property="og:description" content="[TOC] Infra preparationServers List   Server Name IP address Role OS    Ansible01 192.168.22.67 Web Server - 1 CentOS8   Ansible02 192.168.22.68 Web Server - 2 CentOS8   Ansible03 192.168.22.69 HAProx">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.excelsre.com/Users/felix/Library/Application%20Support/typora-user-images/image-20220311102203398.png">
+<meta property="og:image" content="https://blog.excelsre.com/Users/felix/Library/Application%20Support/typora-user-images/image-20220311102500323.png">
+<meta property="og:image" content="https://blog.excelsre.com/Users/felix/Library/Application%20Support/typora-user-images/image-20220311102526388.png">
+<meta property="article:published_time" content="1984-01-24T08:00:00.000Z">
+<meta property="article:modified_time" content="2023-05-26T10:38:34.160Z">
+<meta property="article:author" content="Felix Yang">
+<meta property="article:tag" content="lab">
+<meta property="article:tag" content="Ansible">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://blog.excelsre.com/Users/felix/Library/Application%20Support/typora-user-images/image-20220311102203398.png">
+  
+  
+  
+  <title>Ansible lab - Felix Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.excelsre.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Felix Yang's Blog" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Felix Yang's Blog" type="application/rss+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>大良造</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Ansible lab"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="1984-01-24 16:00" pubdate>
+          1984年1月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          93 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Ansible lab</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h1 id="Infra-preparation"><a href="#Infra-preparation" class="headerlink" title="Infra preparation"></a>Infra preparation</h1><h2 id="Servers-List"><a href="#Servers-List" class="headerlink" title="Servers List"></a>Servers List</h2><table>
+<thead>
+<tr>
+<th>Server Name</th>
+<th>IP address</th>
+<th>Role</th>
+<th>OS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ansible01</td>
+<td>192.168.22.67</td>
+<td>Web Server - 1</td>
+<td>CentOS8</td>
+</tr>
+<tr>
+<td>Ansible02</td>
+<td>192.168.22.68</td>
+<td>Web Server - 2</td>
+<td>CentOS8</td>
+</tr>
+<tr>
+<td>Ansible03</td>
+<td>192.168.22.69</td>
+<td>HAProxy</td>
+<td>CentOS8</td>
+</tr>
+</tbody></table>
+<h2 id="Topology"><a href="#Topology" class="headerlink" title="Topology"></a>Topology</h2><p>Overall topology is like below:</p>
+<p>![image-20220311092828023](&#x2F;Users&#x2F;felix&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20220311092828023.png)</p>
+<h2 id="Provision-Infra-with-Terraform-and-vSphere"><a href="#Provision-Infra-with-Terraform-and-vSphere" class="headerlink" title="Provision Infra with Terraform and vSphere"></a>Provision Infra with Terraform and vSphere</h2><p>Leverage terraform to provision the servers, create below main.tf file:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># Configure the VMware vSphere Provider</span><br><span class="hljs-string">provider</span> <span class="hljs-string">&quot;vsphere&quot;</span> &#123;<br>  <span class="hljs-string">user</span>           <span class="hljs-string">=</span> <span class="hljs-string">&quot;administrator@vsphere.local&quot;</span><br>  <span class="hljs-string">password</span>       <span class="hljs-string">=</span> <span class="hljs-string">&quot;xxx&quot;</span><br>  <span class="hljs-string">vsphere_server</span> <span class="hljs-string">=</span> <span class="hljs-string">&quot;192.168.20.251&quot;</span><br><br>  <span class="hljs-comment"># if you have a self-signed cert</span><br>  <span class="hljs-string">allow_unverified_ssl</span> <span class="hljs-string">=</span> <span class="hljs-literal">true</span><br>&#125;<br><br><span class="hljs-comment"># Deploy 3 linux VMs</span><br><span class="hljs-string">module</span> <span class="hljs-string">&quot;centos-server-linuxvm&quot;</span> &#123;<br>  <span class="hljs-string">source</span>    <span class="hljs-string">=</span> <span class="hljs-string">&quot;Terraform-VMWare-Modules/vm/vsphere&quot;</span><br>  <span class="hljs-comment">#source    = &quot;.terraform/modules/centos-server-linuxvm&quot;</span><br>  <span class="hljs-string">version</span>   <span class="hljs-string">=</span> <span class="hljs-string">&quot;3.4.1&quot;</span><br>  <span class="hljs-string">vmtemp</span>    <span class="hljs-string">=</span> <span class="hljs-string">&quot;CentOS8&quot;</span><br>  <span class="hljs-string">instances</span> <span class="hljs-string">=</span> <span class="hljs-number">3</span><br>  <span class="hljs-string">vmname</span>    <span class="hljs-string">=</span> <span class="hljs-string">&quot;Ansible&quot;</span><br>  <span class="hljs-string">vmrp</span>      <span class="hljs-string">=</span> <span class="hljs-string">&quot;Felix-Cluster/Resources/ansiblelab&quot;</span><br>  <span class="hljs-string">network</span> <span class="hljs-string">=</span> &#123;<br>    <span class="hljs-string">&quot;VM Network&quot;</span> <span class="hljs-string">=</span> [<span class="hljs-string">&quot;192.168.22.67&quot;</span>, <span class="hljs-string">&quot;192.168.22.68&quot;</span>, <span class="hljs-string">&quot;192.168.22.69&quot;</span>] <span class="hljs-comment"># To use DHCP create Empty list [&quot;&quot;,&quot;&quot;]; You can also use a CIDR annotation;</span><br>  &#125;<br>  <span class="hljs-string">vmgateway</span> <span class="hljs-string">=</span> <span class="hljs-string">&quot;192.168.0.250&quot;</span><br>  <span class="hljs-string">dc</span>        <span class="hljs-string">=</span> <span class="hljs-string">&quot;Felix-DC&quot;</span><br>  <span class="hljs-string">datastore</span> <span class="hljs-string">=</span> <span class="hljs-string">&quot;Data&quot;</span><br>  <span class="hljs-string">ipv4submask</span>  <span class="hljs-string">=</span> [<span class="hljs-string">&quot;16&quot;</span>, <span class="hljs-string">&quot;16&quot;</span>, <span class="hljs-string">&quot;16&quot;</span>]<br>  <span class="hljs-string">network_type</span> <span class="hljs-string">=</span> [<span class="hljs-string">&quot;vmxnet3&quot;</span>, <span class="hljs-string">&quot;vmxnet3&quot;</span>, <span class="hljs-string">&quot;vmxnet3&quot;</span>]<br>  <span class="hljs-string">dns_server_list</span>  <span class="hljs-string">=</span> [<span class="hljs-string">&quot;192.168.22.1&quot;</span>, <span class="hljs-string">&quot;192.168.22.1&quot;</span>, <span class="hljs-string">&quot;192.168.22.1&quot;</span>]<br>  <span class="hljs-string">is_windows_image</span> <span class="hljs-string">=</span> <span class="hljs-literal">false</span><br>&#125;<br><br><span class="hljs-string">output</span> <span class="hljs-string">&quot;vmnames&quot;</span> &#123;<br>  <span class="hljs-string">value</span> <span class="hljs-string">=</span> <span class="hljs-string">module.centos-server-linuxvm.VM</span><br>&#125;<br><br><span class="hljs-string">output</span> <span class="hljs-string">&quot;vmnameswip&quot;</span> &#123;<br>  <span class="hljs-string">value</span> <span class="hljs-string">=</span> <span class="hljs-string">module.centos-server-linuxvm.ip</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">terrform init</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">terrform plan</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">terrform apply</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="Step-by-step-to-set-up-webservers-and-haproxy-with-ansible"><a href="#Step-by-step-to-set-up-webservers-and-haproxy-with-ansible" class="headerlink" title="Step by step to set up webservers and haproxy with ansible"></a><a target="_blank" rel="noopener" href="https://github.com/felixyh/ansiblelab">Step by step to set up webservers and haproxy with ansible</a></h1><h2 id="Lab-01"><a href="#Lab-01" class="headerlink" title="Lab-01"></a>Lab-01</h2><h3 id="Initialize-lab-environment"><a href="#Initialize-lab-environment" class="headerlink" title="Initialize lab environment"></a>Initialize lab environment</h3><p>Create hosts file</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs routeros">[web]<br>ansible01 <span class="hljs-attribute">ansible_host</span>=192.168.22.67<br>ansible02 <span class="hljs-attribute">ansible_host</span>=192.168.22.68<br><br>[haproxy]<br>ansible03 <span class="hljs-attribute">ansible_host</span>=192.168.22.69<br><br>[web:vars]<br><span class="hljs-attribute">ansible_ssh_user</span>=root<br><br>[haproxy:vars]<br><span class="hljs-attribute">ansible_ssh_user</span>=root<br></code></pre></td></tr></table></figure>
+
+<p>Ignore SSH authenticity checking, to avoid any human intervention in the middle of the script execution for below prompts:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-section"># GATHERING FACTS <span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">***</span></span><br><span class="hljs-strong"><span class="hljs-section"># The authenticity of host &#x27;xxx.xxx.xxx.xxx (xxx.xxx.xxx.xxx)&#x27; can&#x27;t be established.</span></span><br><span class="hljs-strong"><span class="hljs-section"># RSA key fingerprint is xx:yy:zz:....</span></span><br><span class="hljs-strong"><span class="hljs-section"># Are you sure you want to continue connecting (yes/no)?</span></span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>Edit the <em>ansible.cfg</em>, set <code>host_key_checking=false</code></p>
+<blockquote>
+<p>ansible configuration file is only created automatically during the installation if you perform the installation with package managers like yum or apt-get. If you installed ansible using pip you should create the configuration file manually.</p>
+<p>See <a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/reference_appendices/config.html#the-configuration-file">The configuration file</a>. Ansible searches configuration files in this order</p>
+<ol>
+<li>ansible.cfg (in the current directory)</li>
+<li>~&#x2F;.ansible.cfg (in the home directory)</li>
+<li>&#x2F;etc&#x2F;ansible&#x2F;ansible.cfg</li>
+</ol>
+<p>If there isn’t any configuration file the defaults will apply. See the hardcoded defaults in <a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/reference_appendices/config.html#ansible-configuration-settings">Ansible Configuration Settings</a>. </p>
+<p> <code>ansible-config dump</code> can help show the default ansible.cfg file.</p>
+<p><code>ansible-config init --disabled &gt; ansible.cfg</code> can help generate ansible.cfg file with all options disabled by default</p>
+</blockquote>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle">felix@Felixs-MacBook-Pro <span class="hljs-number">01</span>-Environment % cat <span class="hljs-regexp">/etc/</span>ansible/ansible.cfg | <span class="hljs-keyword">grep</span> host_key<br>host_key_checking=<span class="hljs-keyword">false</span><br></code></pre></td></tr></table></figure>
+
+<p>Upload the key to servers in batch with Ansible module: <code>authorized_key</code></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">ansible -i <span class="hljs-number">01</span>-Environment/hosts <span class="hljs-keyword">all</span>  -m authorized_key -a &quot;user=root key=&#x27;&#123;&#123; lookup(&#x27;file&#x27;,&#x27;~/.ssh/id_rsa.pub&#x27;)&#125;&#125;&#x27; path=&#x27;/root/.ssh/authorized_keys&#x27; manage_dir=no&quot; <span class="hljs-comment">--ask-pass -c paramiko</span><br>#因为密码都一样，所以只需要输入一次密码即可，如果密码不同  需要自定义<br> <br>#说明：<br><span class="hljs-keyword">user</span>=root    #将秘钥推送到远程主机的哪个用户下<br>key=<span class="hljs-string">&#x27;&#123;&#123; lookup(&#x27;</span>fil<span class="hljs-string">e&#x27;,&#x27;</span>/root/.ssh/id_rsa.pub<span class="hljs-string">&#x27;)&#125;&#125;&#x27;</span>    #指定要推送的秘钥文件所在的路径<br><span class="hljs-type">path</span>=<span class="hljs-string">&#x27;/root/.ssh/authorized_keys&#x27;</span>    #将秘钥推送到远程主机的哪个目录下并重命名<br>manage_dir=<span class="hljs-keyword">no</span>       #指定模块是否应该管理authorized_keys文件所在的目录，如果设置为yes,模块会创建目录，以及设置一个已存在目录的拥有者和权限。如果通过 <span class="hljs-type">path</span> 选项，重新指定了一个 authorized key 文件所在目录，那么应该将该选项设置为 <span class="hljs-keyword">no</span><br><span class="hljs-keyword">exclusive</span> [<span class="hljs-keyword">default</span>: <span class="hljs-keyword">no</span>]： #是否移除 authorized_keys 文件中其它非指定 key<br>state (Choices: present, absent) [<span class="hljs-keyword">Default</span>: present]： #present 添加指定 key 到 authorized_keys 文件中；absent 从 authorized_keys 文件中移除指定 key<br><br></code></pre></td></tr></table></figure>
+
+<p>Lastly, add key footprint into known host in localhost and disable firewall on all servers</p>
+<p>Create the setup.yaml file as below:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span> <span class="hljs-string">all</span><br>  <span class="hljs-attr">become:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">become_user:</span> <span class="hljs-string">root</span><br>  <span class="hljs-attr">remote_user:</span> <span class="hljs-string">root</span><br>  <span class="hljs-attr">gather_facts:</span> <span class="hljs-literal">false</span><br><br>  <span class="hljs-attr">tasks:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">wait</span> <span class="hljs-string">for</span> <span class="hljs-string">ssh</span> <span class="hljs-string">to</span> <span class="hljs-string">be</span> <span class="hljs-string">up</span><br>      <span class="hljs-attr">become:</span> <span class="hljs-literal">false</span><br>      <span class="hljs-attr">wait_for:</span><br>        <span class="hljs-attr">port:</span> <span class="hljs-number">22</span><br>        <span class="hljs-attr">delay:</span> <span class="hljs-number">5</span><br>        <span class="hljs-attr">connect_timeout:</span> <span class="hljs-number">5</span><br>        <span class="hljs-attr">timeout:</span> <span class="hljs-number">360</span><br>        <span class="hljs-attr">host:</span> <span class="hljs-string">&quot;<span class="hljs-template-variable">&#123;&#123; ansible_host &#125;&#125;</span>&quot;</span><br>      <span class="hljs-attr">delegate_to:</span> <span class="hljs-string">localhost</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">add</span> <span class="hljs-string">footprints</span><br>      <span class="hljs-attr">shell:</span> <span class="hljs-string">&quot;ssh-keyscan -H <span class="hljs-template-variable">&#123;&#123; ansible_host &#125;&#125;</span> &gt;&gt; ~/.ssh/known_hosts&quot;</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">diable</span> <span class="hljs-string">firewall</span><br>      <span class="hljs-attr">service:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">firewalld</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">stopped</span><br>        <span class="hljs-attr">enabled:</span> <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>Run <code>setup.yaml </code> </p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># To add key footprint into known host in localhost</span><br><span class="hljs-attribute">ansible</span>-playbook -i <span class="hljs-number">01</span>-Environment/hosts <span class="hljs-number">01</span>-Environment/setup.yaml<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Lab-02"><a href="#Lab-02" class="headerlink" title="Lab-02"></a>Lab-02</h2><h3 id="Install-necesssary-packages-and-set-global-proxy"><a href="#Install-necesssary-packages-and-set-global-proxy" class="headerlink" title="Install necesssary packages and set global proxy"></a>Install necesssary packages and set global proxy</h3><p>Create httpd.yaml file and create tasks for package installation</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span> <span class="hljs-string">web</span><br>  <span class="hljs-attr">gather_facts:</span> <span class="hljs-literal">false</span><br>  <span class="hljs-attr">environment:</span><br>    <span class="hljs-attr">http_proxy:</span> <span class="hljs-number">10.64</span><span class="hljs-number">.1</span><span class="hljs-number">.81</span><span class="hljs-string">:8080</span><br>    <span class="hljs-attr">https_proxy:</span> <span class="hljs-number">10.64</span><span class="hljs-number">.1</span><span class="hljs-number">.81</span><span class="hljs-string">:8080</span><br>  <span class="hljs-attr">tasks:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Installs</span> <span class="hljs-string">necessary</span> <span class="hljs-string">packages</span><br>      <span class="hljs-attr">yum:</span><br>        <span class="hljs-attr">name:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">httpd</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">php*</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">git</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">latest</span><br>        <span class="hljs-attr">update_cache:</span> <span class="hljs-literal">true</span>  <br></code></pre></td></tr></table></figure>
+
+<h3 id="Setup-the-virtual-hosts"><a href="#Setup-the-virtual-hosts" class="headerlink" title="Setup the virtual hosts"></a>Setup the virtual hosts</h3><p>Create the virtual host configuration file: awesome-app</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/swl0221/p/11752080.html">A good article for virtual hosts</a> setup to understand the concept: </p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs html"># Listen 8067<br># <span class="hljs-tag">&lt;<span class="hljs-name">VirtualHost</span> *<span class="hljs-attr">:8067</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">VirtualHost</span> *<span class="hljs-attr">:80</span>&gt;</span><br>  DocumentRoot /var/www/awesome-app<br>  # ServerName www.awesomeapp.com<br>  ErrorLog /var/log/httpd/error_log<br>  CustomLog /var/log/httpd/access_log combined<br>  <span class="hljs-tag">&lt;<span class="hljs-name">Directory</span> /<span class="hljs-attr">var</span>/<span class="hljs-attr">www</span>/<span class="hljs-attr">awesome-app</span>&gt;</span><br>    Options -Indexes +FollowSymlinks<br>    Require all granted<br>    AllowOverride All<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">Directory</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">VirtualHost</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>@httpd.yaml file, create task to copy awesome-app configuration file to webserver: &#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Push</span> <span class="hljs-string">default</span> <span class="hljs-string">virtual</span> <span class="hljs-string">host</span> <span class="hljs-string">configuration</span><br>  <span class="hljs-attr">copy:</span><br>    <span class="hljs-attr">src:</span> <span class="hljs-string">files/awesome-app</span><br>    <span class="hljs-attr">dest:</span> <span class="hljs-string">/etc/httpd/conf.d/awesome-app.conf</span><br>    <span class="hljs-attr">mode:</span> <span class="hljs-number">0640</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="Deploy-the-web-servers"><a href="#Deploy-the-web-servers" class="headerlink" title="Deploy the web servers"></a>Deploy the web servers</h3><p>@httpd.yaml file, create task to deploy awesome application</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Deploy</span> <span class="hljs-string">our</span> <span class="hljs-string">awesome</span> <span class="hljs-string">application</span><br>  <span class="hljs-attr">git:</span><br>    <span class="hljs-attr">repo:</span> <span class="hljs-string">https://github.com/leucos/ansible-tuto-demosite.git</span><br>    <span class="hljs-attr">dest:</span> <span class="hljs-string">/var/www/awesome-app</span><br>  <span class="hljs-attr">tags:</span> <span class="hljs-string">deploy</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="Check-configuration-and-roll-back-to-default-http-server-as-needed"><a href="#Check-configuration-and-roll-back-to-default-http-server-as-needed" class="headerlink" title="Check configuration and roll back to default http server as needed"></a>Check configuration and roll back to default http server as needed</h3><p>@httpd.yaml file, create tasks to check configuration and rollback as needed</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Check</span> <span class="hljs-string">that</span> <span class="hljs-string">our</span> <span class="hljs-string">config</span> <span class="hljs-string">is</span> <span class="hljs-string">valid</span><br>   <span class="hljs-attr">command:</span> <span class="hljs-string">apachectl</span> <span class="hljs-string">configtest</span><br>   <span class="hljs-attr">register:</span> <span class="hljs-string">result</span><br>   <span class="hljs-attr">ignore_errors:</span> <span class="hljs-literal">true</span><br>   <span class="hljs-attr">notify:</span><br>     <span class="hljs-bullet">-</span> <span class="hljs-string">restart</span> <span class="hljs-string">httpd</span><br><br> <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Rolling</span> <span class="hljs-string">back</span> <span class="hljs-bullet">-</span> <span class="hljs-string">Removing</span> <span class="hljs-string">the</span> <span class="hljs-string">virtualhost</span><br>   <span class="hljs-attr">file:</span><br>     <span class="hljs-attr">path:</span><br>       <span class="hljs-bullet">-</span> <span class="hljs-string">/etc/httpd/conf.d/awesome-app.conf</span><br>       <span class="hljs-bullet">-</span> <span class="hljs-string">/var/www/awesome-app</span><br>     <span class="hljs-attr">state:</span> <span class="hljs-string">absent</span><br>   <span class="hljs-attr">when:</span> <span class="hljs-string">result</span> <span class="hljs-string">is</span> <span class="hljs-string">failed</span><br><br> <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Rolling</span> <span class="hljs-string">back</span> <span class="hljs-bullet">-</span> <span class="hljs-string">Ending</span> <span class="hljs-string">playbook</span><br>   <span class="hljs-attr">fail:</span><br>     <span class="hljs-attr">msg:</span> <span class="hljs-string">&quot;Configuration file is not valid. Please  check that before re-running the playbook&quot;</span><br>   <span class="hljs-attr">when:</span> <span class="hljs-string">result</span> <span class="hljs-string">is</span> <span class="hljs-string">failed</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="Run-command-to-deploy"><a href="#Run-command-to-deploy" class="headerlink" title="Run command to deploy"></a>Run command to deploy</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">ansible-playbook -<span class="hljs-selector-tag">i</span> hosts httpd<span class="hljs-selector-class">.yaml</span><br></code></pre></td></tr></table></figure>
+
+<img src="/Users/felix/Library/Application Support/typora-user-images/image-20220311102203398.png" srcset="/img/loading.gif" lazyload alt="image-20220311102203398" style="zoom:50%;" />
+
+
+
+<h2 id="Lab-03"><a href="#Lab-03" class="headerlink" title="Lab-03"></a>Lab-03</h2><h3 id="Create-haproxy-template-to-be-rendered"><a href="#Create-haproxy-template-to-be-rendered" class="headerlink" title="Create haproxy template to be rendered"></a>Create haproxy template to be rendered</h3><p>create <code>haproxy.cfg.j2</code> file under teamplate folder</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="language-xml">global</span><br><span class="language-xml">    daemon</span><br><span class="language-xml">    maxconn 256</span><br><span class="language-xml"></span><br><span class="language-xml">defaults</span><br><span class="language-xml">    mode http</span><br><span class="language-xml">    timeout connect 5000ms</span><br><span class="language-xml">    timeout client 50000ms</span><br><span class="language-xml">    timeout server 50000ms</span><br><span class="language-xml"></span><br><span class="language-xml">listen cluster</span><br><span class="language-xml">    bind </span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">ansible_host</span> &#125;&#125;</span><span class="language-xml">:80</span><br><span class="language-xml">    mode http</span><br><span class="language-xml">    stats enable</span><br><span class="language-xml">    balance roundrobin</span><br><span class="language-xml">&#123;% for backend in groups[&#x27;web&#x27;] %&#125;</span><br><span class="language-xml">    server </span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">hostvars</span>[backend][&#x27;ansible_hostname&#x27;] &#125;&#125;</span><span class="language-xml"> </span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">hostvars</span>[backend].ansible_host &#125;&#125;</span><span class="language-xml"> check port 80</span><br><span class="language-xml">&#123;% endfor %&#125;</span><br><span class="language-xml">    option httpchk HEAD /index.php HTTP/1.0</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Install-haproxy-for-two-web-servers"><a href="#Install-haproxy-for-two-web-servers" class="headerlink" title="Install haproxy for two web servers"></a>Install haproxy for two web servers</h3><p>Create <code>haproxy.yaml</code> file and create tasks to install haproxy and enable service on server boot</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span> <span class="hljs-string">web</span><br>  <span class="hljs-attr">gather_facts:</span> <span class="hljs-literal">true</span><br><br><span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span> <span class="hljs-string">haproxy</span><br>  <span class="hljs-attr">tasks:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Installs</span> <span class="hljs-string">haproxy</span> <span class="hljs-string">load</span> <span class="hljs-string">balancer</span><br>      <span class="hljs-attr">yum:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">haproxy</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">present</span><br>        <span class="hljs-attr">update_cache:</span> <span class="hljs-literal">yes</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Enable</span> <span class="hljs-string">and</span> <span class="hljs-string">Allow</span> <span class="hljs-string">haproxy</span> <span class="hljs-string">to</span> <span class="hljs-string">restart</span> <span class="hljs-string">automatically</span> <span class="hljs-string">at</span> <span class="hljs-string">system</span> <span class="hljs-string">boot-up</span><br>      <span class="hljs-attr">service:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">haproxy</span><br>        <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br>      <span class="hljs-attr">notify:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">restart</span> <span class="hljs-string">haproxy</span><br></code></pre></td></tr></table></figure>
+
+<p>Create tasks to push template to haproxy server</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Pushes</span> <span class="hljs-string">configuration</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">src:</span> <span class="hljs-string">templates/haproxy.cfg.j2</span><br>    <span class="hljs-attr">dest:</span> <span class="hljs-string">/etc/haproxy/haproxy.cfg</span><br>    <span class="hljs-attr">mode:</span> <span class="hljs-number">0640</span><br>    <span class="hljs-attr">owner:</span> <span class="hljs-string">root</span><br>    <span class="hljs-attr">group:</span> <span class="hljs-string">root</span><br>  <span class="hljs-attr">notify:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">restart</span> <span class="hljs-string">haproxy</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Run-command-to-deploy-haproxy"><a href="#Run-command-to-deploy-haproxy" class="headerlink" title="Run command to deploy haproxy"></a>Run command to deploy haproxy</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ansible-playbook -i hosts httpd.yaml haproxy.yaml<br></code></pre></td></tr></table></figure>
+
+<img src="/Users/felix/Library/Application Support/typora-user-images/image-20220311102500323.png" srcset="/img/loading.gif" lazyload alt="image-20220311102500323" style="zoom:50%;" />
+
+
+
+<p>Access <a target="_blank" rel="noopener" href="http://haproxy-ip/haproxy?stats">http://haproxy-IP/haproxy?stats</a></p>
+<img src="/Users/felix/Library/Application Support/typora-user-images/image-20220311102526388.png" srcset="/img/loading.gif" lazyload alt="image-20220311102526388" style="zoom:50%;" />
+
+<h2 id="Lab-04"><a href="#Lab-04" class="headerlink" title="Lab-04"></a>Lab-04</h2><h3 id="set-variables-for-tempalte-associated-with-hosts-x2F-groups"><a href="#set-variables-for-tempalte-associated-with-hosts-x2F-groups" class="headerlink" title="set variables for tempalte associated with hosts&#x2F;groups"></a>set variables for tempalte associated with hosts&#x2F;groups</h3><p>create two folders named as <code>group_vars</code> and <code>host_vars</code></p>
+<h4 id="Group-vars"><a href="#Group-vars" class="headerlink" title="Group vars"></a>Group vars</h4><p>The check interval will be set in a group_vars file for haproxy. This will ensure all haproxies will inherit from it.</p>
+<p>We just need to create the file <code>group_vars/haproxy.yml</code> below the inventory directory. <strong>The file has to be named after the group you want to define the variables for</strong>. <strong>If we wanted to define variables for the web group, the file would be named <code>group_vars/web.yml</code>.</strong></p>
+<p>@haproxy.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">haproxy_check_interval:</span> <span class="hljs-number">3000</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>Note that the <code>.yml</code> is optionalm: we could name haproxy group vars file <code>group_vars/haproxy</code> and Ansible would be ok with it. The extension just helps editors picking the right syntax highlighter.</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">haproxy_check_interval:</span> <span class="hljs-number">3000</span><br><span class="hljs-symbol">haproxy_stats_socket:</span> <span class="hljs-keyword">/tmp/</span>sock<br></code></pre></td></tr></table></figure>
+
+<p>The name is arbitrary. Meaningful names are recommended of course, but there is no required syntax. You could even use complex variables (a.k.a. Python dict) like this:</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">haproxy:</span><br><span class="hljs-symbol">    check_interval:</span> <span class="hljs-number">3000</span><br><span class="hljs-symbol">    stats_socket:</span> <span class="hljs-keyword">/tmp/</span>sock<br></code></pre></td></tr></table></figure>
+
+<p>This is just a matter of taste. Complex vars can help group stuff logically. They can also, under some circumstances, merge subsequently defined keys (note however that this is not the default ansible behaviour). For now we’ll just use simple variables.</p>
+<h4 id="Hosts-vars"><a href="#Hosts-vars" class="headerlink" title="Hosts vars"></a>Hosts vars</h4><p>Hosts vars follow exactly the same rules, but live in files under <code>host_vars</code> directory.</p>
+<p>Let’s define weights for our backends in <code>host_vars/host1.example.com</code>:</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">haproxy_backend_weight</span>: <span class="hljs-number">100</span><br></code></pre></td></tr></table></figure>
+
+<p>and <code>host_vars/host2.example.com</code>:</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">haproxy_backend_weight</span>: <span class="hljs-number">150</span><br></code></pre></td></tr></table></figure>
+
+<p>If we’d define <code>haproxy_backend_weight</code> in <code>group_vars/web</code>, it would be used as a ‘default’: variables defined in <code>host_vars</code> files overrides variables defined in <code>group_vars</code>.</p>
+<p>@ansible01.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">haproxy_backend_weight:</span> <span class="hljs-number">150</span><br></code></pre></td></tr></table></figure>
+
+<p>@ansible02.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">haproxy_backend_weight:</span> <span class="hljs-number">100</span><br></code></pre></td></tr></table></figure>
+
+<p>@ansible03.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">haproxy_backend_weight:</span> <span class="hljs-number">150</span><br><span class="hljs-attr">haproxy_stats_socket:</span> <span class="hljs-string">/run/sock</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="Update-the-template-file-with-defined-variables"><a href="#Update-the-template-file-with-defined-variables" class="headerlink" title="Update the template file with defined variables"></a>Update the template file with defined variables</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">global</span><br>    <span class="hljs-string">daemon</span><br>    <span class="hljs-string">maxconn</span> <span class="hljs-number">256</span><br>&#123;<span class="hljs-string">%</span> <span class="hljs-string">if</span> <span class="hljs-string">haproxy_stats_socket</span> <span class="hljs-string">%</span>&#125;<br>    <span class="hljs-string">stats</span> <span class="hljs-string">socket</span> &#123;&#123; <span class="hljs-string">haproxy_stats_socket</span> &#125;&#125; <span class="hljs-comment"># use variables: haproxy_stats_socket defined in host var</span><br>&#123;<span class="hljs-string">%</span> <span class="hljs-string">endif</span> <span class="hljs-string">%</span>&#125;<br><br><span class="hljs-string">defaults</span><br>    <span class="hljs-string">mode</span> <span class="hljs-string">http</span><br>    <span class="hljs-string">timeout</span> <span class="hljs-string">connect</span> <span class="hljs-string">5000ms</span><br>    <span class="hljs-string">timeout</span> <span class="hljs-string">client</span> <span class="hljs-string">50000ms</span><br>    <span class="hljs-string">timeout</span> <span class="hljs-string">server</span> <span class="hljs-string">50000ms</span><br><br><span class="hljs-string">listen</span> <span class="hljs-string">cluster</span><br>    <span class="hljs-string">bind</span> &#123;&#123; <span class="hljs-string">ansible_host</span> &#125;&#125;<span class="hljs-string">:80</span><br>    <span class="hljs-string">mode</span> <span class="hljs-string">http</span><br>    <span class="hljs-string">stats</span> <span class="hljs-string">enable</span><br>    <span class="hljs-string">balance</span> <span class="hljs-string">roundrobin</span><br>&#123;<span class="hljs-string">%</span> <span class="hljs-string">for</span> <span class="hljs-string">backend</span> <span class="hljs-string">in</span> <span class="hljs-string">groups</span>[<span class="hljs-string">&#x27;web&#x27;</span>] <span class="hljs-string">%</span>&#125;<br>    <span class="hljs-string">server</span> &#123;&#123; <span class="hljs-string">hostvars</span>[<span class="hljs-string">backend</span>][<span class="hljs-string">&#x27;ansible_hostname&#x27;</span>] &#125;&#125; &#123;&#123; <span class="hljs-string">hostvars</span>[<span class="hljs-string">backend</span>]<span class="hljs-string">.ansible_host</span> &#125;&#125; <span class="hljs-string">check</span> <span class="hljs-string">port</span> <span class="hljs-number">80</span><br>&#123;<span class="hljs-string">%</span> <span class="hljs-string">endfor</span> <span class="hljs-string">%</span>&#125;<br>    <span class="hljs-string">option</span> <span class="hljs-string">httpchk</span> <span class="hljs-string">HEAD</span> <span class="hljs-string">/index.php</span> <span class="hljs-string">HTTP/1.0</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="Run-command-to-update"><a href="#Run-command-to-update" class="headerlink" title="Run command to update"></a>Run command to update</h3><p>ansible-playbook -i hosts haproxy.yaml</p>
+<blockquote>
+<p>we don’t need to run httpd.yaml any more, as there’s no change to web servers. However we added an empty play for web hosts at the top. It does nothing except <code>gather_facts: true</code>. But it’s here because it will trigger facts gathering on hosts in group <code>web</code>. This is required because the haproxy playbook needs to pick facts from hosts in this group. If we don’t do this, ansible will complain saying that <code>ansible_all_ipv4_addresses</code> key doesn’t exist.</p>
+</blockquote>
+<p>@haproxy.yaml </p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span> <span class="hljs-string">web</span><br>  <span class="hljs-attr">gather_facts:</span> <span class="hljs-literal">true</span><br><br><span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span> <span class="hljs-string">haproxy</span><br>  <span class="hljs-attr">tasks:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Installs</span> <span class="hljs-string">haproxy</span> <span class="hljs-string">load</span> <span class="hljs-string">balancer</span><br>      <span class="hljs-attr">yum:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">haproxy</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">present</span><br>        <span class="hljs-attr">update_cache:</span> <span class="hljs-literal">yes</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Pushes</span> <span class="hljs-string">configuration</span><br>      <span class="hljs-attr">template:</span><br>        <span class="hljs-attr">src:</span> <span class="hljs-string">templates/haproxy.cfg.j2</span><br>        <span class="hljs-attr">dest:</span> <span class="hljs-string">/etc/haproxy/haproxy.cfg</span><br>        <span class="hljs-attr">mode:</span> <span class="hljs-number">0640</span><br>        <span class="hljs-attr">owner:</span> <span class="hljs-string">root</span><br>        <span class="hljs-attr">group:</span> <span class="hljs-string">root</span><br>      <span class="hljs-attr">notify:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">restart</span> <span class="hljs-string">haproxy</span><br><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Enable</span> <span class="hljs-string">and</span> <span class="hljs-string">Allow</span> <span class="hljs-string">haproxy</span> <span class="hljs-string">to</span> <span class="hljs-string">restart</span> <span class="hljs-string">automatically</span> <span class="hljs-string">at</span> <span class="hljs-string">system</span> <span class="hljs-string">boot-up</span><br>      <span class="hljs-attr">service:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">haproxy</span><br>        <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br>      <span class="hljs-attr">notify:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">restart</span> <span class="hljs-string">haproxy</span><br><br>  <span class="hljs-attr">handlers:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">restart</span> <span class="hljs-string">haproxy</span><br>      <span class="hljs-attr">service:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">haproxy</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">restarted</span><br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/lab/" class="print-no-link">#lab</a>
+      
+        <a href="/tags/Ansible/" class="print-no-link">#Ansible</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Ansible lab</div>
+      <div>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Felix Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>1984年1月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/1984/01/24/aws-saa/" title="AWS Technical Essentials - Lab">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">AWS Technical Essentials - Lab</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/1984/01/24/azure/" title="Azure AKS">
+                        <span class="hidden-mobile">Azure AKS</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

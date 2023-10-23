@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Felix Yang&#39;s Blog</title>
+  
+  <subtitle>Felix Yang Blog</subtitle>
+  <link href="https://blog.excelsre.com/atom.xml" rel="self"/>
+  
+  <link href="https://blog.excelsre.com/"/>
+  <updated>2023-06-12T02:35:02.960Z</updated>
+  <id>https://blog.excelsre.com/</id>
+  
+  <author>
+    <name>Felix Yang</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>扩展磁盘-GCP VM</title>
+    <link href="https://blog.excelsre.com/2023/06/11/kuo-zhan-ci-pan-gcp-vm/"/>
+    <id>https://blog.excelsre.com/2023/06/11/kuo-zhan-ci-pan-gcp-vm/</id>
+    <published>2023-06-12T02:00:12.000Z</published>
+    <updated>2023-06-12T02:35:02.960Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;hr&gt;
+&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Weeks ago, I created a GCP VM for the VPN and Jupyter notebook server, however I used the minimum spec in order to save the</summary>
+        
+      
+    
+    
+    
+    <category term="技术文章" scheme="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"/>
+    
+    
+    <category term="GCP" scheme="https://blog.excelsre.com/tags/GCP/"/>
+    
+    <category term="Pytorch" scheme="https://blog.excelsre.com/tags/Pytorch/"/>
+    
+    <category term="Disk" scheme="https://blog.excelsre.com/tags/Disk/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Jupyter Notebook on Cloud</title>
+    <link href="https://blog.excelsre.com/2023/06/09/jupyter-notebook-on-cloud/"/>
+    <id>https://blog.excelsre.com/2023/06/09/jupyter-notebook-on-cloud/</id>
+    <published>2023-06-09T07:49:27.000Z</published>
+    <updated>2023-06-10T02:45:11.410Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;hr&gt;
+&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;如何安装一台jupyter-notebook-server，可以远程访问使用&quot;&gt;&lt;a href=&quot;#如何安装一台jupyter-notebook-server，可以远程访问使用&quot; class=&quot;headerlink&quot; title=&quot;如何安装一台jupyter</summary>
+        
+      
+    
+    
+    
+    <category term="技术文章" scheme="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"/>
+    
+    
+    <category term="cloud" scheme="https://blog.excelsre.com/tags/cloud/"/>
+    
+    <category term="jupyter" scheme="https://blog.excelsre.com/tags/jupyter/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>科学上网 - 最佳实践</title>
+    <link href="https://blog.excelsre.com/2023/06/05/ke-xue-shang-wang-zui-jia-shi-jian/"/>
+    <id>https://blog.excelsre.com/2023/06/05/ke-xue-shang-wang-zui-jia-shi-jian/</id>
+    <published>2023-06-06T01:22:44.000Z</published>
+    <updated>2023-06-06T03:34:10.240Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;hr&gt;
+&lt;h1 id=&quot;科学上网最佳实践&quot;&gt;&lt;a href=&quot;#科学上网最佳实践&quot; class=&quot;headerlink&quot; title=&quot;科学上网最佳实践&quot;&gt;&lt;/a&gt;科学上网最佳实践&lt;/h1&gt;&lt;p&gt;参考左耳朵的文章： &lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="科学上网" scheme="https://blog.excelsre.com/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OpenAI GPT For Python Developers</title>
+    <link href="https://blog.excelsre.com/2023/05/30/openai-gpt-for-python-developers/"/>
+    <id>https://blog.excelsre.com/2023/05/30/openai-gpt-for-python-developers/</id>
+    <published>2023-05-30T10:22:46.000Z</published>
+    <updated>2023-06-29T07:21:42.850Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;hr&gt;
+&lt;p&gt;&lt;img src=&quot;https://felixyanghui.synology.me:8441/images/2023/05/30/image-20230530182644993.png&quot; alt=&quot;image-20230530182644993&quot;&gt;&lt;/p&gt;
+&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1</summary>
+        
+      
+    
+    
+    
+    
+    <category term="读书笔记" scheme="https://blog.excelsre.com/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="AI" scheme="https://blog.excelsre.com/tags/AI/"/>
+    
+    <category term="GPT" scheme="https://blog.excelsre.com/tags/GPT/"/>
+    
+    <category term="Python" scheme="https://blog.excelsre.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo 博客搭建</title>
+    <link href="https://blog.excelsre.com/2023/05/28/hexo-bo-ke-da-jian/"/>
+    <id>https://blog.excelsre.com/2023/05/28/hexo-bo-ke-da-jian/</id>
+    <published>2023-05-29T02:45:54.000Z</published>
+    <updated>2023-05-29T03:50:35.250Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;博客基本搭建&quot;&gt;&lt;a href=&quot;#博客基本搭建&quot; class=&quot;headerlink&quot; title=&quot;博客基本搭建&quot;&gt;&lt;/a&gt;博客基本搭建&lt;/h1&gt;&lt;h2 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="hero" scheme="https://blog.excelsre.com/tags/hero/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>科学上网</title>
+    <link href="https://blog.excelsre.com/2023/05/26/ke-xue-shang-wang/"/>
+    <id>https://blog.excelsre.com/2023/05/26/ke-xue-shang-wang/</id>
+    <published>2023-05-26T12:19:51.000Z</published>
+    <updated>2023-05-26T12:34:12.250Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;hr&gt;
+&lt;h1&gt; 科学上网 &lt;/h1&gt;
+
+&lt;p&gt;作者：左耳朵 &lt;a href=&quot;http://coolshell.cn/&quot;&gt;http://coolshell.cn&lt;/a&gt;&lt;br&gt;更新时间：2023-05-02&lt;/p&gt;
+&lt;p&gt;这篇文章可以写的更好，欢迎到 &lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://blog.excelsre.com/2023/05/26/hello-world/"/>
+    <id>https://blog.excelsre.com/2023/05/26/hello-world/</id>
+    <published>2023-05-26T10:00:46.000Z</published>
+    <updated>2023-05-26T10:00:46.530Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>python 学习之旅总结</title>
+    <link href="https://blog.excelsre.com/2023/05/26/xiaojiayu/"/>
+    <id>https://blog.excelsre.com/2023/05/26/xiaojiayu/</id>
+    <published>2023-05-26T10:00:46.000Z</published>
+    <updated>2023-05-26T10:00:46.530Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;hr&gt;
+&lt;h1 id=&quot;000-愉快的开始&quot;&gt;&lt;a href=&quot;#000-愉快的开始&quot; class=&quot;headerlink&quot; title=&quot;000. 愉快的开始&quot;&gt;&lt;/a&gt;000. 愉快的开始&lt;/h1&gt;&lt;h1 id=&quot;001-我和Python的第一次亲密接触&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>AWS Technical Essentials - Lab</title>
+    <link href="https://blog.excelsre.com/1984/01/24/aws-saa/"/>
+    <id>https://blog.excelsre.com/1984/01/24/aws-saa/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-05-26T10:33:07.980Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;img src=&quot;https://felixyanghui.synology.me:8441/images/2022/12/02/image-20221129160103938.png&quot; style=&quot;zoom:50%;&quot; /&gt;
+
+&lt;h1</summary>
+        
+      
+    
+    
+    
+    
+    <category term="AWS" scheme="https://blog.excelsre.com/tags/AWS/"/>
+    
+    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ansible lab</title>
+    <link href="https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/"/>
+    <id>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-05-26T10:38:34.160Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Infra-preparation&quot;&gt;&lt;a href=&quot;#Infra-preparation&quot; class=&quot;headerlink&quot; title=&quot;Infra preparation&quot;&gt;&lt;/a&gt;Infra preparation&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
+    
+    <category term="Ansible" scheme="https://blog.excelsre.com/tags/Ansible/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure AKS</title>
+    <link href="https://blog.excelsre.com/1984/01/24/azure/"/>
+    <id>https://blog.excelsre.com/1984/01/24/azure/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-05-26T10:32:37.090Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://blog.excelsre.com/tags/Azure/"/>
+    
+    <category term="AKS" scheme="https://blog.excelsre.com/tags/AKS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Github 教程</title>
+    <link href="https://blog.excelsre.com/1984/01/24/github-workflow/"/>
+    <id>https://blog.excelsre.com/1984/01/24/github-workflow/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-05-26T10:30:43.520Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Step-by-step&quot;&gt;&lt;a href=&quot;#Step-by-step&quot; class=&quot;headerlink&quot; title=&quot;Step by step&quot;&gt;&lt;/a&gt;Step by step&lt;/h1&gt;&lt;iframe</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>k8s 和 CICD lab</title>
+    <link href="https://blog.excelsre.com/1984/01/24/cicd-lab/"/>
+    <id>https://blog.excelsre.com/1984/01/24/cicd-lab/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-05-26T12:36:18.380Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://felixyanghui.synology.me:8441/images/2022/10/04/image-20221002110216278.png&quot; alt=&quot;image-20221002110216278&quot;&gt;&lt;/p&gt;
+&lt;h1</summary>
+        
+      
+    
+    
+    
+    
+    <category term="k8s" scheme="https://blog.excelsre.com/tags/k8s/"/>
+    
+    <category term="cicd" scheme="https://blog.excelsre.com/tags/cicd/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>内置函数，工厂函数和魔法函数</title>
+    <link href="https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/"/>
+    <id>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-05-26T12:36:43.440Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;内置函数，工厂函数-和-魔法函数&quot;&gt;&lt;a href=&quot;#内置函数，工厂函数-和-魔法函数&quot; class=&quot;headerlink&quot; title=&quot;内置函数，工厂函数 和 魔法函数&quot;&gt;&lt;/a&gt;内置函数，工厂函数 和 魔法函数&lt;/h1&gt;&lt;h2 id=&quot;内置函数-Built-in-Functions&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="python" scheme="https://blog.excelsre.com/tags/python/"/>
+    
+  </entry>
+  
+</feed>
