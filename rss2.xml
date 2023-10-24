@@ -239,6 +239,34 @@
     </item>
     
     <item>
+      <title>Ansible lab</title>
+      <link>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</guid>
+      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Infra-preparation&quot;&gt;&lt;a href=&quot;#Infra-preparation&quot; class=&quot;headerlink&quot; title=&quot;Infra preparation&quot;&gt;&lt;/a&gt;Infra preparation&lt;/h1&gt;&lt;h2</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/tags/Ansible/">Ansible</category>
+      
+      <category domain="https://blog.excelsre.com/tags/lab/">lab</category>
+      
+      
+      <comments>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>AWS Technical Essentials - Lab</title>
       <link>https://blog.excelsre.com/1984/01/24/aws-saa/</link>
       <guid>https://blog.excelsre.com/1984/01/24/aws-saa/</guid>
@@ -259,40 +287,12 @@
       
       
       
-      <category domain="https://blog.excelsre.com/tags/AWS/">AWS</category>
-      
       <category domain="https://blog.excelsre.com/tags/lab/">lab</category>
+      
+      <category domain="https://blog.excelsre.com/tags/AWS/">AWS</category>
       
       
       <comments>https://blog.excelsre.com/1984/01/24/aws-saa/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Ansible lab</title>
-      <link>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</guid>
-      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Infra-preparation&quot;&gt;&lt;a href=&quot;#Infra-preparation&quot; class=&quot;headerlink&quot; title=&quot;Infra preparation&quot;&gt;&lt;/a&gt;Infra preparation&lt;/h1&gt;&lt;h2</description>
-          
-        
-      
-      
-      
-      
-      
-      <category domain="https://blog.excelsre.com/tags/lab/">lab</category>
-      
-      <category domain="https://blog.excelsre.com/tags/Ansible/">Ansible</category>
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/#disqus_thread</comments>
       
     </item>
     
