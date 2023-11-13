@@ -227,32 +227,6 @@
   </entry>
   
   <entry>
-    <title>Ansible lab</title>
-    <link href="https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/"/>
-    <id>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</id>
-    <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2023-05-26T10:38:34.160Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Infra-preparation&quot;&gt;&lt;a href=&quot;#Infra-preparation&quot; class=&quot;headerlink&quot; title=&quot;Infra preparation&quot;&gt;&lt;/a&gt;Infra preparation&lt;/h1&gt;&lt;h2</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Ansible" scheme="https://blog.excelsre.com/tags/Ansible/"/>
-    
-    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
-    
-  </entry>
-  
-  <entry>
     <title>AWS Technical Essentials - Lab</title>
     <link href="https://blog.excelsre.com/1984/01/24/aws-saa/"/>
     <id>https://blog.excelsre.com/1984/01/24/aws-saa/</id>
@@ -274,9 +248,9 @@
     
     
     
-    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
-    
     <category term="AWS" scheme="https://blog.excelsre.com/tags/AWS/"/>
+    
+    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
     
   </entry>
   
@@ -311,7 +285,7 @@
     <link href="https://blog.excelsre.com/1984/01/24/github-workflow/"/>
     <id>https://blog.excelsre.com/1984/01/24/github-workflow/</id>
     <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2023-05-26T10:30:43.520Z</updated>
+    <updated>2023-11-06T21:24:11.570Z</updated>
     
     
       
@@ -325,6 +299,32 @@
     
     
     
+    
+  </entry>
+  
+  <entry>
+    <title>Ansible lab</title>
+    <link href="https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/"/>
+    <id>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-05-26T10:38:34.160Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Infra-preparation&quot;&gt;&lt;a href=&quot;#Infra-preparation&quot; class=&quot;headerlink&quot; title=&quot;Infra preparation&quot;&gt;&lt;/a&gt;Infra preparation&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
+    
+    <category term="Ansible" scheme="https://blog.excelsre.com/tags/Ansible/"/>
     
   </entry>
   
