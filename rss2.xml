@@ -9,8 +9,39 @@
     <atom:link href="https://blog.excelsre.com/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>人生何处不相逢</description>
-    <pubDate>Mon, 12 Jun 2023 02:35:02 GMT</pubDate>
+    <pubDate>Mon, 20 Nov 2023 05:17:29 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>How to make a bootable windows 10 USB on a Mac</title>
+      <link>https://blog.excelsre.com/2023/11/19/how-to-make-a-bootable-windows-10-usb-on-a-mac/</link>
+      <guid>https://blog.excelsre.com/2023/11/19/how-to-make-a-bootable-windows-10-usb-on-a-mac/</guid>
+      <pubDate>Mon, 20 Nov 2023 05:17:29 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;How-to-make-a-bootable-windows-10-USB-on-a-Mac&quot;&gt;&lt;a href=&quot;#How-to-make-a-bootable-windows-10-USB-on-a-Mac&quot; class=&quot;headerlink&quot; title=&quot;How to make a</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      
+      
+      <category domain="https://blog.excelsre.com/tags/bootable/">bootable</category>
+      
+      <category domain="https://blog.excelsre.com/tags/windows/">windows</category>
+      
+      <category domain="https://blog.excelsre.com/tags/Mac/">Mac</category>
+      
+      
+      <comments>https://blog.excelsre.com/2023/11/19/how-to-make-a-bootable-windows-10-usb-on-a-mac/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>扩展磁盘-GCP VM</title>
@@ -269,58 +300,6 @@
     </item>
     
     <item>
-      <title>Azure AKS</title>
-      <link>https://blog.excelsre.com/1984/01/24/azure/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/azure/</guid>
-      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</description>
-          
-        
-      
-      
-      
-      
-      
-      <category domain="https://blog.excelsre.com/tags/Azure/">Azure</category>
-      
-      <category domain="https://blog.excelsre.com/tags/AKS/">AKS</category>
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/azure/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Github 教程</title>
-      <link>https://blog.excelsre.com/1984/01/24/github-workflow/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/github-workflow/</guid>
-      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Step-by-step&quot;&gt;&lt;a href=&quot;#Step-by-step&quot; class=&quot;headerlink&quot; title=&quot;Step by step&quot;&gt;&lt;/a&gt;Step by step&lt;/h1&gt;&lt;iframe</description>
-          
-        
-      
-      
-      
-      
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/github-workflow/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
       <title>Ansible lab</title>
       <link>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</link>
       <guid>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</guid>
@@ -345,6 +324,34 @@
       
       
       <comments>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Azure AKS</title>
+      <link>https://blog.excelsre.com/1984/01/24/azure/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/azure/</guid>
+      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/tags/Azure/">Azure</category>
+      
+      <category domain="https://blog.excelsre.com/tags/AKS/">AKS</category>
+      
+      
+      <comments>https://blog.excelsre.com/1984/01/24/azure/#disqus_thread</comments>
       
     </item>
     
@@ -374,6 +381,30 @@
       
       
       <comments>https://blog.excelsre.com/1984/01/24/cicd-lab/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Github 教程</title>
+      <link>https://blog.excelsre.com/1984/01/24/github-workflow/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/github-workflow/</guid>
+      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Step-by-step&quot;&gt;&lt;a href=&quot;#Step-by-step&quot; class=&quot;headerlink&quot; title=&quot;Step by step&quot;&gt;&lt;/a&gt;Step by step&lt;/h1&gt;&lt;iframe</description>
+          
+        
+      
+      
+      
+      
+      
+      
+      <comments>https://blog.excelsre.com/1984/01/24/github-workflow/#disqus_thread</comments>
       
     </item>
     
