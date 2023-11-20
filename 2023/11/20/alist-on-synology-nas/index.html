@@ -16,26 +16,27 @@
   <meta name="author" content="Felix Yang">
   <meta name="keywords" content="Python,SRE,Flask,AWS,Azure,运维， 读书">
   
-    <meta name="description" content="How to make a bootable windows 10 USB on a MacInset the USB driverOpen the disk utility and format the USB driver Download the windows 10 ISO filehttps:&#x2F;&#x2F;www.microsoft.com&#x2F;en-us&#x2F;software-download&#x2F;wind">
+    <meta name="description" content="Set up Alist on Synology NASInstall Alist through dockerPreparation Create a folder under docker&#x2F;alist, grant full permission to Everyone  Connect to synology through remote SSH 123felixy@USLC-FELIXY">
 <meta property="og:type" content="article">
-<meta property="og:title" content="How to make a bootable windows 10 USB on a Mac">
-<meta property="og:url" content="https://blog.excelsre.com/2023/11/19/how-to-make-a-bootable-windows-10-usb-on-a-mac/index.html">
+<meta property="og:title" content="Alist on Synology NA">
+<meta property="og:url" content="https://blog.excelsre.com/2023/11/20/alist-on-synology-nas/index.html">
 <meta property="og:site_name" content="Felix Yang&#39;s Blog">
-<meta property="og:description" content="How to make a bootable windows 10 USB on a MacInset the USB driverOpen the disk utility and format the USB driver Download the windows 10 ISO filehttps:&#x2F;&#x2F;www.microsoft.com&#x2F;en-us&#x2F;software-download&#x2F;wind">
+<meta property="og:description" content="Set up Alist on Synology NASInstall Alist through dockerPreparation Create a folder under docker&#x2F;alist, grant full permission to Everyone  Connect to synology through remote SSH 123felixy@USLC-FELIXY">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2023/11/20/image-20231119230448398.png">
-<meta property="article:published_time" content="2023-11-20T05:17:29.199Z">
-<meta property="article:modified_time" content="2023-11-20T05:17:29.200Z">
+<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2023/11/21/image-20231120131921976.png">
+<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2023/11/21/image-20231120132259397.png">
+<meta property="article:published_time" content="2023-11-20T19:07:19.282Z">
+<meta property="article:modified_time" content="2023-11-20T19:23:12.099Z">
 <meta property="article:author" content="Felix Yang">
-<meta property="article:tag" content="bootable">
-<meta property="article:tag" content="windows">
-<meta property="article:tag" content="Mac">
+<meta property="article:tag" content="synology">
+<meta property="article:tag" content="Alist">
+<meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://felixyanghui.synology.me:8441/images/2023/11/20/image-20231119230448398.png">
+<meta name="twitter:image" content="https://felixyanghui.synology.me:8441/images/2023/11/21/image-20231120131921976.png">
   
   
   
-  <title>How to make a bootable windows 10 USB on a Mac - Felix Yang&#39;s Blog</title>
+  <title>Alist on Synology NA - Felix Yang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -203,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">How to make a bootable windows 10 USB on a Mac</span>
+            <span id="subtitle">Alist on Synology NA</span>
           
         </div>
 
@@ -214,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-11-20 13:17" pubdate>
-          2023年11月20日 下午
+        <time datetime="2023-11-21 03:07" pubdate>
+          2023年11月21日 凌晨
         </time>
       </span>
     
@@ -237,7 +238,7 @@
         
         
         
-          14 分钟
+          13 分钟
         
       </span>
     
@@ -274,23 +275,36 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">How to make a bootable windows 10 USB on a Mac</h1>
+            <h1 id="seo-header">Alist on Synology NA</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="How-to-make-a-bootable-windows-10-USB-on-a-Mac"><a href="#How-to-make-a-bootable-windows-10-USB-on-a-Mac" class="headerlink" title="How to make a bootable windows 10 USB on a Mac"></a>How to make a bootable windows 10 USB on a Mac</h1><h2 id="Inset-the-USB-driver"><a href="#Inset-the-USB-driver" class="headerlink" title="Inset the USB driver"></a>Inset the USB driver</h2><h3 id="Open-the-disk-utility-and-format-the-USB-driver"><a href="#Open-the-disk-utility-and-format-the-USB-driver" class="headerlink" title="Open the disk utility and format the USB driver"></a>Open the disk utility and format the USB driver</h3><p><img src="https://felixyanghui.synology.me:8441/images/2023/11/20/image-20231119230448398.png" srcset="/img/loading.gif" lazyload alt="image-20231119230448398"></p>
-<h2 id="Download-the-windows-10-ISO-file"><a href="#Download-the-windows-10-ISO-file" class="headerlink" title="Download the windows 10 ISO file"></a>Download the windows 10 ISO file</h2><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/software-download/windows10ISO">https://www.microsoft.com/en-us/software-download/windows10ISO</a></p>
-<p>Step-0: Double click the ISO file to mount the disk</p>
-<p>Step-1: Copy all the files expect the folder <code>sources</code>  from ISO mounted driver to USB driver</p>
-<p>Step-2: Create a new folder <code>sources</code> in USB driver</p>
-<p>Step-3: Copy all the files except the <code>install.wim</code> under <code>sources</code> folder of ISO mounted driver, into new folder <code>sources</code> in USB driver</p>
-<h2 id="Split-the-big-file-install-wim"><a href="#Split-the-big-file-install-wim" class="headerlink" title="Split the big file: install.wim"></a>Split the big file: <code>install.wim</code></h2><h3 id="Brew-install-wimlib"><a href="#Brew-install-wimlib" class="headerlink" title="Brew install wimlib"></a>Brew install wimlib</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">felixy@USLC-FELIXY-M ~ % brew install wimlib<br>==&gt; Downloading https://formulae.brew.sh/api/formula.jws.json<br><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-comment">######################################################################################################################################################################################################################################################## 100.0%</span></span><br>==&gt; Downloading https://formulae.brew.sh/api/cask.jws.json<br><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-comment">######################################################################################################################################################################################################################################################## 100.0%</span></span><br>Warning: wimlib 1.14.3 is already installed and up-to-date.<br>To reinstall 1.14.3, run:<br>  brew reinstall wimlib<br></code></pre></td></tr></table></figure>
-
-
-
-<h3 id="Split-the-big-file-install-wim-and-output-the-splited-files-to-sources-folder-of-USB-driver"><a href="#Split-the-big-file-install-wim-and-output-the-splited-files-to-sources-folder-of-USB-driver" class="headerlink" title="Split the big file: install.wim and output the splited files to sources folder of USB driver"></a>Split the big file: install.wim and output the splited files to <code>sources</code> folder of USB driver</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">felixy@USLC-FELIXY-M ~ % wimlib-imagex split /Volumes/CCCOMA_X64FRE_ZH-CN_DV9/sources/install.wim /Volumes/WINDOWS10/sources/install.swm 4000 <br>Splitting WIM: 4815 MiB of 4815 MiB (100%) written, part 2 of 2<br>Finished splitting &quot;/Volumes/CCCOMA_X64FRE_ZH-CN_DV9/sources/install.wim&quot;<br></code></pre></td></tr></table></figure>
-
+                <hr>
+<h1 id="Set-up-Alist-on-Synology-NAS"><a href="#Set-up-Alist-on-Synology-NAS" class="headerlink" title="Set up Alist on Synology NAS"></a>Set up Alist on Synology NAS</h1><h2 id="Install-Alist-through-docker"><a href="#Install-Alist-through-docker" class="headerlink" title="Install Alist through docker"></a>Install Alist through docker</h2><h3 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h3><ul>
+<li><p>Create a folder under <code>docker/alist</code>, grant full permission to Everyone</p>
+</li>
+<li><p>Connect to synology through remote SSH</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">felixy@USLC-FELIXY-M ~ % ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 -c aes256-cbc XXX -p XXX<br><br>felix_yanghui@DS218plus:~$ <br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Run-Docker"><a href="#Run-Docker" class="headerlink" title="Run Docker"></a>Run Docker</h3><ul>
+<li><p>Run the docker with docker-cli</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell">felix_yanghui@DS218plus:~$ sudo docker pull xhofe/alist<br>Password: <br>Using default tag: latest<br>latest: Pulling from xhofe/alist<br>7264a8db6415: Pull complete <br>79745e4f888f: Pull complete <br>3c33e08caf6b: Pull complete <br>45f351bad286: Pull complete <br>a98fc4aad311: Pull complete <br>Digest: sha256:1e931c57d9de771f75c5c853231f215ffd8a684563323fa42138beda8ff42e5a<br>Status: Downloaded newer image for xhofe/alist:latest<br>docker.io/xhofe/alist:latest<br><br>felix_yanghui@DS218plus:~$ sudo docker run -d --restart=always -v /volume1/docker/alist:/opt/alist/data -p 5244:5244 -e PUID=0 -e PGID=0 -e UMASK=022 --name=&quot;alist&quot; xhofe/alist:latest<br>4a1fa7bef232bb549e394dd7338932bad8e2cf467da21e50e927e89c07046f0b<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>set up the new password for Alist container</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">felix_yanghui@DS218plus:~$ sudo docker exec -it alist ./alist admin set &quot;xxx&quot;<br>INFO[2023-11-20 18:51:52] reading config file: data/config.json        <br>INFO[2023-11-20 18:51:52] load config from env with prefix: ALIST_     <br>INFO[2023-11-20 18:51:52] init logrus...                               <br>INFO[2023-11-20 18:51:52] admin user has been updated:                 <br>INFO[2023-11-20 18:51:52] username: admin                              <br>INFO[2023-11-20 18:51:52] password: xxx<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Set-up-the-network-connection"><a href="#Set-up-the-network-connection" class="headerlink" title="Set up the network connection"></a>Set up the network connection</h2><ul>
+<li><p>Set up the port maping on router</p>
+<p><img src="https://felixyanghui.synology.me:8441/images/2023/11/21/image-20231120131921976.png" srcset="/img/loading.gif" lazyload alt="image-20231120131921976"></p>
+</li>
+<li><p>Set up the reverse proxy of the FQDN and port </p>
+<ul>
+<li>Control panel - &gt; System - &gt; logon portal - &gt; Advanced - &gt; Reversed proxy</li>
+</ul>
+</li>
+</ul>
+<h2 id="Access-to-the-Alist-portal-from-external-internet"><a href="#Access-to-the-Alist-portal-from-external-internet" class="headerlink" title="Access to the Alist portal from external internet"></a>Access to the Alist portal from external internet</h2><p><img src="https://felixyanghui.synology.me:8441/images/2023/11/21/image-20231120132259397.png" srcset="/img/loading.gif" lazyload alt="image-20231120132259397"></p>
 
                 
               </div>
@@ -299,36 +313,15 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" class="category-chain-item">技术文章</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/bootable/" class="print-no-link">#bootable</a>
+        <a href="/tags/synology/" class="print-no-link">#synology</a>
       
-        <a href="/tags/windows/" class="print-no-link">#windows</a>
+        <a href="/tags/Alist/" class="print-no-link">#Alist</a>
       
-        <a href="/tags/Mac/" class="print-no-link">#Mac</a>
+        <a href="/tags/Docker/" class="print-no-link">#Docker</a>
       
     </div>
   
@@ -340,8 +333,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>How to make a bootable windows 10 USB on a Mac</div>
-      <div>https://blog.excelsre.com/2023/11/19/how-to-make-a-bootable-windows-10-usb-on-a-mac/</div>
+      <div>Alist on Synology NA</div>
+      <div>https://blog.excelsre.com/2023/11/20/alist-on-synology-nas/</div>
     </div>
     <div class="license-meta">
       
@@ -353,7 +346,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年11月20日</div>
+          <div>2023年11月21日</div>
         </div>
       
       
@@ -385,18 +378,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/20/alist-on-synology-nas/" title="Alist on Synology NA">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Alist on Synology NA</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/06/11/kuo-zhan-ci-pan-gcp-vm/" title="扩展磁盘-GCP VM">
-                        <span class="hidden-mobile">扩展磁盘-GCP VM</span>
+                      <a href="/2023/11/19/how-to-make-a-bootable-windows-10-usb-on-a-mac/" title="How to make a bootable windows 10 USB on a Mac">
+                        <span class="hidden-mobile">How to make a bootable windows 10 USB on a Mac</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
