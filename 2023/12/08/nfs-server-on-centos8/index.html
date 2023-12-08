@@ -16,22 +16,26 @@
   <meta name="author" content="Felix Yang">
   <meta name="keywords" content="Python,SRE,Flask,AWS,Azure,运维， 读书">
   
-    <meta name="description" content="[TOC]  博客基本搭建环境准备Hero 文档 Hexo is a fast, simple and powerful blog framework. You write posts in Markdown (or other markup languages) and Hexo generates static files with a beautiful theme in seconds.">
+    <meta name="description" content="NFS server on CentOS8Install and configure NFS serverStep 1: Install NFS Packages:  Open a terminal on your CentOS 8 VM.  Run the following command to install the necessary NFS packages using 1sudo yu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo 博客搭建">
-<meta property="og:url" content="https://blog.excelsre.com/2023/05/28/hexo-bo-ke-da-jian/index.html">
+<meta property="og:title" content="NFS server on CentOS8">
+<meta property="og:url" content="https://blog.excelsre.com/2023/12/08/nfs-server-on-centos8/index.html">
 <meta property="og:site_name" content="Felix Yang&#39;s Blog">
-<meta property="og:description" content="[TOC]  博客基本搭建环境准备Hero 文档 Hexo is a fast, simple and powerful blog framework. You write posts in Markdown (or other markup languages) and Hexo generates static files with a beautiful theme in seconds.">
+<meta property="og:description" content="NFS server on CentOS8Install and configure NFS serverStep 1: Install NFS Packages:  Open a terminal on your CentOS 8 VM.  Run the following command to install the necessary NFS packages using 1sudo yu">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-29T02:45:54.000Z">
-<meta property="article:modified_time" content="2023-05-29T03:50:35.250Z">
+<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2023/12/08/image-20231208113943859.png">
+<meta property="article:published_time" content="2023-12-08T03:28:39.529Z">
+<meta property="article:modified_time" content="2023-12-08T03:40:13.946Z">
 <meta property="article:author" content="Felix Yang">
-<meta property="article:tag" content="hero">
+<meta property="article:tag" content="centos">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="NFS">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://felixyanghui.synology.me:8441/images/2023/12/08/image-20231208113943859.png">
   
   
   
-  <title>Hexo 博客搭建 - Felix Yang&#39;s Blog</title>
+  <title>NFS server on CentOS8 - Felix Yang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +203,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">Hexo 博客搭建</span>
+            <span id="subtitle">NFS server on CentOS8</span>
           
         </div>
 
@@ -210,8 +214,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-05-29 10:45" pubdate>
-          2023年5月29日 上午
+        <time datetime="2023-12-08 11:28" pubdate>
+          2023年12月8日 上午
         </time>
       </span>
     
@@ -222,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          2.7k 字
         
       </span>
     
@@ -233,7 +237,7 @@
         
         
         
-          13 分钟
+          23 分钟
         
       </span>
     
@@ -270,84 +274,104 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Hexo 博客搭建</h1>
+            <h1 id="seo-header">NFS server on CentOS8</h1>
             
             
               <div class="markdown-body">
                 
-                <p>[TOC]</p>
-<hr>
-<h1 id="博客基本搭建"><a href="#博客基本搭建" class="headerlink" title="博客基本搭建"></a>博客基本搭建</h1><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p><a target="_blank" rel="noopener" href="https://hexo.io/docs/">Hero 文档</a></p>
-<p>Hexo is a fast, simple and powerful blog framework. You write posts in <a target="_blank" rel="noopener" href="http://daringfireball.net/projects/markdown/">Markdown</a> (or other markup languages) and Hexo generates static files with a beautiful theme in seconds.</p>
-<h3 id="安装node-和-npm"><a href="#安装node-和-npm" class="headerlink" title="安装node 和 npm"></a>安装node 和 npm</h3><blockquote>
-<p>推荐使用brew install 安装node，安装node会自动安装npm</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">brew install node<br>node -v<br></code></pre></td></tr></table></figure>
-
-<h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install hexo-cli -g<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">hexo 在5.0 之后把swig 删除了，需要手动安装，否则会出现加载theme 出错的问题</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">https://blog.csdn.net/qq_39898645/article/details/109181736</span><br><br>npm install hexo-renderer-swig<br></code></pre></td></tr></table></figure>
-
-<h2 id="利用Hexo-搭建一个博客"><a href="#利用Hexo-搭建一个博客" class="headerlink" title="利用Hexo 搭建一个博客"></a>利用Hexo 搭建一个博客</h2><h3 id="创建博客目录-felixyh-github-io"><a href="#创建博客目录-felixyh-github-io" class="headerlink" title="创建博客目录 felixyh.github.io"></a>创建博客目录 felixyh.github.io</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo init felixyh.github.io<br>cd felixyh.github.io<br>npm install<br></code></pre></td></tr></table></figure>
-
-<h3 id="生成静态页面"><a href="#生成静态页面" class="headerlink" title="生成静态页面"></a>生成静态页面</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo clean<br>hexo g<br></code></pre></td></tr></table></figure>
-
-<h3 id="本地运行"><a href="#本地运行" class="headerlink" title="本地运行"></a>本地运行</h3><blockquote>
-<p>打开浏览器，输入地址 <strong>localhost:4000</strong> 即可看到效果</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo s<br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="Hexo-基本使用"><a href="#Hexo-基本使用" class="headerlink" title="Hexo 基本使用"></a>Hexo 基本使用</h2><h3 id="文章发布"><a href="#文章发布" class="headerlink" title="文章发布"></a>文章发布</h3><ul>
-<li><p>命令行模式</p>
-<ul>
-<li><p>生成文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo new test<br></code></pre></td></tr></table></figure>
-
-<p>在**source&#x2F;_posts&#x2F;**中生成<code>test.md</code>文件，输入内容，并且保存</p>
+                <h1 id="NFS-server-on-CentOS8"><a href="#NFS-server-on-CentOS8" class="headerlink" title="NFS server on CentOS8"></a>NFS server on CentOS8</h1><h2 id="Install-and-configure-NFS-server"><a href="#Install-and-configure-NFS-server" class="headerlink" title="Install and configure NFS server"></a>Install and configure NFS server</h2><p><strong>Step 1: Install NFS Packages:</strong></p>
+<ol>
+<li><p>Open a terminal on your CentOS 8 VM.</p>
 </li>
-<li><p>生成静态页面</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo clean<br>hexo g<br>hexo s<br></code></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>直接在**source&#x2F;_posts&#x2F;**创建<code>.md</code>文件</p>
-</li>
-</ul>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>网站的设置大部分都在**_config.yml**文件中，详细配置可以查看<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration.html">官方文档</a></p>
-<p>下面只列出简单常用配置</p>
-<ul>
-<li><strong>title</strong> -&gt; 网站标题</li>
-<li><strong>subtitle</strong> -&gt; 网站副标题</li>
-<li><strong>description</strong> -&gt; 网站描述</li>
-<li><strong>author</strong> -&gt; 您的名字</li>
-<li><strong>language</strong> -&gt; 网站使用的语言</li>
-</ul>
-<p>坑：<strong>进行配置时，需要在冒号:后加一个英文空格</strong></p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">title:</span> <span class="hljs-string">Droidlover</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="增加评论功能"><a href="#增加评论功能" class="headerlink" title="增加评论功能"></a>增加评论功能</h3><p><a target="_blank" rel="noopener" href="https://minimalism.codeover.cn/docs/start">gitment Demo</a></p>
-<p><a target="_blank" rel="noopener" href="https://minimalism.codeover.cn/docs/start">gitment 教程</a></p>
-<h3 id="换一个好看的主题"><a href="#换一个好看的主题" class="headerlink" title="换一个好看的主题"></a>换一个好看的主题</h3><p>Hexo 中有很多主题，可以在<a target="_blank" rel="noopener" href="https://hexo.io/themes/">官网</a>查看。</p>
-<p>我的博客使用的主题是： <a target="_blank" rel="noopener" href="https://minimalism.codeover.cn/">hexo-theme-minimalism</a></p>
-<p>参考minimalism主题安装步骤：<a target="_blank" rel="noopener" href="https://minimalism.codeover.cn/docs/start">快速开始</a></p>
-<h3 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h3><ol>
-<li><p>创建一个xxx.github.io的public的仓库，也可以使用private 仓库，但是需要付费，<a target="_blank" rel="noopener" href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages">参考github pages</a></p>
-</li>
-<li><p>安装git deployment 插件<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-deployer-git">hexo-deployer-git</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install hexo-deployer-git --save<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>网站配置git</p>
-<blockquote>
-<p>branch 为分支，默认为master。如果github 的分支是main，配置也要改成main</p>
-</blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># Deployment</span><br><span class="hljs-comment">## Docs: https://hexo.io/docs/one-command-deployment</span><br><span class="hljs-attr">deploy:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">git</span><br>  <span class="hljs-attr">repo:</span> <span class="hljs-string">https://github.com/felixyh/felixyh.github.io.git</span><br>  <span class="hljs-attr">branch:</span> <span class="hljs-string">main</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>部署</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo d<br></code></pre></td></tr></table></figure></li>
+<li><p>Run the following command to install the necessary NFS packages using</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo yum install nfs-utils<br></code></pre></td></tr></table></figure></li>
 </ol>
-<h1 id="Github-源代码管理"><a href="#Github-源代码管理" class="headerlink" title="Github 源代码管理"></a>Github 源代码管理</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/71544809">使用git分支保存hexo博客源码到github</a></p>
-<blockquote>
-<p>可以参考上述文章，注意最后推送博客源码到分支的时候，强制推送覆盖github分支上的博客静态页面代码为博客源代码，不然会报错。<code>git push origin source -f</code></p>
-</blockquote>
+<p><strong>Step 2: Configure NFS Exports:</strong></p>
+<ol>
+<li><p>Create a directory that will be shared with NFS clients. For example, let’s create a directory called &#x2F;shared</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">mkdir</span> /shared<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Assign appropriate permissions to the shared directory:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">chmod</span> -R 777 /shared<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Open the <code>/etc/exports</code> file in a text editor:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo vi /etc/exports<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Add an entry in the file to define the shared directory and specify the allowed NFS clients. For example:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/shared 192.168.1.0/24(rw,<span class="hljs-built_in">sync</span>,no_root_squash)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>/shared</code>: Path to the directory you created.</li>
+<li><code>192.168.1.0/24</code>: IP address range or specific IP of the NFS clients allowed to access the shared directory.</li>
+<li><code>rw</code>: Allows read and write access.</li>
+<li><code>sync</code>: Synchronizes changes to the disk before acknowledging the request.</li>
+<li><code>no_root_squash</code>: Allows the root user on the NFS client to have root privileges on the NFS server.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Step 3: Start and Enable NFS Services:</strong></p>
+<ol>
+<li><p>Start the NFS server service:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo systemctl start nfs-server<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Enable the NFS server service to start automatically at boot:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo systemctl <span class="hljs-built_in">enable</span> nfs-server<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>Step 4: Configure Firewall for NFS:</strong></p>
+<ol>
+<li><p>If you have a firewall enabled, open the necessary ports for NFS:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo firewall-cmd --permanent --zone=public --add-service=nfs<br>sudo firewall-cmd --permanent --zone=public --add-service=mountd<br>sudo firewall-cmd --permanent --zone=public --add-service=rpc-bind<br>sudo firewall-cmd --reload<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>Step 5: Export the Shared Directory:</strong></p>
+<ol>
+<li><p>Export the shared directory by running the following command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo exportfs -r<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>Step 6: Test NFS Access:</strong></p>
+<ol>
+<li><p>On a client machine, ensure that the NFS utilities package is installed. If not, install it using <code>sudo dnf install nfs-utils</code>.</p>
+</li>
+<li><p>Create a directory on the client machine where you want to mount the NFS share. For example, let’s create a directory called</p>
+<p> <code>/mnt/nfs</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">mkdir</span> /mnt/nfs<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Mount the NFS share from the server to the client:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo mount server_ip:/shared /mnt/nfs<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Replace <code>server_ip</code> with the IP address of your NFS server.</li>
+</ul>
+</li>
+<li><p>Verify that the NFS share is mounted successfully by accessing the <code>/mnt/nfs</code> directory on the client.</p>
+</li>
+</ol>
+<h2 id="Access-NFS-server-shared-folder-from-windows"><a href="#Access-NFS-server-shared-folder-from-windows" class="headerlink" title="Access NFS server shared folder from windows"></a>Access NFS server shared folder from windows</h2><p><strong>Step 1: Enable NFS Client Feature:</strong></p>
+<ol>
+<li>Open the “Control Panel” on your Windows machine.</li>
+<li>Go to “Programs” or “Programs and Features”.</li>
+<li>Click on “Turn Windows features on or off”.</li>
+<li>Scroll down and locate “Services for NFS”.</li>
+<li>Check the box next to “Client for NFS”.</li>
+<li>Click “OK” and wait for the feature to be installed.</li>
+</ol>
+<p><strong>Step 2: Mount the NFS Share:</strong></p>
+<ol>
+<li><p>Open the “File Explorer” on your Windows machine.</p>
+</li>
+<li><p>In the address bar, enter the following command, replacing <code>nfs_server_ip</code> with the IP address of your NFS server and <code>shared_directory</code> with the path to the shared directory on the NFS server:</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ceylon">\\nfs<span class="hljs-number">_</span>server<span class="hljs-number">_</span>ip\<span class="hljs-keyword">shared</span><span class="hljs-number">_</span>directory<br></code></pre></td></tr></table></figure>
+
+<p>For example:</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">\\<span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.100</span>\<span class="hljs-keyword">shared</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Press Enter or click on the arrow button to access the NFS share.</p>
+</li>
+<li><p>If prompted, enter the appropriate credentials to access the NFS share (if the NFS server requires authentication).</p>
+</li>
+<li><p>Optional: Use web browser to access the shared folder:</p>
+<p><img src="https://felixyanghui.synology.me:8441/images/2023/12/08/image-20231208113943859.png" srcset="/img/loading.gif" lazyload alt="image-20231208113943859"></p>
+</li>
+</ol>
 
                 
               </div>
@@ -356,11 +380,36 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" class="category-chain-item">技术文章</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/hero/" class="print-no-link">#hero</a>
+        <a href="/tags/centos/" class="print-no-link">#centos</a>
+      
+        <a href="/tags/linux/" class="print-no-link">#linux</a>
+      
+        <a href="/tags/NFS/" class="print-no-link">#NFS</a>
       
     </div>
   
@@ -372,8 +421,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Hexo 博客搭建</div>
-      <div>https://blog.excelsre.com/2023/05/28/hexo-bo-ke-da-jian/</div>
+      <div>NFS server on CentOS8</div>
+      <div>https://blog.excelsre.com/2023/12/08/nfs-server-on-centos8/</div>
     </div>
     <div class="license-meta">
       
@@ -385,7 +434,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年5月29日</div>
+          <div>2023年12月8日</div>
         </div>
       
       
@@ -417,18 +466,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/05/30/openai-gpt-for-python-developers/" title="OpenAI GPT For Python Developers">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">OpenAI GPT For Python Developers</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/05/26/ke-xue-shang-wang/" title="科学上网">
-                        <span class="hidden-mobile">科学上网</span>
+                      <a href="/2023/11/21/alist-on-synology-nas/" title="Alist on Synology NA">
+                        <span class="hidden-mobile">Alist on Synology NA</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -625,7 +625,7 @@
 <ul>
 <li><p>configure source code management with git</p>
 </li>
-<li><p>Repository URL: ssh:&#x2F;&#x2F;<a href="mailto:&#103;&#105;&#x74;&#x40;&#x31;&#57;&#x32;&#x2e;&#x31;&#54;&#x38;&#x2e;&#50;&#50;&#46;&#x38;&#x35;">&#103;&#105;&#x74;&#x40;&#x31;&#57;&#x32;&#x2e;&#x31;&#54;&#x38;&#x2e;&#50;&#50;&#46;&#x38;&#x35;</a>&#x2F;myapp&#x2F;test.git</p>
+<li><p>Repository URL: ssh:&#x2F;&#x2F;<a href="mailto:&#x67;&#x69;&#x74;&#x40;&#49;&#57;&#x32;&#46;&#49;&#54;&#56;&#x2e;&#x32;&#x32;&#x2e;&#56;&#53;">&#x67;&#x69;&#x74;&#x40;&#49;&#57;&#x32;&#46;&#49;&#54;&#56;&#x2e;&#x32;&#x32;&#x2e;&#56;&#53;</a>&#x2F;myapp&#x2F;test.git</p>
 </li>
 <li><p>If there’s error “<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/15174194/jenkins-host-key-verification-failed">Jenkins Host key verification failed</a>“ , <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/15174194/jenkins-host-key-verification-failed">refer to this solution</a>.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo su -s /bin/bash jenkins<br>git ls-remote -h -- ssh://git@192.168.22.85/myapp/test.git HEAD<br><br><span class="hljs-built_in">cat</span> ~/.ssh/known_hosts<br></code></pre></td></tr></table></figure></li>

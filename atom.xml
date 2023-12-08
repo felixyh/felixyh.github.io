@@ -6,7 +6,7 @@
   <link href="https://blog.excelsre.com/atom.xml" rel="self"/>
   
   <link href="https://blog.excelsre.com/"/>
-  <updated>2023-11-20T19:23:12.099Z</updated>
+  <updated>2023-12-08T03:40:13.946Z</updated>
   <id>https://blog.excelsre.com/</id>
   
   <author>
@@ -17,11 +17,40 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>NFS server on CentOS8</title>
+    <link href="https://blog.excelsre.com/2023/12/08/nfs-server-on-centos8/"/>
+    <id>https://blog.excelsre.com/2023/12/08/nfs-server-on-centos8/</id>
+    <published>2023-12-08T03:28:39.529Z</published>
+    <updated>2023-12-08T03:40:13.946Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;NFS-server-on-CentOS8&quot;&gt;&lt;a href=&quot;#NFS-server-on-CentOS8&quot; class=&quot;headerlink&quot; title=&quot;NFS server on CentOS8&quot;&gt;&lt;/a&gt;NFS server on CentOS8&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="技术文章" scheme="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"/>
+    
+    
+    <category term="centos" scheme="https://blog.excelsre.com/tags/centos/"/>
+    
+    <category term="linux" scheme="https://blog.excelsre.com/tags/linux/"/>
+    
+    <category term="NFS" scheme="https://blog.excelsre.com/tags/NFS/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Alist on Synology NA</title>
-    <link href="https://blog.excelsre.com/2023/11/20/alist-on-synology-nas/"/>
-    <id>https://blog.excelsre.com/2023/11/20/alist-on-synology-nas/</id>
+    <link href="https://blog.excelsre.com/2023/11/21/alist-on-synology-nas/"/>
+    <id>https://blog.excelsre.com/2023/11/21/alist-on-synology-nas/</id>
     <published>2023-11-20T19:07:19.282Z</published>
-    <updated>2023-11-20T19:23:12.099Z</updated>
+    <updated>2023-11-20T21:36:00.572Z</updated>
     
     
       
@@ -46,8 +75,8 @@
   
   <entry>
     <title>How to make a bootable windows 10 USB on a Mac</title>
-    <link href="https://blog.excelsre.com/2023/11/19/how-to-make-a-bootable-windows-10-usb-on-a-mac/"/>
-    <id>https://blog.excelsre.com/2023/11/19/how-to-make-a-bootable-windows-10-usb-on-a-mac/</id>
+    <link href="https://blog.excelsre.com/2023/11/20/how-to-make-a-bootable-windows-10-usb-on-a-mac/"/>
+    <id>https://blog.excelsre.com/2023/11/20/how-to-make-a-bootable-windows-10-usb-on-a-mac/</id>
     <published>2023-11-20T05:17:29.199Z</published>
     <updated>2023-11-20T05:17:29.200Z</updated>
     
@@ -75,8 +104,8 @@
   
   <entry>
     <title>扩展磁盘-GCP VM</title>
-    <link href="https://blog.excelsre.com/2023/06/11/kuo-zhan-ci-pan-gcp-vm/"/>
-    <id>https://blog.excelsre.com/2023/06/11/kuo-zhan-ci-pan-gcp-vm/</id>
+    <link href="https://blog.excelsre.com/2023/06/12/kuo-zhan-ci-pan-gcp-vm/"/>
+    <id>https://blog.excelsre.com/2023/06/12/kuo-zhan-ci-pan-gcp-vm/</id>
     <published>2023-06-12T02:00:12.000Z</published>
     <updated>2023-06-12T02:35:02.960Z</updated>
     
@@ -136,8 +165,8 @@
   
   <entry>
     <title>科学上网 - 最佳实践</title>
-    <link href="https://blog.excelsre.com/2023/06/05/ke-xue-shang-wang-zui-jia-shi-jian/"/>
-    <id>https://blog.excelsre.com/2023/06/05/ke-xue-shang-wang-zui-jia-shi-jian/</id>
+    <link href="https://blog.excelsre.com/2023/06/06/ke-xue-shang-wang-zui-jia-shi-jian/"/>
+    <id>https://blog.excelsre.com/2023/06/06/ke-xue-shang-wang-zui-jia-shi-jian/</id>
     <published>2023-06-06T01:22:44.000Z</published>
     <updated>2023-06-06T03:34:10.240Z</updated>
     
@@ -192,8 +221,8 @@
   
   <entry>
     <title>Hexo 博客搭建</title>
-    <link href="https://blog.excelsre.com/2023/05/28/hexo-bo-ke-da-jian/"/>
-    <id>https://blog.excelsre.com/2023/05/28/hexo-bo-ke-da-jian/</id>
+    <link href="https://blog.excelsre.com/2023/05/29/hexo-bo-ke-da-jian/"/>
+    <id>https://blog.excelsre.com/2023/05/29/hexo-bo-ke-da-jian/</id>
     <published>2023-05-29T02:45:54.000Z</published>
     <updated>2023-05-29T03:50:35.250Z</updated>
     
@@ -241,27 +270,6 @@
   </entry>
   
   <entry>
-    <title>Hello World</title>
-    <link href="https://blog.excelsre.com/2023/05/26/hello-world/"/>
-    <id>https://blog.excelsre.com/2023/05/26/hello-world/</id>
-    <published>2023-05-26T10:00:46.000Z</published>
-    <updated>2023-05-26T10:00:46.530Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>python 学习之旅总结</title>
     <link href="https://blog.excelsre.com/2023/05/26/xiaojiayu/"/>
     <id>https://blog.excelsre.com/2023/05/26/xiaojiayu/</id>
@@ -275,6 +283,27 @@
         
     <summary type="html">&lt;hr&gt;
 &lt;h1 id=&quot;000-愉快的开始&quot;&gt;&lt;a href=&quot;#000-愉快的开始&quot; class=&quot;headerlink&quot; title=&quot;000. 愉快的开始&quot;&gt;&lt;/a&gt;000. 愉快的开始&lt;/h1&gt;&lt;h1 id=&quot;001-我和Python的第一次亲密接触&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://blog.excelsre.com/2023/05/26/hello-world/"/>
+    <id>https://blog.excelsre.com/2023/05/26/hello-world/</id>
+    <published>2023-05-26T10:00:46.000Z</published>
+    <updated>2023-05-26T10:00:46.530Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you</summary>
         
       
     
@@ -312,32 +341,6 @@
   </entry>
   
   <entry>
-    <title>Azure AKS</title>
-    <link href="https://blog.excelsre.com/1984/01/24/azure/"/>
-    <id>https://blog.excelsre.com/1984/01/24/azure/</id>
-    <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2023-05-26T10:32:37.090Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Azure" scheme="https://blog.excelsre.com/tags/Azure/"/>
-    
-    <category term="AKS" scheme="https://blog.excelsre.com/tags/AKS/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Ansible lab</title>
     <link href="https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/"/>
     <id>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</id>
@@ -360,6 +363,32 @@
     <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
     
     <category term="Ansible" scheme="https://blog.excelsre.com/tags/Ansible/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure AKS</title>
+    <link href="https://blog.excelsre.com/1984/01/24/azure/"/>
+    <id>https://blog.excelsre.com/1984/01/24/azure/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-05-26T10:32:37.090Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://blog.excelsre.com/tags/Azure/"/>
+    
+    <category term="AKS" scheme="https://blog.excelsre.com/tags/AKS/"/>
     
   </entry>
   
