@@ -1,0 +1,656 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Felix Yang">
+  <meta name="keywords" content="Python,SRE,Flask,AWS,Azure,运维， 读书">
+  
+    <meta name="description" content="Quick StartLinux VM provision in Batch with TerraformStep 1: Create the linux vm template Step 2: Use Terraform to provision the VM in batch, sample main.tf file as below: 1234567891011121314151617181">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Felix Yang&#39;s Blog">
+<meta property="og:url" content="https://blog.excelsre.com/2023/12/10/build-testing-lab-in-local-dc-with-terraform-and-ansible/index.html">
+<meta property="og:site_name" content="Felix Yang&#39;s Blog">
+<meta property="og:description" content="Quick StartLinux VM provision in Batch with TerraformStep 1: Create the linux vm template Step 2: Use Terraform to provision the VM in batch, sample main.tf file as below: 1234567891011121314151617181">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-10T12:42:04.138Z">
+<meta property="article:modified_time" content="2023-12-10T13:17:16.471Z">
+<meta property="article:author" content="Felix Yang">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="SRE">
+<meta property="article:tag" content="Flask">
+<meta property="article:tag" content="AWS">
+<meta property="article:tag" content="Azure">
+<meta property="article:tag" content="运维， 读书">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Felix Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.excelsre.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":120,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Felix Yang's Blog" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Felix Yang's Blog" type="application/rss+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>大良造</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-10 20:42" pubdate>
+          2023年12月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          22k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          183 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h1><h2 id="Linux-VM-provision-in-Batch-with-Terraform"><a href="#Linux-VM-provision-in-Batch-with-Terraform" class="headerlink" title="Linux VM provision in Batch with Terraform"></a>Linux VM provision in Batch with Terraform</h2><p><strong>Step 1: Create the linux vm template</strong></p>
+<p><strong>Step 2: Use Terraform to provision the VM in batch, sample <code>main.tf</code> file as below:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@centos-0 ansible]<span class="hljs-comment"># cat ../terraform/sre-vsphere-lab/main.tf </span><br><span class="hljs-comment"># Configure the VMware vSphere Provider</span><br>provider <span class="hljs-string">&quot;vsphere&quot;</span> &#123;<br>  user           = <span class="hljs-string">&quot;administrator@vsphere.local&quot;</span><br>  password       = <span class="hljs-string">&quot;xxxx&quot;</span><br>  vsphere_server = <span class="hljs-string">&quot;xx.xx.xx.xx&quot;</span><br><br>  <span class="hljs-comment"># if you have a self-signed cert</span><br>  allow_unverified_ssl = <span class="hljs-literal">true</span><br>&#125;<br><br><span class="hljs-comment"># Deploy 3 linux VMs</span><br>module <span class="hljs-string">&quot;centos-server-linuxvm&quot;</span> &#123;<br>  <span class="hljs-built_in">source</span>    = <span class="hljs-string">&quot;Terraform-VMWare-Modules/vm/vsphere&quot;</span><br>  <span class="hljs-comment">#source    = &quot;.terraform/modules/centos-server-linuxvm&quot;</span><br>  version   = <span class="hljs-string">&quot;3.5.0&quot;</span><br>  vmtemp    = <span class="hljs-string">&quot;centos7&quot;</span><br>  instances = 3<br>  vmname    = <span class="hljs-string">&quot;CentOS&quot;</span><br>  vmnameformat  = <span class="hljs-string">&quot;%03d&quot;</span> <span class="hljs-comment">#To use three decimal with leading zero vmnames will be AdvancedVM001,AdvancedVM002</span><br>  vmrp      = <span class="hljs-string">&quot;USSRE/Resources/felix&quot;</span><br>  network = &#123;<br>    <span class="hljs-string">&quot;VM Network&quot;</span> = [<span class="hljs-string">&quot;10.52.184.221&quot;</span>, <span class="hljs-string">&quot;10.52.184.222&quot;</span>, <span class="hljs-string">&quot;10.52.184.223&quot;</span>] <span class="hljs-comment"># To use DHCP create Empty list [&quot;&quot;,&quot;&quot;]; You can also use a CIDR annotation;</span><br>  &#125;<br>  vmgateway = <span class="hljs-string">&quot;xx.xx.xx.xx&quot;</span><br>  dc        = <span class="hljs-string">&quot;USRELAB&quot;</span><br>  datastore = <span class="hljs-string">&quot;data&quot;</span><br>  ipv4submask  = [<span class="hljs-string">&quot;16&quot;</span>, <span class="hljs-string">&quot;16&quot;</span>, <span class="hljs-string">&quot;16&quot;</span>]<br>  network_type = [<span class="hljs-string">&quot;vmxnet3&quot;</span>, <span class="hljs-string">&quot;vmxnet3&quot;</span>, <span class="hljs-string">&quot;vmxnet3&quot;</span>]<br>  dns_server_list  = [<span class="hljs-string">&quot;10.52.191.10&quot;</span>, <span class="hljs-string">&quot;10.52.191.10&quot;</span>, <span class="hljs-string">&quot;10.52.191.10&quot;</span>]<br>  is_windows_image = <span class="hljs-literal">false</span><br>&#125;<br><br>output <span class="hljs-string">&quot;vmnames&quot;</span> &#123;<br>  value = module.centos-server-linuxvm.VM<br>&#125;<br><br>output <span class="hljs-string">&quot;vmnameswip&quot;</span> &#123;<br>  value = module.centos-server-linuxvm.ip<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>Step 3: Run the terraform yaml file as below</strong></p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs coq">terraform init<br>terraform plan<br>terraform <span class="hljs-built_in">apply</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="Use-Ansible-to-manage-the-Linux-VM-and-set-up-the-k8s-cluster"><a href="#Use-Ansible-to-manage-the-Linux-VM-and-set-up-the-k8s-cluster" class="headerlink" title="Use Ansible to manage the Linux VM and set up the k8s cluster"></a>Use Ansible to manage the Linux VM and set up the k8s cluster</h2><p><strong>Topology:</strong></p>
+<ul>
+<li>1 CentOS 7 VM for the Kubernetes Master (e.g., 192.168.0.10)</li>
+<li>2 CentOS 7 VMs for the Kubernetes Nodes (e.g., 192.168.0.11, 192.168.0.12)</li>
+</ul>
+<p><strong>Step 1: Prepare the Control Node:</strong></p>
+<ul>
+<li><p>Set up a separate CentOS 7 VM as your Ansible control node.</p>
+</li>
+<li><p>Install Ansible on the control node using the following command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo yum install ansible<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create ansible.cfg file under the working folder (same folder with yml files), set <code>host_key_checking=false</code> </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@centos-0 ansible]<span class="hljs-comment"># cat ansible.cfg </span><br>[defaults]<br>host_key_checking=<span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+
+<p>This is to ignore SSH authenticity checking, to avoid any human intervention in the middle of the script execution for below prompts:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-section"># GATHERING FACTS <span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">***</span></span><br><span class="hljs-strong"><span class="hljs-section"># The authenticity of host &#x27;xxx.xxx.xxx.xxx (xxx.xxx.xxx.xxx)&#x27; can&#x27;t be established.</span></span><br><span class="hljs-strong"><span class="hljs-section"># RSA key fingerprint is xx:yy:zz:....</span></span><br><span class="hljs-strong"><span class="hljs-section"># Are you sure you want to continue connecting (yes/no)?</span></span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>Step 2: Set up Inventory and Hosts File:</strong></p>
+<ul>
+<li><p>Create an inventory file on the control node, e.g., <code>inventory.ini</code> with the following content:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">[masters]<br>192.168.0.10<br><br>[workers]<br>192.168.0.11<br>192.168.0.12<br><br>[all:vars]<br>ansible_user=root<br>ansible_ssh_pass=your_ssh_password<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Test the SSH connection to the linux VM</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@centos-0 ansible]<span class="hljs-comment"># ansible -i inventory.ini all -m ping</span><br>10.52.184.222 | SUCCESS =&gt; &#123;<br>    <span class="hljs-string">&quot;ansible_facts&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;discovered_interpreter_python&quot;</span>: <span class="hljs-string">&quot;/usr/bin/python&quot;</span><br>    &#125;, <br>    <span class="hljs-string">&quot;changed&quot;</span>: <span class="hljs-literal">false</span>, <br>    <span class="hljs-string">&quot;ping&quot;</span>: <span class="hljs-string">&quot;pong&quot;</span><br>&#125;<br>10.52.184.223 | SUCCESS =&gt; &#123;<br>    <span class="hljs-string">&quot;ansible_facts&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;discovered_interpreter_python&quot;</span>: <span class="hljs-string">&quot;/usr/bin/python&quot;</span><br>    &#125;, <br>    <span class="hljs-string">&quot;changed&quot;</span>: <span class="hljs-literal">false</span>, <br>    <span class="hljs-string">&quot;ping&quot;</span>: <span class="hljs-string">&quot;pong&quot;</span><br>&#125;<br>10.52.184.221 | SUCCESS =&gt; &#123;<br>    <span class="hljs-string">&quot;ansible_facts&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;discovered_interpreter_python&quot;</span>: <span class="hljs-string">&quot;/usr/bin/python&quot;</span><br>    &#125;, <br>    <span class="hljs-string">&quot;changed&quot;</span>: <span class="hljs-literal">false</span>, <br>    <span class="hljs-string">&quot;ping&quot;</span>: <span class="hljs-string">&quot;pong&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>Step 3: Create Ansible Playbook:</strong></p>
+<ul>
+<li><p>Create a playbook file, e.g., <code>kubernetes-setup.yml</code> with the following content:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span> <span class="hljs-string">all</span><br>  <span class="hljs-attr">become:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">vars:</span><br>    <span class="hljs-attr">k8s_version:</span> <span class="hljs-string">&quot;1.28.2&quot;</span><br>    <span class="hljs-attr">kubelet_version:</span> <span class="hljs-string">&quot;1.28.2&quot;</span><br>    <span class="hljs-attr">container_runtime:</span> <span class="hljs-string">&quot;containerd&quot;</span><br>    <span class="hljs-attr">master_ip:</span> <span class="hljs-string">&quot;10.52.184.221&quot;</span><br>    <span class="hljs-attr">pod_subnet:</span> <span class="hljs-string">&quot;10.244.0.0/16&quot;</span><br>    <span class="hljs-attr">service_subnet:</span> <span class="hljs-string">&quot;your_service_subnet&quot;</span><br><br>  <span class="hljs-attr">tasks:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Configure</span> <span class="hljs-string">Kubernetes</span> <span class="hljs-string">Yum</span> <span class="hljs-string">repository</span><br>      <span class="hljs-attr">copy:</span><br>        <span class="hljs-attr">dest:</span> <span class="hljs-string">&quot;/etc/yum.repos.d/kubernetes.repo&quot;</span><br>        <span class="hljs-attr">content:</span> <span class="hljs-string">|</span><br><span class="hljs-string">          [kubernetes]</span><br><span class="hljs-string">          name=Kubernetes</span><br><span class="hljs-string">          baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/</span><br><span class="hljs-string">          enabled=1</span><br><span class="hljs-string">          gpgcheck=0</span><br><span class="hljs-string">          repo_gpgcheck=0</span><br><span class="hljs-string">          gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</span><br><span class="hljs-string"></span>      <span class="hljs-attr">notify:</span> <span class="hljs-string">Reload</span> <span class="hljs-string">Repository</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Set</span> <span class="hljs-string">SELinux</span> <span class="hljs-string">to</span> <span class="hljs-string">permissive</span> <span class="hljs-string">mode</span><br>      <span class="hljs-attr">selinux:</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">permissive</span><br>        <span class="hljs-attr">policy:</span> <span class="hljs-string">targeted</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Disable</span> <span class="hljs-string">firewalld</span><br>      <span class="hljs-attr">systemd:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">firewalld</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">stopped</span><br>        <span class="hljs-attr">enabled:</span> <span class="hljs-literal">no</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Allow</span> <span class="hljs-string">ports</span> <span class="hljs-number">6443 </span><span class="hljs-string">and</span> <span class="hljs-number">10250</span> <span class="hljs-string">in</span> <span class="hljs-string">firewall</span> <span class="hljs-string">using</span> <span class="hljs-string">iptables</span><br>      <span class="hljs-attr">iptables:</span><br>        <span class="hljs-attr">chain:</span> <span class="hljs-string">INPUT</span><br>        <span class="hljs-attr">protocol:</span> <span class="hljs-string">tcp</span><br>        <span class="hljs-attr">destination_port:</span> <span class="hljs-string">&quot;<span class="hljs-template-variable">&#123;&#123; item &#125;&#125;</span>&quot;</span><br>        <span class="hljs-attr">jump:</span> <span class="hljs-string">ACCEPT</span><br>      <span class="hljs-attr">with_items:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-number">6443</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-number">10250</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Disable</span> <span class="hljs-string">swap</span><br>      <span class="hljs-attr">command:</span> <span class="hljs-string">swapoff</span> <span class="hljs-string">-a</span><br>      <span class="hljs-attr">ignore_errors:</span> <span class="hljs-literal">yes</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Comment</span> <span class="hljs-string">out</span> <span class="hljs-string">swap</span> <span class="hljs-string">entry</span> <span class="hljs-string">in</span> <span class="hljs-string">/etc/fstab</span><br>      <span class="hljs-attr">lineinfile:</span><br>        <span class="hljs-attr">path:</span> <span class="hljs-string">/etc/fstab</span><br>        <span class="hljs-attr">regexp:</span> <span class="hljs-string">&#x27;^/dev/mapper/.*swap.*$&#x27;</span><br>        <span class="hljs-attr">line:</span> <span class="hljs-string">&#x27;# <span class="hljs-template-variable">&#123;&#123; item &#125;&#125;</span>&#x27;</span><br>      <span class="hljs-attr">with_items:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;UUID=xxxxxxxxxx   none            swap    sw              0       0&quot;</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Enable</span> <span class="hljs-string">bridge</span> <span class="hljs-string">and</span> <span class="hljs-string">IP</span> <span class="hljs-string">forwarding</span><br>      <span class="hljs-attr">command:</span> <span class="hljs-string">&quot;<span class="hljs-template-variable">&#123;&#123; item &#125;&#125;</span>&quot;</span><br>      <span class="hljs-attr">with_items:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;modprobe br_netfilter&quot;</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;sysctl net.bridge.bridge-nf-call-iptables=1&quot;</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;sysctl net.ipv4.ip_forward=1&quot;</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Update</span> <span class="hljs-string">system</span> <span class="hljs-string">packages</span><br>      <span class="hljs-attr">yum:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;*&quot;</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">latest</span><br>        <span class="hljs-attr">update_cache:</span> <span class="hljs-literal">yes</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Add</span> <span class="hljs-string">Containerd</span> <span class="hljs-string">repository</span><br>      <span class="hljs-attr">yum_repository:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">containerd</span><br>        <span class="hljs-attr">description:</span> <span class="hljs-string">Containerd</span> <span class="hljs-string">Repository</span><br>        <span class="hljs-attr">baseurl:</span> <span class="hljs-string">https://download.docker.com/linux/centos/7/$basearch/stable</span><br>        <span class="hljs-attr">gpgkey:</span> <span class="hljs-string">https://download.docker.com/linux/centos/gpg</span><br>        <span class="hljs-attr">enabled:</span> <span class="hljs-literal">yes</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Install</span> <span class="hljs-string">Containerd</span><br>      <span class="hljs-attr">yum:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">containerd.io</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">present</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Configure</span> <span class="hljs-string">Containerd</span><br>      <span class="hljs-attr">copy:</span><br>        <span class="hljs-attr">content:</span> <span class="hljs-string">|</span><br><span class="hljs-string">          [plugins.&quot;io.containerd.grpc.v1.cri&quot;.containerd.runtimes.runc]</span><br><span class="hljs-string">            runtime_type = &quot;io.containerd.runc.v2&quot;</span><br><span class="hljs-string"></span><br>          [<span class="hljs-string">plugins.&quot;io.containerd.grpc.v1.cri&quot;.containerd.runtimes.containerd</span>]<br>            <span class="hljs-string">runtime_type</span> <span class="hljs-string">=</span> <span class="hljs-string">&quot;io.containerd.runtime.v1.linux&quot;</span><br>        <span class="hljs-attr">dest:</span> <span class="hljs-string">/etc/containerd/config.toml</span><br>        <span class="hljs-attr">owner:</span> <span class="hljs-string">root</span><br>        <span class="hljs-attr">group:</span> <span class="hljs-string">root</span><br>        <span class="hljs-attr">mode:</span> <span class="hljs-number">0644</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Start</span> <span class="hljs-string">and</span> <span class="hljs-string">enable</span> <span class="hljs-string">Containerd</span> <span class="hljs-string">service</span><br>      <span class="hljs-attr">service:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">containerd</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">started</span><br>        <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Install</span> <span class="hljs-string">Kubernetes</span> <span class="hljs-string">components</span><br>      <span class="hljs-attr">yum:</span><br>        <span class="hljs-attr">name:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">kubelet-&#123;&#123;</span> <span class="hljs-string">k8s_version</span> <span class="hljs-string">&#125;&#125;</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">kubeadm-&#123;&#123;</span> <span class="hljs-string">k8s_version</span> <span class="hljs-string">&#125;&#125;</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">kubectl-&#123;&#123;</span> <span class="hljs-string">k8s_version</span> <span class="hljs-string">&#125;&#125;</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">present</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Enable</span> <span class="hljs-string">and</span> <span class="hljs-string">start</span> <span class="hljs-string">kubelet</span> <span class="hljs-string">service</span><br>      <span class="hljs-attr">service:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">kubelet</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">started</span><br>        <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br><br>  <span class="hljs-attr">handlers:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Reload</span> <span class="hljs-string">Repository</span><br>      <span class="hljs-attr">yum:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;*&quot;</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">present</span><br>        <span class="hljs-attr">enablerepo:</span> <span class="hljs-string">kubernetes</span><br>        <span class="hljs-attr">disablerepo:</span> <span class="hljs-string">&quot;*&quot;</span><br>        <span class="hljs-attr">update_cache:</span> <span class="hljs-literal">yes</span><br><br><br><span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span> <span class="hljs-string">masters</span><br>  <span class="hljs-attr">become:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">vars:</span><br>    <span class="hljs-attr">k8s_version:</span> <span class="hljs-string">&quot;1.28.2&quot;</span><br>    <span class="hljs-attr">kubelet_version:</span> <span class="hljs-string">&quot;1.28.2&quot;</span><br>    <span class="hljs-attr">container_runtime:</span> <span class="hljs-string">&quot;containerd&quot;</span><br>    <span class="hljs-attr">master_ip:</span> <span class="hljs-string">&quot;10.52.184.221&quot;</span><br>    <span class="hljs-attr">pod_subnet:</span> <span class="hljs-string">&quot;10.244.0.0/16&quot;</span><br>    <span class="hljs-attr">service_subnet:</span> <span class="hljs-string">&quot;your_service_subnet&quot;</span><br>    <br>  <span class="hljs-attr">tasks:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Set</span> <span class="hljs-string">bridge-nf-call-iptables</span> <span class="hljs-string">to</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">shell:</span> <span class="hljs-string">sysctl</span> <span class="hljs-string">net.bridge.bridge-nf-call-iptables=1</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Initialize</span> <span class="hljs-string">Kubernetes</span> <span class="hljs-string">master</span><br>      <span class="hljs-attr">shell:</span> <span class="hljs-string">kubeadm</span> <span class="hljs-string">init</span> <span class="hljs-string">--kubernetes-version=&#123;&#123;</span> <span class="hljs-string">k8s_version</span> <span class="hljs-string">&#125;&#125;</span> <span class="hljs-string">--pod-network-cidr=&#123;&#123;</span> <span class="hljs-string">pod_subnet</span> <span class="hljs-string">&#125;&#125;</span> <span class="hljs-string">--apiserver-advertise-address=&#123;&#123;</span> <span class="hljs-string">master_ip</span> <span class="hljs-string">&#125;&#125;</span><br>      <span class="hljs-attr">register:</span> <span class="hljs-string">kubeadm_output</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Set</span> <span class="hljs-string">kubeadm</span> <span class="hljs-string">output</span> <span class="hljs-string">on</span> <span class="hljs-string">master</span> <span class="hljs-string">node</span><br>      <span class="hljs-attr">set_fact:</span><br>        <span class="hljs-attr">kubeadm_output:</span> <span class="hljs-string">&quot;<span class="hljs-template-variable">&#123;&#123; kubeadm_output.stdout_lines[-2:] | join(&#x27; &#x27;) | regex_replace(&#x27;\t&#x27;, &#x27;&#x27;) | regex_replace(&#x27;\\\\&#x27;, &#x27;&#x27;) &#125;&#125;</span>&quot;</span><br>      <span class="hljs-attr">when:</span> <span class="hljs-string">kubeadm_output.stdout_lines</span> <span class="hljs-string">is</span> <span class="hljs-string">defined</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Remove</span> <span class="hljs-string">existing</span> <span class="hljs-string">kubeconfig</span> <span class="hljs-string">file</span><br>      <span class="hljs-attr">shell:</span> <span class="hljs-string">rm</span> <span class="hljs-string">-f</span> <span class="hljs-string">$HOME/.kube/config</span><br>      <span class="hljs-attr">ignore_errors:</span> <span class="hljs-literal">yes</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Create</span> <span class="hljs-string">kubeconfig</span> <span class="hljs-string">directory</span><br>      <span class="hljs-attr">file:</span><br>        <span class="hljs-attr">path:</span> <span class="hljs-string">$HOME/.kube</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">directory</span><br>        <span class="hljs-attr">owner:</span> <span class="hljs-string">&quot;<span class="hljs-template-variable">&#123;&#123; ansible_user &#125;&#125;</span>&quot;</span><br>        <span class="hljs-attr">group:</span> <span class="hljs-string">&quot;<span class="hljs-template-variable">&#123;&#123; ansible_user &#125;&#125;</span>&quot;</span><br>        <span class="hljs-attr">mode:</span> <span class="hljs-string">&#x27;0755&#x27;</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Copy</span> <span class="hljs-string">kubeconfig</span> <span class="hljs-string">to</span> <span class="hljs-string">user&#x27;s</span> <span class="hljs-string">home</span> <span class="hljs-string">directory</span><br>      <span class="hljs-attr">copy:</span><br>        <span class="hljs-attr">src:</span> <span class="hljs-string">/etc/kubernetes/admin.conf</span><br>        <span class="hljs-attr">dest:</span> <span class="hljs-string">$HOME/.kube/config</span><br>        <span class="hljs-attr">remote_src:</span> <span class="hljs-literal">true</span><br>        <span class="hljs-attr">owner:</span> <span class="hljs-string">&quot;<span class="hljs-template-variable">&#123;&#123; ansible_user &#125;&#125;</span>&quot;</span><br>        <span class="hljs-attr">group:</span> <span class="hljs-string">&quot;<span class="hljs-template-variable">&#123;&#123; ansible_user &#125;&#125;</span>&quot;</span><br>        <span class="hljs-attr">mode:</span> <span class="hljs-string">&#x27;0644&#x27;</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Install</span> <span class="hljs-string">Flannel</span> <span class="hljs-string">pod</span> <span class="hljs-string">network</span> <span class="hljs-string">addon</span><br>      <span class="hljs-attr">shell:</span> <span class="hljs-string">kubectl</span> <span class="hljs-string">apply</span> <span class="hljs-string">-f</span> <span class="hljs-string">https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</span><br><br><span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span> <span class="hljs-string">workers</span><br>  <span class="hljs-attr">become:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">vars:</span><br>    <span class="hljs-attr">master_ip:</span> <span class="hljs-string">&quot;10.52.184.221&quot;</span><br><br><br>  <span class="hljs-attr">tasks:</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Set</span> <span class="hljs-string">net.ipv4.ip_forward</span> <span class="hljs-string">to</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">shell:</span> <span class="hljs-string">sysctl</span> <span class="hljs-string">net.ipv4.ip_forward=1</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Join</span> <span class="hljs-string">worker</span> <span class="hljs-string">nodes</span> <span class="hljs-string">to</span> <span class="hljs-string">the</span> <span class="hljs-string">cluster</span><br>      <span class="hljs-attr">shell:</span> <span class="hljs-string">&quot;<span class="hljs-template-variable">&#123;&#123; hostvars[groups[&#x27;masters&#x27;][0]].kubeadm_output &#125;&#125;</span>&quot;</span><br>      <span class="hljs-attr">register:</span> <span class="hljs-string">join_output</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Debug</span> <span class="hljs-string">join</span> <span class="hljs-string">output</span><br>      <span class="hljs-attr">debug:</span><br>        <span class="hljs-attr">var:</span> <span class="hljs-string">join_output.stdout</span><br>      <span class="hljs-attr">when:</span> <span class="hljs-string">join_output.stdout</span> <span class="hljs-string">is</span> <span class="hljs-string">defined</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Debug</span> <span class="hljs-string">join</span> <span class="hljs-string">error</span><br>      <span class="hljs-attr">debug:</span><br>        <span class="hljs-attr">var:</span> <span class="hljs-string">join_output.stderr</span><br>      <span class="hljs-attr">when:</span> <span class="hljs-string">join_output.stderr</span> <span class="hljs-string">is</span> <span class="hljs-string">defined</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>Step 4: Run the Ansible Playbook:</strong></p>
+<ul>
+<li><p>Run the Ansible playbook using the following command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">ansible-playbook -i inventory.ini kubernetes-setup.yml<br><br><span class="hljs-comment">## running the playbook with debug model as needed</span><br><span class="hljs-comment"># ansible-playbook -i inventory.ini kubernetes-setup.yml -vvv</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>The output is as below:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@centos-0 ansible]<span class="hljs-comment"># ansible-playbook -i inventory.ini  k8s-cluster.yml</span><br><br>PLAY [all] *******************************************************************************************************************************************************************************************************<br>TASK [Gathering Facts] *******************************************************************************************************************************************************************************************ok: [10.52.184.221]<br>ok: [10.52.184.222]<br>ok: [10.52.184.223]<br><br>TASK [Configure Kubernetes Yum repository] ***********************************************************************************************************************************************************************changed: [10.52.184.222]<br>changed: [10.52.184.223]<br>changed: [10.52.184.221]<br><br>TASK [Set SELinux to permissive mode] ****************************************************************************************************************************************************************************changed: [10.52.184.223]<br>changed: [10.52.184.222]<br>changed: [10.52.184.221]<br><br>TASK [Disable firewalld] *****************************************************************************************************************************************************************************************changed: [10.52.184.222]<br>changed: [10.52.184.221]<br>changed: [10.52.184.223]<br><br>TASK [Allow ports 6443 and 10250 <span class="hljs-keyword">in</span> firewall using iptables] *****************************************************************************************************************************************************changed: [10.52.184.221] =&gt; (item=6443)<br>changed: [10.52.184.223] =&gt; (item=6443)<br>changed: [10.52.184.222] =&gt; (item=6443)<br>changed: [10.52.184.221] =&gt; (item=10250)<br>[WARNING]: The value 6443 (<span class="hljs-built_in">type</span> int) <span class="hljs-keyword">in</span> a string field was converted to u<span class="hljs-string">&#x27;6443&#x27;</span> (<span class="hljs-built_in">type</span> string). If this does not look like what you expect, quote the entire value to ensure it does not change.<br>[WARNING]: The value 10250 (<span class="hljs-built_in">type</span> int) <span class="hljs-keyword">in</span> a string field was converted to u<span class="hljs-string">&#x27;10250&#x27;</span> (<span class="hljs-built_in">type</span> string). If this does not look like what you expect, quote the entire value to ensure it does not change.<br>changed: [10.52.184.223] =&gt; (item=10250)<br>changed: [10.52.184.222] =&gt; (item=10250)<br><br>TASK [Disable swap] **********************************************************************************************************************************************************************************************changed: [10.52.184.221]<br>changed: [10.52.184.222]<br>changed: [10.52.184.223]<br><br>TASK [Comment out swap entry <span class="hljs-keyword">in</span> /etc/fstab] **********************************************************************************************************************************************************************changed: [10.52.184.222] =&gt; (item=UUID=xxxxxxxxxx   none            swap    sw              0       0)<br>changed: [10.52.184.223] =&gt; (item=UUID=xxxxxxxxxx   none            swap    sw              0       0)<br>changed: [10.52.184.221] =&gt; (item=UUID=xxxxxxxxxx   none            swap    sw              0       0)<br><br>TASK [Enable bridge and IP forwarding] ***************************************************************************************************************************************************************************changed: [10.52.184.222] =&gt; (item=modprobe br_netfilter)<br>changed: [10.52.184.223] =&gt; (item=modprobe br_netfilter)<br>changed: [10.52.184.221] =&gt; (item=modprobe br_netfilter)<br>changed: [10.52.184.222] =&gt; (item=sysctl net.bridge.bridge-nf-call-iptables=1)<br>changed: [10.52.184.223] =&gt; (item=sysctl net.bridge.bridge-nf-call-iptables=1)<br>changed: [10.52.184.221] =&gt; (item=sysctl net.bridge.bridge-nf-call-iptables=1)<br>changed: [10.52.184.222] =&gt; (item=sysctl net.ipv4.ip_forward=1)<br>changed: [10.52.184.223] =&gt; (item=sysctl net.ipv4.ip_forward=1)<br>changed: [10.52.184.221] =&gt; (item=sysctl net.ipv4.ip_forward=1)<br><br>TASK [Update system packages] ************************************************************************************************************************************************************************************ok: [10.52.184.223]<br>ok: [10.52.184.222]<br>ok: [10.52.184.221]<br><br>TASK [Add Containerd repository] *********************************************************************************************************************************************************************************changed: [10.52.184.221]<br>changed: [10.52.184.223]<br>changed: [10.52.184.222]<br><br>TASK [Install Containerd] ****************************************************************************************************************************************************************************************changed: [10.52.184.222]<br>changed: [10.52.184.223]<br>changed: [10.52.184.221]<br><br>TASK [Configure Containerd] **************************************************************************************************************************************************************************************changed: [10.52.184.223]<br>changed: [10.52.184.222]<br>changed: [10.52.184.221]<br><br>TASK [Start and <span class="hljs-built_in">enable</span> Containerd service] ***********************************************************************************************************************************************************************changed: [10.52.184.223]<br>changed: [10.52.184.222]<br>changed: [10.52.184.221]<br><br>TASK [Install Kubernetes components] *****************************************************************************************************************************************************************************changed: [10.52.184.221]<br>changed: [10.52.184.223]<br>changed: [10.52.184.222]<br><br>TASK [Enable and start kubelet service] **************************************************************************************************************************************************************************changed: [10.52.184.222]<br>changed: [10.52.184.221]<br>changed: [10.52.184.223]<br><br>RUNNING HANDLER [Reload Repository] ******************************************************************************************************************************************************************************ok: [10.52.184.222]<br>ok: [10.52.184.221]<br>ok: [10.52.184.223]<br><br>PLAY [masters] ***************************************************************************************************************************************************************************************************<br>TASK [Gathering Facts] *******************************************************************************************************************************************************************************************ok: [10.52.184.221]<br><br>TASK [Set bridge-nf-call-iptables to 1] **************************************************************************************************************************************************************************changed: [10.52.184.221]<br><br>TASK [Initialize Kubernetes master] ******************************************************************************************************************************************************************************changed: [10.52.184.221]<br><br>TASK [Set kubeadm output on master node] *************************************************************************************************************************************************************************ok: [10.52.184.221]<br><br>TASK [Print <span class="hljs-built_in">join</span> <span class="hljs-built_in">command</span> on master node] *************************************************************************************************************************************************************************skipping: [10.52.184.221]<br><br>TASK [Remove existing kubeconfig file] ***************************************************************************************************************************************************************************[WARNING]: Consider using the file module with state=absent rather than running <span class="hljs-string">&#x27;rm&#x27;</span>.  If you need to use <span class="hljs-built_in">command</span> because file is insufficient you can add <span class="hljs-string">&#x27;warn: false&#x27;</span> to this <span class="hljs-built_in">command</span> task or <span class="hljs-built_in">set</span><br><span class="hljs-string">&#x27;command_warnings=False&#x27;</span> <span class="hljs-keyword">in</span> ansible.cfg to get rid of this message.<br>changed: [10.52.184.221]<br><br>TASK [Create kubeconfig directory] *******************************************************************************************************************************************************************************changed: [10.52.184.221]<br><br>TASK [Copy kubeconfig to user<span class="hljs-string">&#x27;s home directory] ******************************************************************************************************************************************************************changed: [10.52.184.221]</span><br><span class="hljs-string"></span><br><span class="hljs-string">TASK [Install Flannel pod network addon] *************************************************************************************************************************************************************************changed: [10.52.184.221]</span><br><span class="hljs-string"></span><br><span class="hljs-string">PLAY [workers] ***************************************************************************************************************************************************************************************************</span><br><span class="hljs-string">TASK [Gathering Facts] *******************************************************************************************************************************************************************************************ok: [10.52.184.222]</span><br><span class="hljs-string">ok: [10.52.184.223]</span><br><span class="hljs-string"></span><br><span class="hljs-string">TASK [Set net.ipv4.ip_forward to 1] ******************************************************************************************************************************************************************************changed: [10.52.184.222]</span><br><span class="hljs-string">changed: [10.52.184.223]</span><br><span class="hljs-string"></span><br><span class="hljs-string">TASK [Join worker nodes to the cluster] **************************************************************************************************************************************************************************changed: [10.52.184.223]</span><br><span class="hljs-string">changed: [10.52.184.222]</span><br><span class="hljs-string"></span><br><span class="hljs-string">TASK [Debug join output] *****************************************************************************************************************************************************************************************ok: [10.52.184.222] =&gt; &#123;</span><br><span class="hljs-string">    &quot;join_output.stdout&quot;: &quot;[preflight] Running pre-flight checks\n[preflight] Reading configuration from the cluster...\n[preflight] FYI: You can look at this config file with &#x27;</span>kubectl -n kube-system get cm kubeadm-config -o yaml<span class="hljs-string">&#x27;\n[kubelet-start] Writing kubelet configuration to file \&quot;/var/lib/kubelet/config.yaml\&quot;\n[kubelet-start] Writing kubelet environment file with flags to file \&quot;/var/lib/kubelet/kubeadm-flags.env\&quot;\n[kubelet-start] Starting the kubelet\n[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...\n\nThis node has joined the cluster:\n* Certificate signing request was sent to apiserver and a response was received.\n* The Kubelet was informed of the new secure connection details.\n\nRun &#x27;</span>kubectl get nodes<span class="hljs-string">&#x27; on the control-plane to see this node join the cluster.&quot;</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">ok: [10.52.184.223] =&gt; &#123;</span><br><span class="hljs-string">    &quot;join_output.stdout&quot;: &quot;[preflight] Running pre-flight checks\n[preflight] Reading configuration from the cluster...\n[preflight] FYI: You can look at this config file with &#x27;</span>kubectl -n kube-system get cm kubeadm-config -o yaml<span class="hljs-string">&#x27;\n[kubelet-start] Writing kubelet configuration to file \&quot;/var/lib/kubelet/config.yaml\&quot;\n[kubelet-start] Writing kubelet environment file with flags to file \&quot;/var/lib/kubelet/kubeadm-flags.env\&quot;\n[kubelet-start] Starting the kubelet\n[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...\n\nThis node has joined the cluster:\n* Certificate signing request was sent to apiserver and a response was received.\n* The Kubelet was informed of the new secure connection details.\n\nRun &#x27;</span>kubectl get nodes<span class="hljs-string">&#x27; on the control-plane to see this node join the cluster.&quot;</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string">TASK [Debug join error] ******************************************************************************************************************************************************************************************ok: [10.52.184.222] =&gt; &#123;</span><br><span class="hljs-string">    &quot;join_output.stderr&quot;: &quot;&quot;</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">ok: [10.52.184.223] =&gt; &#123;</span><br><span class="hljs-string">    &quot;join_output.stderr&quot;: &quot;&quot;</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string"></span><br><span class="hljs-string">PLAY RECAP *******************************************************************************************************************************************************************************************************10.52.184.221              : ok=24   changed=19   unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   </span><br><span class="hljs-string">10.52.184.222              : ok=21   changed=15   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   </span><br><span class="hljs-string">10.52.184.223              : ok=21   changed=15   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   </span><br><span class="hljs-string"></span><br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>Verify the k8s cluster status from master node</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@CentOS001 ~]<span class="hljs-comment"># kubectl get nodes</span><br>NAME        STATUS   ROLES           AGE     VERSION<br>centos001   Ready    control-plane   4h18m   v1.28.2<br>centos002   Ready    &lt;none&gt;          4h17m   v1.28.2<br>centos003   Ready    &lt;none&gt;          4h17m   v1.28.2<br><br>[root@CentOS001 ~]<span class="hljs-comment"># kubectl get pods -A</span><br>NAMESPACE      NAME                                READY   STATUS    RESTARTS   AGE<br>kube-flannel   kube-flannel-ds-58ztz               1/1     Running   0          4h18m<br>kube-flannel   kube-flannel-ds-d7ktx               1/1     Running   0          4h18m<br>kube-flannel   kube-flannel-ds-jtdtf               1/1     Running   0          4h18m<br>kube-system    coredns-5dd5756b68-fqspp            1/1     Running   0          4h18m<br>kube-system    coredns-5dd5756b68-pvqkw            1/1     Running   0          4h18m<br>kube-system    etcd-centos001                      1/1     Running   0          4h18m<br>kube-system    kube-apiserver-centos001            1/1     Running   0          4h18m<br>kube-system    kube-controller-manager-centos001   1/1     Running   0          4h18m<br>kube-system    kube-proxy-btpvq                    1/1     Running   0          4h18m<br>kube-system    kube-proxy-j6fj4                    1/1     Running   0          4h18m<br>kube-system    kube-proxy-qjkcn                    1/1     Running   0          4h18m<br>kube-system    kube-scheduler-centos001            1/1     Running   0          4h18m<br></code></pre></td></tr></table></figure></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://blog.excelsre.com/2023/12/10/build-testing-lab-in-local-dc-with-terraform-and-ansible/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Felix Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/08/nfs-server-on-centos8/" title="NFS server on CentOS8">
+                        <span class="hidden-mobile">NFS server on CentOS8</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/felixyh" target="_blank" rel="nofollow noopener"><span>Yixiao</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/felixyh" target="_blank" rel="nofollow noopener"><span>Yizhen</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
