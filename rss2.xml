@@ -9,11 +9,11 @@
     <atom:link href="https://blog.excelsre.com/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>人生何处不相逢</description>
-    <pubDate>Sun, 10 Dec 2023 13:17:16 GMT</pubDate>
+    <pubDate>Sun, 10 Dec 2023 13:21:36 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
-      <title></title>
+      <title>Building testing lab with Terraform and Ansible</title>
       <link>https://blog.excelsre.com/2023/12/10/build-testing-lab-in-local-dc-with-terraform-and-ansible/</link>
       <guid>https://blog.excelsre.com/2023/12/10/build-testing-lab-in-local-dc-with-terraform-and-ansible/</guid>
       <pubDate>Sun, 10 Dec 2023 12:42:04 GMT</pubDate>
@@ -29,6 +29,16 @@
       
       
       
+      <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      
+      
+      <category domain="https://blog.excelsre.com/tags/lab/">lab</category>
+      
+      <category domain="https://blog.excelsre.com/tags/ansible/">ansible</category>
+      
+      <category domain="https://blog.excelsre.com/tags/k8s/">k8s</category>
+      
+      <category domain="https://blog.excelsre.com/tags/terraform/">terraform</category>
       
       
       <comments>https://blog.excelsre.com/2023/12/10/build-testing-lab-in-local-dc-with-terraform-and-ansible/#disqus_thread</comments>
