@@ -6,7 +6,7 @@
   <link href="https://blog.excelsre.com/atom.xml" rel="self"/>
   
   <link href="https://blog.excelsre.com/"/>
-  <updated>2023-12-10T14:44:19.157Z</updated>
+  <updated>2023-12-11T09:48:16.511Z</updated>
   <id>https://blog.excelsre.com/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Build localstack on local k8s cluster - updated</title>
+    <link href="https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/"/>
+    <id>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/</id>
+    <published>2023-12-10T14:34:04.919Z</published>
+    <updated>2023-12-11T09:48:16.511Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Localstack-on-local-k8s-cluster-updated&quot;&gt;&lt;a href=&quot;#Localstack-on-local-k8s-cluster-updated&quot; class=&quot;headerlink&quot; title=&quot;Localstack on local k8s cluster -</summary>
+        
+      
+    
+    
+    
+    <category term="技术文章" scheme="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"/>
+    
+    
+    <category term="localstack" scheme="https://blog.excelsre.com/tags/localstack/"/>
+    
+    <category term="k8s" scheme="https://blog.excelsre.com/tags/k8s/"/>
+    
+    <category term="aws" scheme="https://blog.excelsre.com/tags/aws/"/>
+    
+    <category term="api" scheme="https://blog.excelsre.com/tags/api/"/>
+    
+  </entry>
   
   <entry>
     <title>Build localstack on local k8s cluster</title>
@@ -52,7 +83,7 @@
     <link href="https://blog.excelsre.com/2023/12/10/build-testing-lab-in-local-dc-with-terraform-and-ansible/"/>
     <id>https://blog.excelsre.com/2023/12/10/build-testing-lab-in-local-dc-with-terraform-and-ansible/</id>
     <published>2023-12-10T12:42:04.138Z</published>
-    <updated>2023-12-10T13:21:36.966Z</updated>
+    <updated>2023-12-11T09:29:15.517Z</updated>
     
     
       
@@ -455,33 +486,6 @@
   </entry>
   
   <entry>
-    <title>k8s 和 CICD lab</title>
-    <link href="https://blog.excelsre.com/1984/01/24/cicd-lab/"/>
-    <id>https://blog.excelsre.com/1984/01/24/cicd-lab/</id>
-    <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2023-05-26T12:36:18.380Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://felixyanghui.synology.me:8441/images/2022/10/04/image-20221002110216278.png&quot; alt=&quot;image-20221002110216278&quot;&gt;&lt;/p&gt;
-&lt;h1</summary>
-        
-      
-    
-    
-    
-    
-    <category term="k8s" scheme="https://blog.excelsre.com/tags/k8s/"/>
-    
-    <category term="cicd" scheme="https://blog.excelsre.com/tags/cicd/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Github 教程</title>
     <link href="https://blog.excelsre.com/1984/01/24/github-workflow/"/>
     <id>https://blog.excelsre.com/1984/01/24/github-workflow/</id>
@@ -500,6 +504,33 @@
     
     
     
+    
+  </entry>
+  
+  <entry>
+    <title>k8s 和 CICD lab</title>
+    <link href="https://blog.excelsre.com/1984/01/24/cicd-lab/"/>
+    <id>https://blog.excelsre.com/1984/01/24/cicd-lab/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-12-11T09:22:04.987Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://felixyanghui.synology.me:8441/images/2022/10/04/image-20221002110216278.png&quot; alt=&quot;image-20221002110216278&quot;&gt;&lt;/p&gt;
+&lt;h1</summary>
+        
+      
+    
+    
+    
+    
+    <category term="k8s" scheme="https://blog.excelsre.com/tags/k8s/"/>
+    
+    <category term="cicd" scheme="https://blog.excelsre.com/tags/cicd/"/>
     
   </entry>
   

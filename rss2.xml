@@ -9,8 +9,41 @@
     <atom:link href="https://blog.excelsre.com/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>人生何处不相逢</description>
-    <pubDate>Sun, 10 Dec 2023 14:44:19 GMT</pubDate>
+    <pubDate>Mon, 11 Dec 2023 09:48:16 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Build localstack on local k8s cluster - updated</title>
+      <link>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/</link>
+      <guid>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/</guid>
+      <pubDate>Sun, 10 Dec 2023 14:34:04 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;Localstack-on-local-k8s-cluster-updated&quot;&gt;&lt;a href=&quot;#Localstack-on-local-k8s-cluster-updated&quot; class=&quot;headerlink&quot; title=&quot;Localstack on local k8s cluster -</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      
+      
+      <category domain="https://blog.excelsre.com/tags/localstack/">localstack</category>
+      
+      <category domain="https://blog.excelsre.com/tags/k8s/">k8s</category>
+      
+      <category domain="https://blog.excelsre.com/tags/aws/">aws</category>
+      
+      <category domain="https://blog.excelsre.com/tags/api/">api</category>
+      
+      
+      <comments>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Build localstack on local k8s cluster</title>
@@ -483,6 +516,30 @@
     </item>
     
     <item>
+      <title>Github 教程</title>
+      <link>https://blog.excelsre.com/1984/01/24/github-workflow/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/github-workflow/</guid>
+      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Step-by-step&quot;&gt;&lt;a href=&quot;#Step-by-step&quot; class=&quot;headerlink&quot; title=&quot;Step by step&quot;&gt;&lt;/a&gt;Step by step&lt;/h1&gt;&lt;iframe</description>
+          
+        
+      
+      
+      
+      
+      
+      
+      <comments>https://blog.excelsre.com/1984/01/24/github-workflow/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>k8s 和 CICD lab</title>
       <link>https://blog.excelsre.com/1984/01/24/cicd-lab/</link>
       <guid>https://blog.excelsre.com/1984/01/24/cicd-lab/</guid>
@@ -508,30 +565,6 @@
       
       
       <comments>https://blog.excelsre.com/1984/01/24/cicd-lab/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Github 教程</title>
-      <link>https://blog.excelsre.com/1984/01/24/github-workflow/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/github-workflow/</guid>
-      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Step-by-step&quot;&gt;&lt;a href=&quot;#Step-by-step&quot; class=&quot;headerlink&quot; title=&quot;Step by step&quot;&gt;&lt;/a&gt;Step by step&lt;/h1&gt;&lt;iframe</description>
-          
-        
-      
-      
-      
-      
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/github-workflow/#disqus_thread</comments>
       
     </item>
     

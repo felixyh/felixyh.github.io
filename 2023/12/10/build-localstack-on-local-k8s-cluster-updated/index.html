@@ -16,15 +16,15 @@
   <meta name="author" content="Felix Yang">
   <meta name="keywords" content="Python,SRE,Flask,AWS,Azure,运维， 读书">
   
-    <meta name="description" content="Localstack on local k8s cluster Set up your Kubernetes cluster:  Install a Kubernetes cluster locally. Follow the respective documentation for installation instructions.   Deploy LocalStack to your Ku">
+    <meta name="description" content="Localstack on local k8s cluster - updated Set up your Kubernetes cluster:  Install a Kubernetes cluster locally. Follow the respective documentation for installation instructions.   Deploy localStack">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Build localstack on local k8s cluster">
-<meta property="og:url" content="https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/index.html">
+<meta property="og:title" content="Build localstack on local k8s cluster - updated">
+<meta property="og:url" content="https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/index.html">
 <meta property="og:site_name" content="Felix Yang&#39;s Blog">
-<meta property="og:description" content="Localstack on local k8s cluster Set up your Kubernetes cluster:  Install a Kubernetes cluster locally. Follow the respective documentation for installation instructions.   Deploy LocalStack to your Ku">
+<meta property="og:description" content="Localstack on local k8s cluster - updated Set up your Kubernetes cluster:  Install a Kubernetes cluster locally. Follow the respective documentation for installation instructions.   Deploy localStack">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-10T14:34:04.919Z">
-<meta property="article:modified_time" content="2023-12-10T14:44:19.157Z">
+<meta property="article:modified_time" content="2023-12-11T09:48:16.511Z">
 <meta property="article:author" content="Felix Yang">
 <meta property="article:tag" content="localstack">
 <meta property="article:tag" content="k8s">
@@ -34,7 +34,7 @@
   
   
   
-  <title>Build localstack on local k8s cluster - Felix Yang&#39;s Blog</title>
+  <title>Build localstack on local k8s cluster - updated - Felix Yang&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">Build localstack on local k8s cluster</span>
+            <span id="subtitle">Build localstack on local k8s cluster - updated</span>
           
         </div>
 
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k 字
+          3.3k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          21 分钟
+          28 分钟
         
       </span>
     
@@ -273,63 +273,71 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Build localstack on local k8s cluster</h1>
+            <h1 id="seo-header">Build localstack on local k8s cluster - updated</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="Localstack-on-local-k8s-cluster"><a href="#Localstack-on-local-k8s-cluster" class="headerlink" title="Localstack on local k8s cluster"></a>Localstack on local k8s cluster</h1><ol>
+                <h1 id="Localstack-on-local-k8s-cluster-updated"><a href="#Localstack-on-local-k8s-cluster-updated" class="headerlink" title="Localstack on local k8s cluster - updated"></a>Localstack on local k8s cluster - updated</h1><ol>
 <li><p>Set up your Kubernetes cluster:</p>
 <ul>
 <li>Install a Kubernetes cluster locally. Follow the respective documentation for installation instructions.</li>
 </ul>
 </li>
-<li><p>Deploy LocalStack to your Kubernetes cluster:</p>
+<li><p>Deploy localStack and localstack web dashboard to your Kubernetes cluster:</p>
 <ul>
 <li><p>Create a Kubernetes deployment YAML file, for example, <code>localstack-deployment.yaml</code> with the following contents:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">localstack</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">app:</span> <span class="hljs-string">localstack</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">localstack</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">localstack</span><br>          <span class="hljs-attr">image:</span> <span class="hljs-string">localstack/localstack</span><br>          <span class="hljs-attr">ports:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">4566</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">4571</span><br>          <span class="hljs-attr">env:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">SERVICES</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;ec2,apigateway,lambda,s3,sns,dynamodb,route53,cloudwatch&quot;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Namespace</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">localstack</span><br><br><span class="hljs-meta">---</span><br><span class="hljs-meta"></span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">localstack</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">localstack</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">app:</span> <span class="hljs-string">localstack</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">localstack</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">localstack</span><br>          <span class="hljs-attr">image:</span> <span class="hljs-string">localstack/localstack</span><br>          <span class="hljs-attr">ports:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">4566</span><br>          <span class="hljs-attr">env:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">SERVICES</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;*&quot;</span><br>          <span class="hljs-attr">resources:</span><br>            <span class="hljs-attr">limits:</span><br>              <span class="hljs-attr">cpu:</span> <span class="hljs-number">1</span><br>              <span class="hljs-attr">memory:</span> <span class="hljs-string">1Gi</span><br>            <span class="hljs-attr">requests:</span><br>              <span class="hljs-attr">cpu:</span> <span class="hljs-string">500m</span><br>              <span class="hljs-attr">memory:</span> <span class="hljs-string">500Mi</span><br><br><span class="hljs-meta">---</span><br><span class="hljs-meta"></span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">localstack</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">localstack</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">localstack</span><br>  <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">localstack-port</span><br>      <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>      <span class="hljs-attr">port:</span> <span class="hljs-number">4566</span><br>      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">4566</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">NodePort</span><br><br><span class="hljs-meta">---</span><br><span class="hljs-meta"></span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">localstack-web</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">localstack</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">app:</span> <span class="hljs-string">localstack-web</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">localstack-web</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">localstack-web</span><br>          <span class="hljs-attr">image:</span> <span class="hljs-string">localstack/localstack-web</span><br>          <span class="hljs-attr">ports:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">8080</span><br>          <span class="hljs-attr">env:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">SERVICES</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;*&quot;</span><br>          <span class="hljs-attr">resources:</span><br>            <span class="hljs-attr">limits:</span><br>              <span class="hljs-attr">cpu:</span> <span class="hljs-string">500m</span><br>              <span class="hljs-attr">memory:</span> <span class="hljs-string">500Mi</span><br>            <span class="hljs-attr">requests:</span><br>              <span class="hljs-attr">cpu:</span> <span class="hljs-string">250m</span><br>              <span class="hljs-attr">memory:</span> <span class="hljs-string">250Mi</span><br><br><span class="hljs-meta">---</span><br><span class="hljs-meta"></span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">localstack-web</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">localstack</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">localstack-web</span><br>  <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">localstack-web-port</span><br>      <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>      <span class="hljs-attr">port:</span> <span class="hljs-number">8080</span><br>      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">8080</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">NodePort</span><br><br></code></pre></td></tr></table></figure>
 </li>
 <li><p>Apply the deployment to your Kubernetes cluster: <code>kubectl apply -f localstack-deployment.yaml</code>.</p>
 </li>
 </ul>
 </li>
-<li><p>Expose LocalStack for access:</p>
-<ul>
-<li><p>Create a Kubernetes service YAML file, for example, <code>localstack-service.yaml</code> with the following contents:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">localstack-service</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">localstack</span><br>  <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">port-4566</span><br>      <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>      <span class="hljs-attr">port:</span> <span class="hljs-number">4566</span><br>      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">4566</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">port-4571</span><br>      <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>      <span class="hljs-attr">port:</span> <span class="hljs-number">4571</span><br>      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">4571</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">NodePort</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>Apply the service to your Kubernetes cluster: <code>kubectl apply -f localstack-service.yaml</code>.</p>
-</li>
-</ul>
-</li>
 <li><p>Access LocalStack services:</p>
+<p>With the LocalStack deployment described in the <code>localstack-deployment.yaml</code> file, you can determine the AWS endpoints for each service by using the following steps:</p>
+<ol>
+<li><p>Find the NodePort assigned to the <code>localstack</code> service:</p>
 <ul>
-<li><p>Find the NodePort assigned to the LocalStack service: <code>kubectl get services</code>.</p>
+<li><p>Run the following command to get the NodePort value:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl get service -n localstack localstack -o jsonpath=<span class="hljs-string">&#x27;&#123;.spec.ports[0].nodePort&#125;&#x27;</span><br></code></pre></td></tr></table></figure>
 </li>
-<li><p>Use the NodePort to access LocalStack services. For example, for S3, the endpoint would be <code>http://&lt;cluster-ip&gt;:&lt;node-port&gt;/</code>.</p>
+<li><p>Note down the NodePort value returned by the command.</p>
 </li>
-<li><p>Test the S3 service with AWS CLI</p>
+</ul>
+</li>
+<li><p>Determine the IP address of your Kubernetes cluster:</p>
 <ul>
-<li><p>Install AWS CLI on centos7</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo yum install awscli -y<br></code></pre></td></tr></table></figure>
+<li><p>Run the following command to get the IP address of your cluster:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl cluster-info | grep <span class="hljs-string">&#x27;Kubernetes master&#x27;</span> | awk <span class="hljs-string">&#x27;/http/ &#123;print $NF&#125;&#x27;</span> | sed -e <span class="hljs-string">&#x27;s/.*\/\///&#x27;</span><br></code></pre></td></tr></table></figure>
 </li>
-<li><p>Configure AK and SK (Using example AK and SK is good enough )</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@centos-0 ansible]<span class="hljs-comment"># aws configure</span><br>AWS Access Key ID [None]: EXAMPLEACCESSKEY<br>AWS Secret Access Key [None]: EXAMPLEACCESSKEY<br>Default region name [None]: <br>Default output format [None]: <br></code></pre></td></tr></table></figure>
+<li><p>Note down the IP address returned by the command.</p>
 </li>
-<li><p>Create the s3 bucket</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@centos-0 ansible]<span class="hljs-comment"># aws --endpoint-url=http://10.52.184.221:32661 s3api create-bucket --bucket test</span><br>&#123;<br>    <span class="hljs-string">&quot;Location&quot;</span>: <span class="hljs-string">&quot;/test&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</ul>
+</li>
+<li><p>Build the AWS service endpoint URLs:</p>
+<ul>
+<li><p>Combine the IP address and NodePort value obtained in the previous steps to construct the AWS service endpoints:</p>
+<ul>
+<li><p>For LocalStack services, the endpoint URL format is:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">http://&lt;Cluster-IP&gt;:&lt;NodePort&gt;<br></code></pre></td></tr></table></figure>
 
-
+<p>Replace <code>&lt;Cluster-IP&gt;</code> with the IP address of your Kubernetes cluster, and <code>&lt;NodePort&gt;</code> with the NodePort value from step 1.</p>
 </li>
-<li><p>List the s3 bucket</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@centos-0 ansible]<span class="hljs-comment"># aws --endpoint-url=http://10.52.184.221:32661 s3api list-buckets</span><br>&#123;<br>    <span class="hljs-string">&quot;Owner&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;DisplayName&quot;</span>: <span class="hljs-string">&quot;webfile&quot;</span>, <br>        <span class="hljs-string">&quot;ID&quot;</span>: <span class="hljs-string">&quot;75aa57f09aa0c8caeab4f8c24e99d10f8e7faeebf76c078efc7c6caea54ba06a&quot;</span><br>    &#125;, <br>    <span class="hljs-string">&quot;Buckets&quot;</span>: [<br>        &#123;<br>            <span class="hljs-string">&quot;CreationDate&quot;</span>: <span class="hljs-string">&quot;2023-12-10T15:22:27.000Z&quot;</span>, <br>            <span class="hljs-string">&quot;Name&quot;</span>: <span class="hljs-string">&quot;test&quot;</span><br>        &#125;<br>    ]<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>For each AWS service, the endpoint URL format is:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-symbol">http:</span>//&lt;<span class="hljs-title class_">Cluster</span>-<span class="hljs-title class_">IP</span>&gt;<span class="hljs-symbol">:&lt;NodePort&gt;/&lt;Service-Name&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>Replace <code>&lt;Cluster-IP&gt;</code> with the IP address of your Kubernetes cluster, <code>&lt;NodePort&gt;</code> with the NodePort value from step 1, and <code>&lt;Service-Name&gt;</code> with the name of the AWS service (e.g., s3, sqs, lambda).</p>
+</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>Configure your applications to use LocalStack:</p>
+</ol>
+<p>For example, if your cluster’s IP address is <code>192.168.1.100</code> and the NodePort assigned to the <code>localstack</code> service is <code>30000</code>, here are a few examples of AWS service endpoint URLs:</p>
 <ul>
-<li>Update your application’s AWS SDK or AWS CLI configuration to point to the LocalStack endpoints. For example, set the endpoint for S3 to <code>http://&lt;cluster-ip&gt;:&lt;node-port&gt;/</code> in your code or AWS CLI configuration.</li>
+<li>S3: <code>http://192.168.1.100:30000/s3</code></li>
+<li>SQS: <code>http://192.168.1.100:30000/sqs</code></li>
+<li>Lambda: <code>http://192.168.1.100:30000/lambda</code></li>
 </ul>
 </li>
 </ol>
@@ -384,8 +392,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Build localstack on local k8s cluster</div>
-      <div>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/</div>
+      <div>Build localstack on local k8s cluster - updated</div>
+      <div>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/</div>
     </div>
     <div class="license-meta">
       
@@ -429,18 +437,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/12/10/build-localstack-on-local-k8s-cluster-updated/" title="Build localstack on local k8s cluster - updated">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Build localstack on local k8s cluster - updated</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/12/10/build-testing-lab-in-local-dc-with-terraform-and-ansible/" title="Building testing lab with Terraform and Ansible">
-                        <span class="hidden-mobile">Building testing lab with Terraform and Ansible</span>
+                      <a href="/2023/12/10/build-localstack-on-local-k8s-cluster/" title="Build localstack on local k8s cluster">
+                        <span class="hidden-mobile">Build localstack on local k8s cluster</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

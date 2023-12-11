@@ -27,9 +27,9 @@
 <meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2023/01/01/e230010b8e2640a286296e5a777d7726.png">
 <meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2023/01/01/image-20230101211754084.png">
 <meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2023/01/01/image-20230101211819945.png">
-<meta property="og:image" content="https://img2022.cnblogs.com/blog/198189/202201/198189-20220128161659405-38599556.png">
-<meta property="og:image" content="https://img2022.cnblogs.com/blog/198189/202201/198189-20220128161828060-1215655823.png">
-<meta property="og:image" content="https://img2022.cnblogs.com/blog/198189/202201/198189-20220128162140454-379347937.png">
+<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2023/12/11/image-20231211172023355.png">
+<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2023/12/11/image-20231211172110563.png">
+<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2023/12/11/image-20231211172128804.png">
 <meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2022/10/04/image-20221002100923461.png">
 <meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2022/10/04/image-20221002101228652.png">
 <meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2022/10/25/webp.webp">
@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2022/10/04/image-20221002101537582.png">
 <meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2022/10/04/image-20221002101644194.png">
 <meta property="article:published_time" content="1984-01-24T08:00:00.000Z">
-<meta property="article:modified_time" content="2023-05-26T12:36:18.380Z">
+<meta property="article:modified_time" content="2023-12-11T09:22:04.987Z">
 <meta property="article:author" content="Felix Yang">
 <meta property="article:tag" content="k8s">
 <meta property="article:tag" content="cicd">
@@ -431,9 +431,9 @@
 
 
 
-<h3 id="Import-existing-K8S-cluster-on-rancher-console"><a href="#Import-existing-K8S-cluster-on-rancher-console" class="headerlink" title="Import existing K8S cluster on rancher console"></a>Import existing K8S cluster on rancher console</h3><p><img src="https://img2022.cnblogs.com/blog/198189/202201/198189-20220128161659405-38599556.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p><img src="https://img2022.cnblogs.com/blog/198189/202201/198189-20220128161828060-1215655823.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p><img src="https://img2022.cnblogs.com/blog/198189/202201/198189-20220128162140454-379347937.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="Import-existing-K8S-cluster-on-rancher-console"><a href="#Import-existing-K8S-cluster-on-rancher-console" class="headerlink" title="Import existing K8S cluster on rancher console"></a>Import existing K8S cluster on rancher console</h3><p><img src="https://felixyanghui.synology.me:8441/images/2023/12/11/image-20231211172023355.png" srcset="/img/loading.gif" lazyload alt="image-20231211172023355"></p>
+<p><img src="https://felixyanghui.synology.me:8441/images/2023/12/11/image-20231211172110563.png" srcset="/img/loading.gif" lazyload alt="image-20231211172110563"></p>
+<p><img src="https://felixyanghui.synology.me:8441/images/2023/12/11/image-20231211172128804.png" srcset="/img/loading.gif" lazyload alt="image-20231211172128804"></p>
 <h4 id="Run-commands-on-K8S-master"><a href="#Run-commands-on-K8S-master" class="headerlink" title="Run commands on K8S master"></a>Run commands on K8S master</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl create serviceaccount felix<br>kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user=felix<br><br>curl --insecure -sfL https://192.168.22.84/v3/import/5glwxx7gnhkc4zldnb8ts5xnrxv244cwmz5qrgw4k6jfkvf577t7b9.yaml | kubectl apply -f -<br>kubectl get pods --all-namespaces -o wide<br></code></pre></td></tr></table></figure>
 
 
@@ -625,7 +625,7 @@
 <ul>
 <li><p>configure source code management with git</p>
 </li>
-<li><p>Repository URL: ssh:&#x2F;&#x2F;<a href="mailto:&#103;&#x69;&#x74;&#64;&#49;&#x39;&#x32;&#46;&#x31;&#x36;&#56;&#x2e;&#x32;&#50;&#46;&#x38;&#x35;">&#103;&#x69;&#x74;&#64;&#49;&#x39;&#x32;&#46;&#x31;&#x36;&#56;&#x2e;&#x32;&#50;&#46;&#x38;&#x35;</a>&#x2F;myapp&#x2F;test.git</p>
+<li><p>Repository URL: ssh:&#x2F;&#x2F;<a href="mailto:&#x67;&#105;&#116;&#64;&#x31;&#x39;&#x32;&#x2e;&#x31;&#54;&#x38;&#x2e;&#x32;&#50;&#46;&#x38;&#53;">&#x67;&#105;&#116;&#64;&#x31;&#x39;&#x32;&#x2e;&#x31;&#54;&#x38;&#x2e;&#x32;&#50;&#46;&#x38;&#53;</a>&#x2F;myapp&#x2F;test.git</p>
 </li>
 <li><p>If there’s error “<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/15174194/jenkins-host-key-verification-failed">Jenkins Host key verification failed</a>“ , <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/15174194/jenkins-host-key-verification-failed">refer to this solution</a>.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo su -s /bin/bash jenkins<br>git ls-remote -h -- ssh://git@192.168.22.85/myapp/test.git HEAD<br><br><span class="hljs-built_in">cat</span> ~/.ssh/known_hosts<br></code></pre></td></tr></table></figure></li>
@@ -782,9 +782,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/1984/01/24/azure/" title="Azure AKS">
+                      <a href="/1984/01/24/github-workflow/" title="Github 教程">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Azure AKS</span>
+                        <span class="hidden-mobile">Github 教程</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -792,8 +792,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/1984/01/24/github-workflow/" title="Github 教程">
-                        <span class="hidden-mobile">Github 教程</span>
+                      <a href="/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/" title="内置函数，工厂函数和魔法函数">
+                        <span class="hidden-mobile">内置函数，工厂函数和魔法函数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
