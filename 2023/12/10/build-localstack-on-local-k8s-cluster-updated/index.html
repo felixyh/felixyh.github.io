@@ -16,15 +16,15 @@
   <meta name="author" content="Felix Yang">
   <meta name="keywords" content="Python,SRE,Flask,AWS,Azure,运维， 读书">
   
-    <meta name="description" content="Localstack on local k8s cluster - updated Set up your Kubernetes cluster:  Install a Kubernetes cluster locally. Follow the respective documentation for installation instructions.   Deploy localStack">
+    <meta name="description" content="Localstack on local k8s cluster - updatedInstallation with yaml file Set up your Kubernetes cluster:  Install a Kubernetes cluster locally. Follow the respective documentation for installation instruc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Build localstack on local k8s cluster - updated">
 <meta property="og:url" content="https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/index.html">
 <meta property="og:site_name" content="Felix Yang&#39;s Blog">
-<meta property="og:description" content="Localstack on local k8s cluster - updated Set up your Kubernetes cluster:  Install a Kubernetes cluster locally. Follow the respective documentation for installation instructions.   Deploy localStack">
+<meta property="og:description" content="Localstack on local k8s cluster - updatedInstallation with yaml file Set up your Kubernetes cluster:  Install a Kubernetes cluster locally. Follow the respective documentation for installation instruc">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-10T14:34:04.919Z">
-<meta property="article:modified_time" content="2023-12-11T09:48:16.511Z">
+<meta property="article:modified_time" content="2023-12-11T09:59:36.943Z">
 <meta property="article:author" content="Felix Yang">
 <meta property="article:tag" content="localstack">
 <meta property="article:tag" content="k8s">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.3k 字
+          4k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          28 分钟
+          34 分钟
         
       </span>
     
@@ -278,7 +278,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Localstack-on-local-k8s-cluster-updated"><a href="#Localstack-on-local-k8s-cluster-updated" class="headerlink" title="Localstack on local k8s cluster - updated"></a>Localstack on local k8s cluster - updated</h1><ol>
+                <h1 id="Localstack-on-local-k8s-cluster-updated"><a href="#Localstack-on-local-k8s-cluster-updated" class="headerlink" title="Localstack on local k8s cluster - updated"></a>Localstack on local k8s cluster - updated</h1><h2 id="Installation-with-yaml-file"><a href="#Installation-with-yaml-file" class="headerlink" title="Installation with yaml file"></a>Installation with yaml file</h2><ol>
 <li><p>Set up your Kubernetes cluster:</p>
 <ul>
 <li>Install a Kubernetes cluster locally. Follow the respective documentation for installation instructions.</li>
@@ -341,6 +341,13 @@
 </ul>
 </li>
 </ol>
+<h2 id="Installation-with-helm3"><a href="#Installation-with-helm3" class="headerlink" title="Installation with helm3"></a>Installation with helm3</h2><p>Follow the guide here: <a target="_blank" rel="noopener" href="https://docs.localstack.cloud/getting-started/installation/">https://docs.localstack.cloud/getting-started/installation/</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">helm repo add localstack-repo https://helm.localstack.cloud<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@CentOS001 ~]<span class="hljs-comment"># helm upgrade --install localstack localstack-repo/localstack</span><br>Release <span class="hljs-string">&quot;localstack&quot;</span> does not exist. Installing it now.<br>NAME: localstack<br>LAST DEPLOYED: Mon Dec 11 03:57:02 2023<br>NAMESPACE: default<br>STATUS: deployed<br>REVISION: 1<br>NOTES:<br>1. Get the application URL by running these commands:<br>  <span class="hljs-built_in">export</span> NODE_PORT=$(kubectl get --namespace <span class="hljs-string">&quot;default&quot;</span> -o jsonpath=<span class="hljs-string">&quot;&#123;.spec.ports[0].nodePort&#125;&quot;</span> services localstack)<br>  <span class="hljs-built_in">export</span> NODE_IP=$(kubectl get nodes --namespace <span class="hljs-string">&quot;default&quot;</span> -o jsonpath=<span class="hljs-string">&quot;&#123;.items[0].status.addresses[0].address&#125;&quot;</span>)<br>  <span class="hljs-built_in">echo</span> http://<span class="hljs-variable">$NODE_IP</span>:<span class="hljs-variable">$NODE_PORT</span><br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -437,12 +444,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2023/12/10/build-localstack-on-local-k8s-cluster/" title="Build localstack on local k8s cluster">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Build localstack on local k8s cluster</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/12/10/build-localstack-on-local-k8s-cluster/" title="Build localstack on local k8s cluster">
-                        <span class="hidden-mobile">Build localstack on local k8s cluster</span>
+                      <a href="/2023/12/10/build-testing-lab-in-local-dc-with-terraform-and-ansible/" title="Building testing lab with Terraform and Ansible">
+                        <span class="hidden-mobile">Building testing lab with Terraform and Ansible</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
