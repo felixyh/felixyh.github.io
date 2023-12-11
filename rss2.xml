@@ -9,41 +9,8 @@
     <atom:link href="https://blog.excelsre.com/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>人生何处不相逢</description>
-    <pubDate>Sun, 10 Dec 2023 14:44:19 GMT</pubDate>
+    <pubDate>Mon, 11 Dec 2023 09:59:36 GMT</pubDate>
     <generator>http://hexo.io/</generator>
-    
-    <item>
-      <title>Build localstack on local k8s cluster</title>
-      <link>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/</link>
-      <guid>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/</guid>
-      <pubDate>Sun, 10 Dec 2023 14:34:04 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;h1 id=&quot;Localstack-on-local-k8s-cluster&quot;&gt;&lt;a href=&quot;#Localstack-on-local-k8s-cluster&quot; class=&quot;headerlink&quot; title=&quot;Localstack on local k8s cluster&quot;&gt;&lt;/a&gt;Localstack</description>
-          
-        
-      
-      
-      
-      
-      <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
-      
-      
-      <category domain="https://blog.excelsre.com/tags/localstack/">localstack</category>
-      
-      <category domain="https://blog.excelsre.com/tags/k8s/">k8s</category>
-      
-      <category domain="https://blog.excelsre.com/tags/aws/">aws</category>
-      
-      <category domain="https://blog.excelsre.com/tags/api/">api</category>
-      
-      
-      <comments>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/#disqus_thread</comments>
-      
-    </item>
     
     <item>
       <title>Build localstack on local k8s cluster - updated</title>
@@ -75,6 +42,39 @@
       
       
       <comments>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Build localstack on local k8s cluster</title>
+      <link>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/</link>
+      <guid>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/</guid>
+      <pubDate>Sun, 10 Dec 2023 14:34:04 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;Localstack-on-local-k8s-cluster&quot;&gt;&lt;a href=&quot;#Localstack-on-local-k8s-cluster&quot; class=&quot;headerlink&quot; title=&quot;Localstack on local k8s cluster&quot;&gt;&lt;/a&gt;Localstack</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      
+      
+      <category domain="https://blog.excelsre.com/tags/localstack/">localstack</category>
+      
+      <category domain="https://blog.excelsre.com/tags/k8s/">k8s</category>
+      
+      <category domain="https://blog.excelsre.com/tags/aws/">aws</category>
+      
+      <category domain="https://blog.excelsre.com/tags/api/">api</category>
+      
+      
+      <comments>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/#disqus_thread</comments>
       
     </item>
     
@@ -430,9 +430,9 @@
     </item>
     
     <item>
-      <title>Ansible lab</title>
-      <link>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</guid>
+      <title>AWS Technical Essentials - Lab</title>
+      <link>https://blog.excelsre.com/1984/01/24/aws-saa/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/aws-saa/</guid>
       <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
       
         
@@ -440,7 +440,9 @@
           
           
       <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Infra-preparation&quot;&gt;&lt;a href=&quot;#Infra-preparation&quot; class=&quot;headerlink&quot; title=&quot;Infra preparation&quot;&gt;&lt;/a&gt;Infra preparation&lt;/h1&gt;&lt;h2</description>
+&lt;img src=&quot;https://felixyanghui.synology.me:8441/images/2022/12/02/image-20221129160103938.png&quot; style=&quot;zoom:50%;&quot; /&gt;
+
+&lt;h1</description>
           
         
       
@@ -448,12 +450,12 @@
       
       
       
-      <category domain="https://blog.excelsre.com/tags/Ansible/">Ansible</category>
+      <category domain="https://blog.excelsre.com/tags/AWS/">AWS</category>
       
       <category domain="https://blog.excelsre.com/tags/lab/">lab</category>
       
       
-      <comments>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/#disqus_thread</comments>
+      <comments>https://blog.excelsre.com/1984/01/24/aws-saa/#disqus_thread</comments>
       
     </item>
     
@@ -486,7 +488,35 @@
     </item>
     
     <item>
-      <title>k8s 和 CICD lab</title>
+      <title>Ansible lab</title>
+      <link>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</guid>
+      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Infra-preparation&quot;&gt;&lt;a href=&quot;#Infra-preparation&quot; class=&quot;headerlink&quot; title=&quot;Infra preparation&quot;&gt;&lt;/a&gt;Infra preparation&lt;/h1&gt;&lt;h2</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/tags/lab/">lab</category>
+      
+      <category domain="https://blog.excelsre.com/tags/Ansible/">Ansible</category>
+      
+      
+      <comments>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>k8s and CICD lab</title>
       <link>https://blog.excelsre.com/1984/01/24/cicd-lab/</link>
       <guid>https://blog.excelsre.com/1984/01/24/cicd-lab/</guid>
       <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
@@ -560,36 +590,6 @@
       
       
       <comments>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>AWS Technical Essentials - Lab</title>
-      <link>https://blog.excelsre.com/1984/01/24/aws-saa/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/aws-saa/</guid>
-      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;img src=&quot;https://felixyanghui.synology.me:8441/images/2022/12/02/image-20221129160103938.png&quot; style=&quot;zoom:50%;&quot; /&gt;
-
-&lt;h1</description>
-          
-        
-      
-      
-      
-      
-      
-      <category domain="https://blog.excelsre.com/tags/lab/">lab</category>
-      
-      <category domain="https://blog.excelsre.com/tags/AWS/">AWS</category>
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/aws-saa/#disqus_thread</comments>
       
     </item>
     
