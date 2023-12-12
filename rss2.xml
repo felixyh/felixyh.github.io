@@ -204,6 +204,38 @@
     </item>
     
     <item>
+      <title>Lab - Networking on AWS and Azure</title>
+      <link>https://blog.excelsre.com/2023/11/08/lab-networking-on-aws-and-azure/</link>
+      <guid>https://blog.excelsre.com/2023/11/08/lab-networking-on-aws-and-azure/</guid>
+      <pubDate>Wed, 08 Nov 2023 03:02:33 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Lab-1-Basic-Networking-on-AWS-and-Azure&quot;&gt;&lt;a href=&quot;#Lab-1-Basic-Networking-on-AWS-and-Azure&quot; class=&quot;headerlink&quot; title=&quot;Lab 1: Basic</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      
+      
+      <category domain="https://blog.excelsre.com/tags/aws/">aws</category>
+      
+      <category domain="https://blog.excelsre.com/tags/azure/">azure</category>
+      
+      <category domain="https://blog.excelsre.com/tags/network/">network</category>
+      
+      
+      <comments>https://blog.excelsre.com/2023/11/08/lab-networking-on-aws-and-azure/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>Setup SAML server in lab</title>
       <link>https://blog.excelsre.com/2023/09/28/install-a-virtual-machine-softwaredownload-and-install-a-virtual-machine-software-like-virtualbox-or-vmware-on-your-com/</link>
       <guid>https://blog.excelsre.com/2023/09/28/install-a-virtual-machine-softwaredownload-and-install-a-virtual-machine-software-like-virtualbox-or-vmware-on-your-com/</guid>
@@ -283,6 +315,8 @@
       
       
       
+      
+      <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
       
       
       <category domain="https://blog.excelsre.com/tags/aws/">aws</category>
@@ -486,34 +520,6 @@
     </item>
     
     <item>
-      <title>Ansible lab</title>
-      <link>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</guid>
-      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Infra-preparation&quot;&gt;&lt;a href=&quot;#Infra-preparation&quot; class=&quot;headerlink&quot; title=&quot;Infra preparation&quot;&gt;&lt;/a&gt;Infra preparation&lt;/h1&gt;&lt;h2</description>
-          
-        
-      
-      
-      
-      
-      
-      <category domain="https://blog.excelsre.com/tags/lab/">lab</category>
-      
-      <category domain="https://blog.excelsre.com/tags/Ansible/">Ansible</category>
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
       <title>Azure AKS</title>
       <link>https://blog.excelsre.com/1984/01/24/azure/</link>
       <guid>https://blog.excelsre.com/1984/01/24/azure/</guid>
@@ -538,6 +544,34 @@
       
       
       <comments>https://blog.excelsre.com/1984/01/24/azure/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Ansible lab</title>
+      <link>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</guid>
+      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Infra-preparation&quot;&gt;&lt;a href=&quot;#Infra-preparation&quot; class=&quot;headerlink&quot; title=&quot;Infra preparation&quot;&gt;&lt;/a&gt;Infra preparation&lt;/h1&gt;&lt;h2</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/tags/lab/">lab</category>
+      
+      <category domain="https://blog.excelsre.com/tags/Ansible/">Ansible</category>
+      
+      
+      <comments>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/#disqus_thread</comments>
       
     </item>
     
