@@ -287,9 +287,9 @@
       <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
       
       
-      <category domain="https://blog.excelsre.com/tags/lab/">lab</category>
+      <category domain="https://blog.excelsre.com/tags/aws/">aws</category>
       
-      <category domain="https://blog.excelsre.com/tags/SAML/">SAML</category>
+      <category domain="https://blog.excelsre.com/tags/azure/">azure</category>
       
       
       <comments>https://blog.excelsre.com/2023/06/09/jupyter-notebook-on-cloud/#disqus_thread</comments>
@@ -516,6 +516,34 @@
     </item>
     
     <item>
+      <title>Azure AKS</title>
+      <link>https://blog.excelsre.com/1984/01/24/azure/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/azure/</guid>
+      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/tags/Azure/">Azure</category>
+      
+      <category domain="https://blog.excelsre.com/tags/AKS/">AKS</category>
+      
+      
+      <comments>https://blog.excelsre.com/1984/01/24/azure/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>k8s and CICD lab</title>
       <link>https://blog.excelsre.com/1984/01/24/cicd-lab/</link>
       <guid>https://blog.excelsre.com/1984/01/24/cicd-lab/</guid>
@@ -565,34 +593,6 @@
       
       
       <comments>https://blog.excelsre.com/1984/01/24/github-workflow/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Azure AKS</title>
-      <link>https://blog.excelsre.com/1984/01/24/azure/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/azure/</guid>
-      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</description>
-          
-        
-      
-      
-      
-      
-      
-      <category domain="https://blog.excelsre.com/tags/Azure/">Azure</category>
-      
-      <category domain="https://blog.excelsre.com/tags/AKS/">AKS</category>
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/azure/#disqus_thread</comments>
       
     </item>
     
