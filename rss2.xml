@@ -9,41 +9,8 @@
     <atom:link href="https://blog.excelsre.com/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>人生何处不相逢</description>
-    <pubDate>Mon, 11 Dec 2023 09:59:36 GMT</pubDate>
+    <pubDate>Sun, 10 Dec 2023 14:44:19 GMT</pubDate>
     <generator>http://hexo.io/</generator>
-    
-    <item>
-      <title>Build localstack on local k8s cluster - updated</title>
-      <link>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/</link>
-      <guid>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/</guid>
-      <pubDate>Sun, 10 Dec 2023 14:34:04 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;h1 id=&quot;Localstack-on-local-k8s-cluster-updated&quot;&gt;&lt;a href=&quot;#Localstack-on-local-k8s-cluster-updated&quot; class=&quot;headerlink&quot; title=&quot;Localstack on local k8s cluster -</description>
-          
-        
-      
-      
-      
-      
-      <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
-      
-      
-      <category domain="https://blog.excelsre.com/tags/localstack/">localstack</category>
-      
-      <category domain="https://blog.excelsre.com/tags/k8s/">k8s</category>
-      
-      <category domain="https://blog.excelsre.com/tags/aws/">aws</category>
-      
-      <category domain="https://blog.excelsre.com/tags/api/">api</category>
-      
-      
-      <comments>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/#disqus_thread</comments>
-      
-    </item>
     
     <item>
       <title>Build localstack on local k8s cluster</title>
@@ -75,6 +42,39 @@
       
       
       <comments>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Build localstack on local k8s cluster - updated</title>
+      <link>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/</link>
+      <guid>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/</guid>
+      <pubDate>Sun, 10 Dec 2023 14:34:04 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;Localstack-on-local-k8s-cluster-updated&quot;&gt;&lt;a href=&quot;#Localstack-on-local-k8s-cluster-updated&quot; class=&quot;headerlink&quot; title=&quot;Localstack on local k8s cluster -</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      
+      
+      <category domain="https://blog.excelsre.com/tags/localstack/">localstack</category>
+      
+      <category domain="https://blog.excelsre.com/tags/k8s/">k8s</category>
+      
+      <category domain="https://blog.excelsre.com/tags/aws/">aws</category>
+      
+      <category domain="https://blog.excelsre.com/tags/api/">api</category>
+      
+      
+      <comments>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/#disqus_thread</comments>
       
     </item>
     
@@ -299,7 +299,7 @@
     </item>
     
     <item>
-      <title>Setup SAML server in lab</title>
+      <title>jupyter notebook server</title>
       <link>https://blog.excelsre.com/2023/06/09/jupyter-notebook-on-cloud/</link>
       <guid>https://blog.excelsre.com/2023/06/09/jupyter-notebook-on-cloud/</guid>
       <pubDate>Fri, 09 Jun 2023 07:49:27 GMT</pubDate>
@@ -319,9 +319,7 @@
       <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
       
       
-      <category domain="https://blog.excelsre.com/tags/aws/">aws</category>
-      
-      <category domain="https://blog.excelsre.com/tags/azure/">azure</category>
+      <category domain="https://blog.excelsre.com/tags/jupyter/">jupyter</category>
       
       
       <comments>https://blog.excelsre.com/2023/06/09/jupyter-notebook-on-cloud/#disqus_thread</comments>
@@ -520,34 +518,6 @@
     </item>
     
     <item>
-      <title>Azure AKS</title>
-      <link>https://blog.excelsre.com/1984/01/24/azure/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/azure/</guid>
-      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</description>
-          
-        
-      
-      
-      
-      
-      
-      <category domain="https://blog.excelsre.com/tags/Azure/">Azure</category>
-      
-      <category domain="https://blog.excelsre.com/tags/AKS/">AKS</category>
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/azure/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
       <title>Ansible lab</title>
       <link>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</link>
       <guid>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</guid>
@@ -572,6 +542,34 @@
       
       
       <comments>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Azure AKS</title>
+      <link>https://blog.excelsre.com/1984/01/24/azure/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/azure/</guid>
+      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/tags/Azure/">Azure</category>
+      
+      <category domain="https://blog.excelsre.com/tags/AKS/">AKS</category>
+      
+      
+      <comments>https://blog.excelsre.com/1984/01/24/azure/#disqus_thread</comments>
       
     </item>
     
