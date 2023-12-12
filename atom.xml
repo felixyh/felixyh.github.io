@@ -255,20 +255,19 @@
   </entry>
   
   <entry>
-    <title>Jupyter Notebook on Cloud</title>
+    <title>Setup SAML server in lab</title>
     <link href="https://blog.excelsre.com/2023/06/09/jupyter-notebook-on-cloud/"/>
     <id>https://blog.excelsre.com/2023/06/09/jupyter-notebook-on-cloud/</id>
     <published>2023-06-09T07:49:27.000Z</published>
-    <updated>2023-06-10T02:45:11.410Z</updated>
+    <updated>2023-12-12T03:56:49.973Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;hr&gt;
-&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;如何安装一台jupyter-notebook-server，可以远程访问使用&quot;&gt;&lt;a href=&quot;#如何安装一台jupyter-notebook-server，可以远程访问使用&quot; class=&quot;headerlink&quot; title=&quot;如何安装一台jupyter</summary>
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;如何安装一台jupyter-notebook-server，可以远程访问使用&quot;&gt;&lt;a href=&quot;#如何安装一台jupyter-notebook-server，可以远程访问使用&quot; class=&quot;headerlink&quot; title=&quot;如何安装一台jupyter notebook</summary>
         
       
     
@@ -277,9 +276,9 @@
     <category term="技术文章" scheme="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"/>
     
     
-    <category term="cloud" scheme="https://blog.excelsre.com/tags/cloud/"/>
+    <category term="lab" scheme="https://blog.excelsre.com/tags/lab/"/>
     
-    <category term="jupyter" scheme="https://blog.excelsre.com/tags/jupyter/"/>
+    <category term="SAML" scheme="https://blog.excelsre.com/tags/SAML/"/>
     
   </entry>
   
@@ -487,32 +486,6 @@
   </entry>
   
   <entry>
-    <title>Azure AKS</title>
-    <link href="https://blog.excelsre.com/1984/01/24/azure/"/>
-    <id>https://blog.excelsre.com/1984/01/24/azure/</id>
-    <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2023-05-26T10:32:37.090Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Azure" scheme="https://blog.excelsre.com/tags/Azure/"/>
-    
-    <category term="AKS" scheme="https://blog.excelsre.com/tags/AKS/"/>
-    
-  </entry>
-  
-  <entry>
     <title>k8s and CICD lab</title>
     <link href="https://blog.excelsre.com/1984/01/24/cicd-lab/"/>
     <id>https://blog.excelsre.com/1984/01/24/cicd-lab/</id>
@@ -558,6 +531,32 @@
     
     
     
+    
+  </entry>
+  
+  <entry>
+    <title>Azure AKS</title>
+    <link href="https://blog.excelsre.com/1984/01/24/azure/"/>
+    <id>https://blog.excelsre.com/1984/01/24/azure/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-05-26T10:32:37.090Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Azure" scheme="https://blog.excelsre.com/tags/Azure/"/>
+    
+    <category term="AKS" scheme="https://blog.excelsre.com/tags/AKS/"/>
     
   </entry>
   
