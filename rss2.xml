@@ -204,6 +204,35 @@
     </item>
     
     <item>
+      <title>Setup SAML server in lab</title>
+      <link>https://blog.excelsre.com/2023/09/28/install-a-virtual-machine-softwaredownload-and-install-a-virtual-machine-software-like-virtualbox-or-vmware-on-your-com/</link>
+      <guid>https://blog.excelsre.com/2023/09/28/install-a-virtual-machine-softwaredownload-and-install-a-virtual-machine-software-like-virtualbox-or-vmware-on-your-com/</guid>
+      <pubDate>Wed, 27 Sep 2023 20:36:01 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;Setup-SAML-server-in-lab&quot;&gt;&lt;a href=&quot;#Setup-SAML-server-in-lab&quot; class=&quot;headerlink&quot; title=&quot;Setup SAML server in lab&quot;&gt;&lt;/a&gt;Setup SAML server in</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      
+      
+      <category domain="https://blog.excelsre.com/tags/lab/">lab</category>
+      
+      <category domain="https://blog.excelsre.com/tags/SAML/">SAML</category>
+      
+      
+      <comments>https://blog.excelsre.com/2023/09/28/install-a-virtual-machine-softwaredownload-and-install-a-virtual-machine-software-like-virtualbox-or-vmware-on-your-com/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>扩展磁盘-GCP VM</title>
       <link>https://blog.excelsre.com/2023/06/12/kuo-zhan-ci-pan-gcp-vm/</link>
       <guid>https://blog.excelsre.com/2023/06/12/kuo-zhan-ci-pan-gcp-vm/</guid>
@@ -460,34 +489,6 @@
     </item>
     
     <item>
-      <title>Azure AKS</title>
-      <link>https://blog.excelsre.com/1984/01/24/azure/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/azure/</guid>
-      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</description>
-          
-        
-      
-      
-      
-      
-      
-      <category domain="https://blog.excelsre.com/tags/Azure/">Azure</category>
-      
-      <category domain="https://blog.excelsre.com/tags/AKS/">AKS</category>
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/azure/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
       <title>Ansible lab</title>
       <link>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</link>
       <guid>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/</guid>
@@ -512,6 +513,34 @@
       
       
       <comments>https://blog.excelsre.com/1984/01/24/ansible-web-haproxy/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Azure AKS</title>
+      <link>https://blog.excelsre.com/1984/01/24/azure/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/azure/</guid>
+      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Azure-AKS&quot;&gt;&lt;a href=&quot;#Azure-AKS&quot; class=&quot;headerlink&quot; title=&quot;Azure AKS&quot;&gt;&lt;/a&gt;Azure AKS&lt;/h1&gt;&lt;h2 id=&quot;Create-Azure-AKS-via-AZ-CLI&quot;&gt;&lt;a</description>
+          
+        
+      
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/tags/Azure/">Azure</category>
+      
+      <category domain="https://blog.excelsre.com/tags/AKS/">AKS</category>
+      
+      
+      <comments>https://blog.excelsre.com/1984/01/24/azure/#disqus_thread</comments>
       
     </item>
     
