@@ -1,0 +1,949 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Felix Yang">
+  <meta name="keywords" content="Python,SRE,Flask,AWS,Azure,运维， 读书">
+  
+    <meta name="description" content="[TOC] Lab 1: Basic Networking on AWS and Azure AWS CLI Steps:  Create a VPC: 12&lt;TEXT&gt;aws ec2 create-vpc --cidr-block 10.0.0.0&#x2F;16  Create subnets: 12&lt;TEXT&gt;aws ec2 create-subnet --vpc-id &amp;lt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lab - Networking on AWS and Azure">
+<meta property="og:url" content="https://blog.excelsre.com/2023/11/07/lab-networking-on-aws-and-azure/index.html">
+<meta property="og:site_name" content="Felix Yang&#39;s Blog">
+<meta property="og:description" content="[TOC] Lab 1: Basic Networking on AWS and Azure AWS CLI Steps:  Create a VPC: 12&lt;TEXT&gt;aws ec2 create-vpc --cidr-block 10.0.0.0&#x2F;16  Create subnets: 12&lt;TEXT&gt;aws ec2 create-subnet --vpc-id &amp;lt">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-08T03:02:33.522Z">
+<meta property="article:modified_time" content="2023-12-12T03:58:41.227Z">
+<meta property="article:author" content="Felix Yang">
+<meta property="article:tag" content="aws">
+<meta property="article:tag" content="azure">
+<meta property="article:tag" content="network">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Lab - Networking on AWS and Azure - Felix Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.excelsre.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":120,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Felix Yang's Blog" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Felix Yang's Blog" type="application/rss+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>大良造</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Lab - Networking on AWS and Azure</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-11-08 11:02" pubdate>
+          2023年11月8日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          18k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          149 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Lab - Networking on AWS and Azure</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h1 id="Lab-1-Basic-Networking-on-AWS-and-Azure"><a href="#Lab-1-Basic-Networking-on-AWS-and-Azure" class="headerlink" title="Lab 1: Basic Networking on AWS and Azure"></a>Lab 1: Basic Networking on AWS and Azure</h1><ul>
+<li><p>AWS CLI Steps:</p>
+<ol>
+<li><p>Create a VPC:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-vpc</span> <span class="hljs-built_in">--cidr-block</span> <span class="hljs-string">10</span>.<span class="hljs-string">0</span>.<span class="hljs-string">0</span>.<span class="hljs-string">0</span>/<span class="hljs-string">16</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create subnets:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-subnet</span> <span class="hljs-built_in">--vpc-id</span> &lt;<span class="hljs-string">vpc-id</span>&gt; <span class="hljs-built_in">--cidr-block</span> <span class="hljs-string">10</span>.<span class="hljs-string">0</span>.<span class="hljs-string">1</span>.<span class="hljs-string">0</span>/<span class="hljs-string">24</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create an internet gateway:</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">&lt;TEXT&gt;<br>aws ec2 <span class="hljs-built_in">create</span>-<span class="hljs-keyword">internet</span>-gateway<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Attach the internet gateway to the VPC:</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs fsharp"><span class="hljs-operator">&lt;</span>TEXT<span class="hljs-operator">&gt;</span><br>aws ec2 attach<span class="hljs-operator">-</span>internet<span class="hljs-operator">-</span>gateway <span class="hljs-operator">--</span>vpc<span class="hljs-operator">-</span><span class="hljs-built_in">id</span> <span class="hljs-operator">&lt;</span>vpc<span class="hljs-operator">-</span><span class="hljs-built_in">id</span><span class="hljs-operator">&gt;</span> <span class="hljs-operator">--</span>internet<span class="hljs-operator">-</span>gateway<span class="hljs-operator">-</span><span class="hljs-built_in">id</span> <span class="hljs-operator">&lt;</span>internet<span class="hljs-operator">-</span>gateway<span class="hljs-operator">-</span><span class="hljs-built_in">id</span><span class="hljs-operator">&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create a route table and add a route:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-route-table</span> <span class="hljs-built_in">--vpc-id</span> &lt;<span class="hljs-string">vpc-id</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-route</span> <span class="hljs-built_in">--route-table-id</span> &lt;<span class="hljs-string">route-table-id</span>&gt; <span class="hljs-built_in">--destination-cidr-block</span> <span class="hljs-string">0</span>.<span class="hljs-string">0</span>.<span class="hljs-string">0</span>.<span class="hljs-string">0</span>/<span class="hljs-string">0</span> <span class="hljs-built_in">--gateway-id</span> &lt;<span class="hljs-string">internet-gateway-id</span>&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>Azure CLI Steps:</p>
+<ol>
+<li><p>Create a VNet:</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network vnet create --<span class="hljs-built_in">name</span> &lt;vnet-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --address-prefixes <span class="hljs-number">10.0</span>.<span class="hljs-number">0.0</span>/<span class="hljs-number">16</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create subnets:</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network vnet subnet create --<span class="hljs-built_in">name</span> &lt;subnet-<span class="hljs-built_in">name</span>&gt; --vnet-<span class="hljs-built_in">name</span> &lt;vnet-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --address-prefixes <span class="hljs-number">10.0</span>.<span class="hljs-number">1.0</span>/<span class="hljs-number">24</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create a network security group (NSG):</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network nsg create --<span class="hljs-built_in">name</span> &lt;nsg-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Associate the NSG with the subnet:</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network vnet subnet update --<span class="hljs-built_in">name</span> &lt;subnet-<span class="hljs-built_in">name</span>&gt; --vnet-<span class="hljs-built_in">name</span> &lt;vnet-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --network-security-<span class="hljs-built_in">group</span> &lt;nsg-<span class="hljs-built_in">name</span>&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create a virtual network gateway (for VPN or ExpressRoute connectivity) if needed:</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network vnet-gateway create --<span class="hljs-built_in">name</span> &lt;gateway-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --vnet &lt;vnet-<span class="hljs-built_in">name</span>&gt; --public-ip-address &lt;public-ip-<span class="hljs-built_in">name</span>&gt; --gateway-<span class="hljs-built_in">type</span> &lt;gateway-<span class="hljs-built_in">type</span>&gt; --sku &lt;sku-<span class="hljs-built_in">type</span>&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h1 id="Lab-2-High-Availability-and-Load-Balancing"><a href="#Lab-2-High-Availability-and-Load-Balancing" class="headerlink" title="Lab 2: High Availability and Load Balancing"></a>Lab 2: High Availability and Load Balancing</h1><ul>
+<li><p>Topology Example:</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-section">&lt;TEXT&gt;</span><br><span class="hljs-section">+-------------------+</span><br><span class="hljs-section">|      Internet     |</span><br><span class="hljs-section">+-------------------+</span><br><span class="hljs-section">        |</span><br><span class="hljs-section">+-------------------+</span><br><span class="hljs-section">|   Load Balancer   |</span><br><span class="hljs-section">+-------------------+</span><br><span class="hljs-section">        |</span><br><span class="hljs-section">+-------------------+</span><br><span class="hljs-section">|   Web Servers     |</span><br><span class="hljs-section">+-------------------+</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>AWS CLI Steps:</p>
+<ol>
+<li><p>Create an application load balancer:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">elbv2</span> <span class="hljs-built_in">create-load-balancer</span> <span class="hljs-built_in">--name</span> &lt;<span class="hljs-string">load-balancer-name</span>&gt; <span class="hljs-built_in">--subnets</span> &lt;<span class="hljs-string">subnet-ids</span>&gt; <span class="hljs-built_in">--security-groups</span> &lt;<span class="hljs-string">security-group-ids</span>&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create target groups and register the web servers:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">elbv2</span> <span class="hljs-built_in">create-target-group</span> <span class="hljs-built_in">--name</span> &lt;<span class="hljs-string">target-group-name</span>&gt; <span class="hljs-built_in">--protocol</span> <span class="hljs-string">HTTP</span> <span class="hljs-built_in">--port</span> <span class="hljs-string">80</span> <span class="hljs-built_in">--vpc-id</span> &lt;<span class="hljs-string">vpc-id</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">elbv2</span> <span class="hljs-string">register-targets</span> <span class="hljs-built_in">--target-group-arn</span> &lt;<span class="hljs-string">target-group-arn</span>&gt; <span class="hljs-built_in">--targets</span> &lt;<span class="hljs-string">instance-ids</span>&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>Azure CLI Steps:</p>
+<ol>
+<li><p>Create a load balancer:</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network lb create --<span class="hljs-built_in">name</span> &lt;lb-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --frontend-ip-<span class="hljs-built_in">name</span> &lt;frontend-ip-<span class="hljs-built_in">name</span>&gt; --backend-pool-<span class="hljs-built_in">name</span> &lt;backend-pool-<span class="hljs-built_in">name</span>&gt; --sku &lt;lb-sku&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create load balancing rules and probe:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-symbol">&lt;TEXT&gt;</span><br>az network <span class="hljs-keyword">lb</span> rule create --name <span class="hljs-symbol">&lt;rule-name&gt;</span> --resource-group <span class="hljs-symbol">&lt;resource-group-name&gt;</span> --<span class="hljs-keyword">lb</span>-name <span class="hljs-symbol">&lt;lb-name&gt;</span> --protocol TCP --frontend-port <span class="hljs-symbol">&lt;frontend-port&gt;</span> --backend-port <span class="hljs-symbol">&lt;backend-port&gt;</span> --frontend-ip-name <span class="hljs-symbol">&lt;frontend-ip-name&gt;</span> --backend-pool-name <span class="hljs-symbol">&lt;backend-pool-name&gt;</span><br>az network <span class="hljs-keyword">lb</span> probe create --name <span class="hljs-symbol">&lt;probe-name&gt;</span> --resource-group <span class="hljs-symbol">&lt;resource-group-name&gt;</span> --<span class="hljs-keyword">lb</span>-name <span class="hljs-symbol">&lt;lb-name&gt;</span> --protocol TCP --port <span class="hljs-symbol">&lt;port&gt;</span> --interval <span class="hljs-symbol">&lt;interval&gt;</span> --threshold <span class="hljs-symbol">&lt;threshold&gt;</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h1 id="Lab-3-Hybrid-Cloud-Networking"><a href="#Lab-3-Hybrid-Cloud-Networking" class="headerlink" title="Lab 3: Hybrid Cloud Networking"></a>Lab 3: Hybrid Cloud Networking</h1><ul>
+<li><p>Topology Example:</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-section">&lt;TEXT&gt;</span><br><span class="hljs-section">+------------------------+</span><br><span class="hljs-section">|   On-Premises Network   |</span><br><span class="hljs-section">+------------------------+</span><br><span class="hljs-code">              |</span><br><span class="hljs-code">      +-------------------+</span><br><span class="hljs-code">      |     VPN/ExpressRoute Gateway     |</span><br><span class="hljs-code">      +-------------------+</span><br><span class="hljs-section">              |</span><br><span class="hljs-section">+-------------------------+</span><br>|    VPN/ExpressRoute    |<br><span class="hljs-section">|    Connection         |</span><br><span class="hljs-section">+-------------------------+</span><br><span class="hljs-section">              |</span><br><span class="hljs-section">+-------------------+</span><br><span class="hljs-section">|   VPC/VNet         |</span><br><span class="hljs-section">+-------------------+</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>AWS CLI Steps:</p>
+<ol>
+<li><p>Create a customer gateway for VPN or an AWS Direct Connect gateway for Direct Connect:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-customer-gateway</span> <span class="hljs-built_in">--bgp-asn</span> &lt;<span class="hljs-string">bgp-asn</span>&gt; <span class="hljs-built_in">--public-ip</span> &lt;<span class="hljs-string">ip-address</span>&gt; <span class="hljs-built_in">--type</span> &lt;<span class="hljs-string">gateway-type</span>&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create a VPN gateway and attach it to the VPC:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-vpn-gateway</span> <span class="hljs-built_in">--type</span> &lt;<span class="hljs-string">gateway-type</span>&gt; <span class="hljs-built_in">--vpc-id</span> &lt;<span class="hljs-string">vpc-id</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-string">attach-vpn-gateway</span> <span class="hljs-built_in">--vpc-id</span> &lt;<span class="hljs-string">vpc-id</span>&gt; <span class="hljs-built_in">--vpn-gateway-id</span> &lt;<span class="hljs-string">vpn-gateway-id</span>&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create a VPN connection and specify the customer gateway and VPN gateway:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-vpn-connection</span> <span class="hljs-built_in">--customer-gateway-id</span> &lt;<span class="hljs-string">customer-gateway-id</span>&gt; <span class="hljs-built_in">--vpn-gateway-id</span> &lt;<span class="hljs-string">vpn-gateway-id</span>&gt; <span class="hljs-built_in">--type</span> &lt;<span class="hljs-string">connection-type</span>&gt; <span class="hljs-built_in">--static-routes-only</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>Azure CLI Steps:</p>
+<ol>
+<li><p>Create a virtual network gateway and specify the VPN gateway type:</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network vnet-gateway create --<span class="hljs-built_in">name</span> &lt;gateway-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --vnet &lt;vnet-<span class="hljs-built_in">name</span>&gt; --public-ip-address &lt;public-ip-<span class="hljs-built_in">name</span>&gt; --gateway-<span class="hljs-built_in">type</span> &lt;gateway-<span class="hljs-built_in">type</span>&gt; --sku &lt;sku-<span class="hljs-built_in">type</span>&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create a connection object and specify the shared key and gateway IDs:</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network vpn-connection create --<span class="hljs-built_in">name</span> &lt;connection-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --vnet-gateway1 &lt;gateway-<span class="hljs-built_in">name</span>&gt; --shared-key &lt;shared-key&gt; --remote-vnet &lt;remote-vnet-id&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h1 id="Lab-4-Multi-Region-Networking"><a href="#Lab-4-Multi-Region-Networking" class="headerlink" title="Lab 4: Multi-Region Networking"></a>Lab 4: Multi-Region Networking</h1><ul>
+<li><p>Topology Example:</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs gherkin"><span class="hljs-variable">&lt;TEXT&gt;</span><br>+-----------------------+                 +-----------------------+<br>|<span class="hljs-string">     Region 1           </span>|<span class="hljs-string">                 </span>|<span class="hljs-string">      Region 2          </span>|<br>+-----------------------+                 +-----------------------+<br>           |<span class="hljs-string">                                          </span>|<br>+-------------------+                       +-------------------+<br>|<span class="hljs-string">   Subnet 1        </span>|<span class="hljs-string">                       </span>|<span class="hljs-string">   Subnet 2        </span>|<br>+-------------------+                       +-------------------+<br>           |<span class="hljs-string">                                          </span>|<br>+-------------------+                       +-------------------+<br>|<span class="hljs-string">   Instances       </span>|<span class="hljs-string">                       </span>|<span class="hljs-string">   Instances       </span>|<br>+-------------------+                       +-------------------+<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>AWS CLI Steps:</p>
+<ol>
+<li><p>Create a VPC in each region:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-vpc</span> <span class="hljs-built_in">--cidr-block</span> <span class="hljs-string">10</span>.<span class="hljs-string">0</span>.<span class="hljs-string">0</span>.<span class="hljs-string">0</span>/<span class="hljs-string">16</span> <span class="hljs-built_in">--region</span> &lt;<span class="hljs-string">region-name</span>&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create subnets in each region:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-subnet</span> <span class="hljs-built_in">--vpc-id</span> &lt;<span class="hljs-string">vpc-id</span>&gt; <span class="hljs-built_in">--cidr-block</span> <span class="hljs-string">10</span>.<span class="hljs-string">0</span>.<span class="hljs-string">1</span>.<span class="hljs-string">0</span>/<span class="hljs-string">24</span> <span class="hljs-built_in">--availability-zone</span> &lt;<span class="hljs-string">availability-zone</span>&gt; <span class="hljs-built_in">--region</span> &lt;<span class="hljs-string">region-name</span>&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Configure VPC peering between the two VPCs:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-vpc-peering-connection</span> <span class="hljs-built_in">--peer-vpc-id</span> &lt;<span class="hljs-string">peer-vpc-id</span>&gt; <span class="hljs-built_in">--vpc-id</span> &lt;<span class="hljs-string">vpc-id</span>&gt; <span class="hljs-built_in">--region</span> &lt;<span class="hljs-string">region-name</span>&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>Azure CLI Steps:</p>
+<ol>
+<li><p>Create a VNet in each region:</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network vnet create --<span class="hljs-built_in">name</span> &lt;vnet-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --address-prefixes <span class="hljs-number">10.0</span>.<span class="hljs-number">0.0</span>/<span class="hljs-number">16</span> --location &lt;region-<span class="hljs-built_in">name</span>&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create subnets in each VNet:</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network vnet subnet create --<span class="hljs-built_in">name</span> &lt;subnet-<span class="hljs-built_in">name</span>&gt; --vnet-<span class="hljs-built_in">name</span> &lt;vnet-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --address-prefixes <span class="hljs-number">10.0</span>.<span class="hljs-number">1.0</span>/<span class="hljs-number">24</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Establish peering between the two VNets:</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network vnet peering create --<span class="hljs-built_in">name</span> &lt;peering-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --vnet-<span class="hljs-built_in">name</span> &lt;vnet-<span class="hljs-built_in">name</span>&gt; --remote-vnet &lt;remote-vnet-id&gt; --allow-vnet-access<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h1 id="Lab-5-Inter-Cloud-Networking"><a href="#Lab-5-Inter-Cloud-Networking" class="headerlink" title="Lab 5: Inter-Cloud Networking"></a>Lab 5: Inter-Cloud Networking</h1><ul>
+<li><p>Topology Example:</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs gherkin"><span class="hljs-variable">&lt;TEXT&gt;</span><br>+-------------------+                 +-----------------------+<br>|<span class="hljs-string">      AWS VPC      </span>|<span class="hljs-string">                 </span>|<span class="hljs-string">      Azure VNet        </span>|<br>+-------------------+                 +-----------------------+<br>           |<span class="hljs-string">                                          </span>|<br>+-------------------+                       +-------------------+<br>|<span class="hljs-string">   Subnet 1        </span>|<span class="hljs-string">                       </span>|<span class="hljs-string">   Subnet 2        </span>|<br>+-------------------+                       +-------------------+<br>           |<span class="hljs-string">                                          </span>|<br>+-------------------+                       +-------------------+<br>|<span class="hljs-string">   Instances       </span>|<span class="hljs-string">                       </span>|<span class="hljs-string">   Instances       </span>|<br>+-------------------+                       +-------------------+<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>AWS CLI Steps:</p>
+<ol>
+<li><p>Create a VPC in AWS:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-vpc</span> <span class="hljs-built_in">--cidr-block</span> <span class="hljs-string">10</span>.<span class="hljs-string">0</span>.<span class="hljs-string">0</span>.<span class="hljs-string">0</span>/<span class="hljs-string">16</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create subnets in the VPC:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-subnet</span> <span class="hljs-built_in">--vpc-id</span> &lt;<span class="hljs-string">vpc-id</span>&gt; <span class="hljs-built_in">--cidr-block</span> <span class="hljs-string">10</span>.<span class="hljs-string">0</span>.<span class="hljs-string">1</span>.<span class="hljs-string">0</span>/<span class="hljs-string">24</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create a virtual private gateway and attach it to the VPC:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-vpn-gateway</span> <span class="hljs-built_in">--type</span> &lt;<span class="hljs-string">gateway-type</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-string">attach-vpn-gateway</span> <span class="hljs-built_in">--vpc-id</span> &lt;<span class="hljs-string">vpc-id</span>&gt; <span class="hljs-built_in">--vpn-gateway-id</span> &lt;<span class="hljs-string">gateway-id</span>&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create a customer gateway and specify the public IP address and BGP ASN of the Azure gateway:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-customer-gateway</span> <span class="hljs-built_in">--bgp-asn</span> &lt;<span class="hljs-string">bgp-asn</span>&gt; <span class="hljs-built_in">--public-ip</span> &lt;<span class="hljs-string">ip-address</span>&gt; <span class="hljs-built_in">--type</span> &lt;<span class="hljs-string">gateway-type</span>&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create a VPN connection and specify the customer gateway and virtual private gateway:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-vpn-connection</span> <span class="hljs-built_in">--customer-gateway-id</span> &lt;<span class="hljs-string">customer-gateway-id</span>&gt; <span class="hljs-built_in">--vpn-gateway-id</span> &lt;<span class="hljs-string">vpn-gateway-id</span>&gt; <span class="hljs-built_in">--type</span> &lt;<span class="hljs-string">connection-type</span>&gt; <span class="hljs-built_in">--static-routes-only</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>Azure CLI Steps:</p>
+<ol>
+<li><p>Create a VNet in Azure:</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network vnet create --<span class="hljs-built_in">name</span> &lt;vnet-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --address-prefixes <span class="hljs-number">10.0</span>.<span class="hljs-number">0.0</span>/<span class="hljs-number">16</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create subnets in the VNet:</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network vnet subnet create --<span class="hljs-built_in">name</span> &lt;subnet-<span class="hljs-built_in">name</span>&gt; --vnet-<span class="hljs-built_in">name</span> &lt;vnet-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --address-prefixes <span class="hljs-number">10.0</span>.<span class="hljs-number">1.0</span>/<span class="hljs-number">24</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create a virtual network gateway and specify the VPN gateway type:</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network vnet-gateway create --<span class="hljs-built_in">name</span> &lt;gateway-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --vnet &lt;vnet-<span class="hljs-built_in">name</span>&gt; --public-ip-address &lt;public-ip-<span class="hljs-built_in">name</span>&gt; --gateway-<span class="hljs-built_in">type</span> &lt;gateway-<span class="hljs-built_in">type</span>&gt; --sku &lt;sku-<span class="hljs-built_in">type</span>&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create a connection object and specify the shared key and gateway IDs:</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network vpn-connection create --<span class="hljs-built_in">name</span> &lt;connection-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --vnet-gateway1 &lt;gateway-<span class="hljs-built_in">name</span>&gt; --shared-key &lt;shared-key&gt; --remote-vnet &lt;remote-vnet-id&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h1 id="Lab-6-Security-and-Compliance"><a href="#Lab-6-Security-and-Compliance" class="headerlink" title="Lab 6: Security and Compliance"></a>Lab 6: Security and Compliance</h1><ul>
+<li><p>Topology Example:</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs gherkin"><span class="hljs-variable">&lt;TEXT&gt;</span><br>+-------------------+                 +-----------------------+<br>|<span class="hljs-string">      AWS VPC      </span>|<span class="hljs-string">                 </span>|<span class="hljs-string">      Azure VNet        </span>|<br>+-------------------+                 +-----------------------+<br>           |<span class="hljs-string">                                          </span>|<br>+-------------------+                       +-------------------+<br>|<span class="hljs-string">   Subnet 1        </span>|<span class="hljs-string">                       </span>|<span class="hljs-string">   Subnet 2        </span>|<br>+-------------------+                       +-------------------+<br>           |<span class="hljs-string">                                          </span>|<br>+-------------------+                       +-------------------+<br>|<span class="hljs-string">   Instances       </span>|<span class="hljs-string">                       </span>|<span class="hljs-string">   Instances       </span>|<br>+-------------------+                       +-------------------+<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>AWS CLI Steps:</p>
+<ol>
+<li><p>Create security groups and specify inbound&#x2F;outbound rules:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-security-group</span> <span class="hljs-built_in">--group-name</span> &lt;<span class="hljs-string">group-name</span>&gt; <span class="hljs-built_in">--description</span> &lt;<span class="hljs-string">description</span>&gt; <span class="hljs-built_in">--vpc-id</span> &lt;<span class="hljs-string">vpc-id</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-string">authorize-security-group-ingress</span> <span class="hljs-built_in">--group-id</span> &lt;<span class="hljs-string">group-id</span>&gt; <span class="hljs-built_in">--protocol</span> &lt;<span class="hljs-string">protocol</span>&gt; <span class="hljs-built_in">--port</span> &lt;<span class="hljs-string">port</span>&gt; <span class="hljs-built_in">--source</span> &lt;<span class="hljs-string">source-ip</span>&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>Azure CLI Steps:</p>
+<ol>
+<li><p>Create network security groups (NSGs) and specify inbound&#x2F;outbound rules:</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network nsg create --<span class="hljs-built_in">name</span> &lt;nsg-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt;<br>az network nsg rule create --<span class="hljs-built_in">name</span> &lt;rule-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --nsg-<span class="hljs-built_in">name</span> &lt;nsg-<span class="hljs-built_in">name</span>&gt; --protocol &lt;protocol&gt; --<span class="hljs-built_in">direction</span> &lt;<span class="hljs-built_in">direction</span>&gt; --source-address-prefixes &lt;source-ip&gt; --destination-port-ranges &lt;port-range&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>Please note that you should replace the placeholders (e.g., <code>&lt;vpc-id&gt;</code>, <code>&lt;subnet-name&gt;</code>, <code>&lt;region-name&gt;</code>, etc.) with the actual values specific to your setup. These steps and commands provide a general guideline, and you should consult the official documentation of AWS and Azure for detailed instructions and variations based on your specific requirements and configurations.</p>
+</blockquote>
+<h1 id="Lab-7-Transit-Gateway-on-AWS"><a href="#Lab-7-Transit-Gateway-on-AWS" class="headerlink" title="Lab 7: Transit Gateway on AWS"></a>Lab 7: Transit Gateway on AWS</h1><ul>
+<li><p>Topology Example:</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs gherkin"><span class="hljs-variable">&lt;TEXT&gt;</span><br>+-------------------+                 +-----------------------+<br>|<span class="hljs-string">   VPC 1           </span>|<span class="hljs-string">                 </span>|<span class="hljs-string">      VPC 2             </span>|<br>+-------------------+                 +-----------------------+<br>        |<span class="hljs-string">                                          </span>|<br>+-------------------+                       +-------------------+<br>|<span class="hljs-string">   Subnet 1        </span>|<span class="hljs-string">                       </span>|<span class="hljs-string">   Subnet 2        </span>|<br>+-------------------+                       +-------------------+<br>        |<span class="hljs-string">                                          </span>|<br>+-------------------+                       +-------------------+<br>|<span class="hljs-string">   Instances       </span>|<span class="hljs-string">                       </span>|<span class="hljs-string">   Instances       </span>|<br>+-------------------+                       +-------------------+<br>                  \                             /<br>                   \                           /<br>                    \                         /<br>                 +-------------------+<br>                 |<span class="hljs-string">  Transit Gateway  </span>|<br>                 +-------------------+<br>                          |<span class="hljs-string"></span><br><span class="hljs-string">                 +-------------------+</span><br><span class="hljs-string">                 </span>|<span class="hljs-string">   VPC 3           </span>|<br>                 +-------------------+<br>                          |<span class="hljs-string"></span><br><span class="hljs-string">                 +-------------------+</span><br><span class="hljs-string">                 </span>|<span class="hljs-string">   Subnet 3        </span>|<br>                 +-------------------+<br>                          |<span class="hljs-string"></span><br><span class="hljs-string">                 +-------------------+</span><br><span class="hljs-string">                 </span>|<span class="hljs-string">   Instances       </span>|<br>                 +-------------------+<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>AWS CLI Steps:</p>
+<ol>
+<li><p>Create three VPCs (VPC 1, VPC 2, VPC 3) with subnets in each VPC.</p>
+</li>
+<li><p>Create a transit gateway:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-transit-gateway</span> <span class="hljs-built_in">--description</span> &lt;<span class="hljs-string">description</span>&gt; <span class="hljs-built_in">--options</span> &lt;<span class="hljs-string">options</span>&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Attach the VPCs to the transit gateway:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-transit-gateway-vpc-attachment</span> <span class="hljs-built_in">--transit-gateway-id</span> &lt;<span class="hljs-string">transit-gateway-id</span>&gt; <span class="hljs-built_in">--vpc-id</span> &lt;<span class="hljs-string">vpc-id</span>&gt; <span class="hljs-built_in">--subnet-ids</span> &lt;<span class="hljs-string">subnet-ids</span>&gt; <span class="hljs-built_in">--options</span> &lt;<span class="hljs-string">options</span>&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create route tables in the transit gateway and associate them with the attachments:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-transit-gateway-route-table</span> <span class="hljs-built_in">--transit-gateway-id</span> &lt;<span class="hljs-string">transit-gateway-id</span>&gt; <span class="hljs-built_in">--tag-specifications</span> &lt;<span class="hljs-string">tag-specifications</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-transit-gateway-route</span> <span class="hljs-built_in">--transit-gateway-route-table-id</span> &lt;<span class="hljs-string">transit-gateway-route-table-id</span>&gt; <span class="hljs-built_in">--destination-cidr-block</span> &lt;<span class="hljs-string">destination-cidr-block</span>&gt; <span class="hljs-built_in">--transit-gateway-attachment-id</span> &lt;<span class="hljs-string">transit-gateway-attachment-id</span>&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Update the VPC route tables to point to the transit gateway:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">TEXT</span>&gt;<br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-route</span> <span class="hljs-built_in">--route-table-id</span> &lt;<span class="hljs-string">route-table-id</span>&gt; <span class="hljs-built_in">--destination-cidr-block</span> &lt;<span class="hljs-string">destination-cidr-block</span>&gt; <span class="hljs-built_in">--transit-gateway-id</span> &lt;<span class="hljs-string">transit-gateway-id</span>&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h1 id="Lab-8-Virtual-WAN-on-Azure"><a href="#Lab-8-Virtual-WAN-on-Azure" class="headerlink" title="Lab 8: Virtual WAN on Azure"></a>Lab 8: Virtual WAN on Azure</h1><ul>
+<li><p>Topology Example:</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs gherkin"><span class="hljs-variable">&lt;TEXT&gt;</span><br>+-------------------+                 +-----------------------+<br>|<span class="hljs-string">   VNet 1          </span>|<span class="hljs-string">                 </span>|<span class="hljs-string">      VNet 2             </span>|<br>+-------------------+                 +-----------------------+<br>        |<span class="hljs-string">                                          </span>|<br>+-------------------+                       +-------------------+<br>|<span class="hljs-string">   Subnet 1        </span>|<span class="hljs-string">                       </span>|<span class="hljs-string">   Subnet 2        </span>|<br>+-------------------+                       +-------------------+<br>        |<span class="hljs-string">                                          </span>|<br>+-------------------+                       +-------------------+<br>|<span class="hljs-string">   Instances       </span>|<span class="hljs-string">                       </span>|<span class="hljs-string">   Instances       </span>|<br>+-------------------+                       +-------------------+<br>                  \                             /<br>                   \                           /<br>                    \                         /<br>                 +-------------------+<br>                 |<span class="hljs-string">  Virtual WAN      </span>|<br>                 +-------------------+<br>                          |<span class="hljs-string"></span><br><span class="hljs-string">                 +-------------------+</span><br><span class="hljs-string">                 </span>|<span class="hljs-string">   VNet 3          </span>|<br>                 +-------------------+<br>                          |<span class="hljs-string"></span><br><span class="hljs-string">                 +-------------------+</span><br><span class="hljs-string">                 </span>|<span class="hljs-string">   Subnet 3        </span>|<br>                 +-------------------+<br>                          |<span class="hljs-string"></span><br><span class="hljs-string">                 +-------------------+</span><br><span class="hljs-string">                 </span>|<span class="hljs-string">   Instances       </span>|<br>                 +-------------------+<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Azure CLI Steps:</p>
+<ol>
+<li><p>Create three VNets (VNet 1, VNet 2, VNet 3) with subnets in each VNet.</p>
+</li>
+<li><p>Create a virtual WAN hub:</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-tag">&lt;TEXT&gt;</span><br>az network vhub create --name <span class="hljs-tag">&lt;vhub-name&gt;</span> --resource-<span class="hljs-keyword">group</span> <span class="hljs-title">&lt;resource-group-name</span>&gt; --<span class="hljs-keyword">location</span> <span class="hljs-title">&lt;location</span>&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create VPN sites and associate them with the VNets:</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-tag">&lt;TEXT&gt;</span><br>az network vpn-site create --name <span class="hljs-tag">&lt;site1-name&gt;</span> --resource-<span class="hljs-keyword">group</span> <span class="hljs-title">&lt;resource-group-name</span>&gt; --<span class="hljs-keyword">location</span> <span class="hljs-title">&lt;location</span>&gt; --ip-address <span class="hljs-tag">&lt;ip-address&gt;</span> --vnet <span class="hljs-tag">&lt;vnet1-name&gt;</span><br>az network vpn-site create --name <span class="hljs-tag">&lt;site2-name&gt;</span> --resource-<span class="hljs-keyword">group</span> <span class="hljs-title">&lt;resource-group-name</span>&gt; --<span class="hljs-keyword">location</span> <span class="hljs-title">&lt;location</span>&gt; --ip-address <span class="hljs-tag">&lt;ip-address&gt;</span> --vnet <span class="hljs-tag">&lt;vnet2-name&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create connections between the virtual WAN hub and VNets:</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sqf">&lt;<span class="hljs-built_in">TEXT</span>&gt;<br>az network vhub connection create --<span class="hljs-built_in">name</span> &lt;connection1-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --vhub-<span class="hljs-built_in">name</span> &lt;vhub-<span class="hljs-built_in">name</span>&gt; --remote-vnet &lt;vnet1-<span class="hljs-built_in">name</span>&gt; --allow-hub-<span class="hljs-keyword">to</span>-vnet-transit <span class="hljs-literal">true</span><br>az network vhub connection create --<span class="hljs-built_in">name</span> &lt;connection2-<span class="hljs-built_in">name</span>&gt; --resource-<span class="hljs-built_in">group</span> &lt;resource-<span class="hljs-built_in">group</span>-<span class="hljs-built_in">name</span>&gt; --vhub-<span class="hljs-built_in">name</span> &lt;vhub-<span class="hljs-built_in">name</span>&gt; --remote-vnet &lt;vnet2-<span class="hljs-built_in">name</span>&gt; --allow-hub-<span class="hljs-keyword">to</span>-vnet-transit <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Update the VNet route tables to point to the virtual WAN hub:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css">&lt;TEXT&gt;<br>az network route-<span class="hljs-selector-tag">table</span> route create <span class="hljs-attr">--resource-group</span> &lt;resource-group-name&gt; <span class="hljs-attr">--route-table-name</span> &lt;route-<span class="hljs-selector-tag">table</span>-name&gt; <span class="hljs-attr">--name</span> &lt;route-name&gt; <span class="hljs-attr">--address-prefix</span> &lt;destination-cidr-block&gt; <span class="hljs-attr">--next-hop-type</span> VirtualHub <span class="hljs-attr">--next-hop-ip-address</span> &lt;vhub-ip-<span class="hljs-selector-tag">address</span>&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h1 id="Lab-9-Network-Monitoring-on-AWS"><a href="#Lab-9-Network-Monitoring-on-AWS" class="headerlink" title="Lab 9: Network Monitoring on AWS"></a>Lab 9: Network Monitoring on AWS</h1><ul>
+<li><p>Topology Example:</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-section">&lt;TEXT&gt;</span><br><span class="hljs-section">+-------------------+</span><br><span class="hljs-section">|   VPC             |</span><br><span class="hljs-section">+-------------------+</span><br><span class="hljs-section">        |</span><br><span class="hljs-section">+-------------------+</span><br><span class="hljs-section">|   Subnet          |</span><br><span class="hljs-section">+-------------------+</span><br><span class="hljs-section">        |</span><br><span class="hljs-section">+-------------------+</span><br><span class="hljs-section">|   EC2 Instances   |</span><br><span class="hljs-section">+-------------------+</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>AWS Services:</p>
+<ol>
+<li>Enable VPC Flow Logs to capture network traffic:<ul>
+<li>Enable VPC Flow Logs for the desired VPC and subnet.</li>
+<li>Configure the flow log destination to an Amazon S3 bucket or Amazon CloudWatch Logs.</li>
+</ul>
+</li>
+<li>Set up CloudWatch Metrics and Alarms for network monitoring:<ul>
+<li>Create custom CloudWatch metrics to track specific network performance metrics (e.g., network throughput, packet loss).</li>
+<li>Configure CloudWatch Alarms to trigger notifications or automated actions based on predefined thresholds.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h1 id="Lab-10-Network-Monitoring-on-Azure"><a href="#Lab-10-Network-Monitoring-on-Azure" class="headerlink" title="Lab 10: Network Monitoring on Azure"></a>Lab 10: Network Monitoring on Azure</h1><ul>
+<li><p>Topology Example:</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-section">&lt;TEXT&gt;</span><br><span class="hljs-section">+-------------------+</span><br><span class="hljs-section">|   VNet            |</span><br><span class="hljs-section">+-------------------+</span><br><span class="hljs-section">        |</span><br><span class="hljs-section">+-------------------+</span><br><span class="hljs-section">|   Subnet          |</span><br><span class="hljs-section">+-------------------+</span><br><span class="hljs-section">        |</span><br><span class="hljs-section">+-------------------+</span><br><span class="hljs-section">|   VM Instances    |</span><br><span class="hljs-section">+-------------------+</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Azure Services:</p>
+<ol>
+<li>Enable Network Watcher to monitor network traffic and connectivity:<ul>
+<li>Enable Network Watcher for the desired VNet and subnet.</li>
+<li>Use the “IP Flow Verify” feature to test connectivity between resources within the VNet and to external endpoints.</li>
+<li>Utilize the “Connection Monitor” feature to monitor and troubleshoot network connections between VMs.</li>
+</ul>
+</li>
+<li>Configure Traffic Analytics to gain insights into network traffic patterns:<ul>
+<li>Enable Traffic Analytics for the desired subnet.</li>
+<li>Analyze traffic flow, identify top talkers, and detect anomalies using Traffic Analytics logs and dashboards.</li>
+</ul>
+</li>
+<li>Utilize Azure Monitor for network monitoring:<ul>
+<li>Configure Azure Monitor to collect and analyze diagnostic logs and metrics from VMs, load balancers, and other network resources.</li>
+<li>Set up alerts and notifications based on predefined conditions to proactively monitor network performance and availability.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h1 id="Lab-11-Network-Monitoring-for-Transit-Gateway-on-AWS"><a href="#Lab-11-Network-Monitoring-for-Transit-Gateway-on-AWS" class="headerlink" title="Lab 11: Network Monitoring for Transit Gateway on AWS"></a>Lab 11: Network Monitoring for Transit Gateway on AWS</h1><ul>
+<li><p>Topology Example:</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs gherkin"><span class="hljs-variable">&lt;TEXT&gt;</span><br>+-------------------+                 +-----------------------+<br>|<span class="hljs-string">   VPC 1           </span>|<span class="hljs-string">                 </span>|<span class="hljs-string">      VPC 2             </span>|<br>+-------------------+                 +-----------------------+<br>        |<span class="hljs-string">                                          </span>|<br>+-------------------+                       +-------------------+<br>|<span class="hljs-string">   Subnet 1        </span>|<span class="hljs-string">                       </span>|<span class="hljs-string">   Subnet 2        </span>|<br>+-------------------+                       +-------------------+<br>        |<span class="hljs-string">                                          </span>|<br>+-------------------+                       +-------------------+<br>|<span class="hljs-string">   EC2 Instances   </span>|<span class="hljs-string">                       </span>|<span class="hljs-string">   EC2 Instances   </span>|<br>+-------------------+                       +-------------------+<br>                  \                             /<br>                   \                           /<br>                    \                         /<br>                 +-------------------+<br>                 |<span class="hljs-string">  Transit Gateway  </span>|<br>                 +-------------------+<br>                          |<span class="hljs-string"></span><br><span class="hljs-string">                 +-------------------+</span><br><span class="hljs-string">                 </span>|<span class="hljs-string">   VPC 3           </span>|<br>                 +-------------------+<br>                          |<span class="hljs-string"></span><br><span class="hljs-string">                 +-------------------+</span><br><span class="hljs-string">                 </span>|<span class="hljs-string">   Subnet 3        </span>|<br>                 +-------------------+<br>                          |<span class="hljs-string"></span><br><span class="hljs-string">                 +-------------------+</span><br><span class="hljs-string">                 </span>|<span class="hljs-string">   EC2 Instances   </span>|<br>                 +-------------------+<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>AWS Services:</p>
+<ol>
+<li>Enable VPC Flow Logs for transit gateway:<ul>
+<li>Enable VPC Flow Logs for the transit gateway attachment VPCs and subnets.</li>
+<li>Configure the flow log destination to an Amazon S3 bucket or Amazon CloudWatch Logs.</li>
+</ul>
+</li>
+<li>Set up CloudWatch Metrics and Alarms for transit gateway monitoring:<ul>
+<li>Create custom CloudWatch metrics to track transit gateway performance metrics (e.g., bytes in&#x2F;out, packets in&#x2F;out).</li>
+<li>Configure CloudWatch Alarms to trigger notifications or automated actions based on predefined thresholds.</li>
+</ul>
+</li>
+<li>Use Amazon CloudWatch Logs Insights to analyze VPC Flow Logs:<ul>
+<li>Query and analyze VPC Flow Logs data using CloudWatch Logs Insights.</li>
+<li>Identify patterns, anomalies, and potential network issues within the transit gateway traffic.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h1 id="Lab-12-Network-Monitoring-for-Transit-Network-on-Azure"><a href="#Lab-12-Network-Monitoring-for-Transit-Network-on-Azure" class="headerlink" title="Lab 12: Network Monitoring for Transit Network on Azure"></a>Lab 12: Network Monitoring for Transit Network on Azure</h1><ul>
+<li><p>Topology Example:</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs gherkin"><span class="hljs-variable">&lt;TEXT&gt;</span><br>+-----------------------+                 +-----------------------+<br>|<span class="hljs-string">     VNet 1             </span>|<span class="hljs-string">                 </span>|<span class="hljs-string">      VNet 2             </span>|<br>+-----------------------+                 +-----------------------+<br>           |<span class="hljs-string">                                          </span>|<br>+-------------------+                       +-------------------+<br>|<span class="hljs-string">   Subnet 1        </span>|<span class="hljs-string">                       </span>|<span class="hljs-string">   Subnet 2        </span>|<br>+-------------------+                       +-------------------+<br>           |<span class="hljs-string">                                          </span>|<br>+-------------------+                       +-------------------+<br>|<span class="hljs-string">   VM Instances    </span>|<span class="hljs-string">                       </span>|<span class="hljs-string">   VM Instances    </span>|<br>+-------------------+                       +-------------------+<br>                  \                             /<br>                   \                           /<br>                    \                         /<br>                 +-------------------+<br>                 |<span class="hljs-string">   Transit Gateway  </span>|<br>                 +-------------------+<br>                          |<span class="hljs-string"></span><br><span class="hljs-string">                 +-------------------+</span><br><span class="hljs-string">                 </span>|<span class="hljs-string">   VNet 3          </span>|<br>                 +-------------------+<br>                          |<span class="hljs-string"></span><br><span class="hljs-string">                 +-------------------+</span><br><span class="hljs-string">                 </span>|<span class="hljs-string">   Subnet 3        </span>|<br>                 +-------------------+<br>                          |<span class="hljs-string"></span><br><span class="hljs-string">                 +-------------------+</span><br><span class="hljs-string">                 </span>|<span class="hljs-string">   VM Instances    </span>|<br>                 +-------------------+<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Azure Services:</p>
+<ol>
+<li>Enable Traffic Analytics for transit gateway:<ul>
+<li>Enable Traffic Analytics for the transit gateway subnet.</li>
+<li>Analyze traffic flow, identify top talkers, and detect anomalies using Traffic Analytics logs and dashboards.</li>
+</ul>
+</li>
+<li>Utilize Azure Monitor for transit gateway monitoring:<ul>
+<li>Configure Azure Monitor to collect and analyze diagnostic logs and metrics from the transit gateway and associated resources.</li>
+<li>Set up alerts and notifications based on predefined conditions to proactively monitor transit gateway performance and availability.</li>
+</ul>
+</li>
+<li>Use Azure Network Watcher for troubleshooting and diagnostics:<ul>
+<li>Utilize Network Watcher’s “IP Flow Verify” feature to test connectivity between resources within and across VNets via the transit gateway.</li>
+<li>Use the “Connection Monitor” feature to monitor and troubleshoot network connections between VMs across VNets.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" class="category-chain-item">技术文章</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/aws/" class="print-no-link">#aws</a>
+      
+        <a href="/tags/azure/" class="print-no-link">#azure</a>
+      
+        <a href="/tags/network/" class="print-no-link">#network</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Lab - Networking on AWS and Azure</div>
+      <div>https://blog.excelsre.com/2023/11/07/lab-networking-on-aws-and-azure/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Felix Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年11月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/11/19/how-to-make-a-bootable-windows-10-usb-on-a-mac/" title="How to make a bootable windows 10 USB on a Mac">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">How to make a bootable windows 10 USB on a Mac</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/27/install-a-virtual-machine-softwaredownload-and-install-a-virtual-machine-software-like-virtualbox-or-vmware-on-your-com/" title="Setup SAML server in lab">
+                        <span class="hidden-mobile">Setup SAML server in lab</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/felixyh" target="_blank" rel="nofollow noopener"><span>Yixiao</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/felixyh" target="_blank" rel="nofollow noopener"><span>Yizhen</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

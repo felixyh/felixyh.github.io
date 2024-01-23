@@ -6,7 +6,7 @@
   <link href="https://blog.excelsre.com/atom.xml" rel="self"/>
   
   <link href="https://blog.excelsre.com/"/>
-  <updated>2023-12-10T14:44:19.157Z</updated>
+  <updated>2024-01-23T23:35:41.393Z</updated>
   <id>https://blog.excelsre.com/</id>
   
   <author>
@@ -17,18 +17,19 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Build localstack on local k8s cluster</title>
-    <link href="https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/"/>
-    <id>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/</id>
-    <published>2023-12-10T14:34:04.919Z</published>
-    <updated>2023-12-10T14:44:19.157Z</updated>
+    <title>CICD - Build, test, and deploy containers to ACR/AKS using GitHub Actions</title>
+    <link href="https://blog.excelsre.com/2024/01/21/cicd-build-test-and-deploy-containers-to-acr-aks-using-github-actions/"/>
+    <id>https://blog.excelsre.com/2024/01/21/cicd-build-test-and-deploy-containers-to-acr-aks-using-github-actions/</id>
+    <published>2024-01-21T18:15:53.084Z</published>
+    <updated>2024-01-23T23:35:41.393Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Localstack-on-local-k8s-cluster&quot;&gt;&lt;a href=&quot;#Localstack-on-local-k8s-cluster&quot; class=&quot;headerlink&quot; title=&quot;Localstack on local k8s cluster&quot;&gt;&lt;/a&gt;Localstack</summary>
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://learn.microsoft.com/en-us/azure/architecture/guide/aks/media/ci-cd-gitops-github-actions-aks-push.png&quot; alt=&quot;CI/CD for AKS</summary>
         
       
     
@@ -37,13 +38,64 @@
     <category term="技术文章" scheme="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"/>
     
     
-    <category term="localstack" scheme="https://blog.excelsre.com/tags/localstack/"/>
+    <category term="AKS" scheme="https://blog.excelsre.com/tags/AKS/"/>
     
-    <category term="k8s" scheme="https://blog.excelsre.com/tags/k8s/"/>
+    <category term="CICD" scheme="https://blog.excelsre.com/tags/CICD/"/>
     
-    <category term="aws" scheme="https://blog.excelsre.com/tags/aws/"/>
+    <category term="flask" scheme="https://blog.excelsre.com/tags/flask/"/>
     
-    <category term="api" scheme="https://blog.excelsre.com/tags/api/"/>
+    <category term="ACR" scheme="https://blog.excelsre.com/tags/ACR/"/>
+    
+    <category term="GitHub actions" scheme="https://blog.excelsre.com/tags/GitHub-actions/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://blog.excelsre.com/2024/01/20/revised-steps-with-iam-role-creation-and-assignment/"/>
+    <id>https://blog.excelsre.com/2024/01/20/revised-steps-with-iam-role-creation-and-assignment/</id>
+    <published>2024-01-21T05:22:52.060Z</published>
+    <updated>2024-01-21T05:22:52.060Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;Revised-Steps-with-IAM-Role-Creation-and-Assignment&quot;&gt;&lt;a href=&quot;#Revised-Steps-with-IAM-Role-Creation-and-Assignment&quot; class=&quot;headerlink&quot; title=&quot;Revised</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Flask Application Structure</title>
+    <link href="https://blog.excelsre.com/2024/01/14/flask-web-application-devops/"/>
+    <id>https://blog.excelsre.com/2024/01/14/flask-web-application-devops/</id>
+    <published>2024-01-14T18:09:15.921Z</published>
+    <updated>2024-01-20T18:26:38.651Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Flask-Web-Application-DevOps&quot;&gt;&lt;a href=&quot;#Flask-Web-Application-DevOps&quot; class=&quot;headerlink&quot; title=&quot;Flask Web Application DevOps&quot;&gt;&lt;/a&gt;Flask</summary>
+        
+      
+    
+    
+    
+    <category term="技术文章" scheme="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"/>
+    
+    
+    <category term="flask" scheme="https://blog.excelsre.com/tags/flask/"/>
+    
+    <category term="python" scheme="https://blog.excelsre.com/tags/python/"/>
     
   </entry>
   
@@ -79,18 +131,50 @@
   </entry>
   
   <entry>
+    <title>Build localstack on local k8s cluster</title>
+    <link href="https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/"/>
+    <id>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/</id>
+    <published>2023-12-10T14:34:04.919Z</published>
+    <updated>2023-12-10T14:44:19.157Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Localstack-on-local-k8s-cluster&quot;&gt;&lt;a href=&quot;#Localstack-on-local-k8s-cluster&quot; class=&quot;headerlink&quot; title=&quot;Localstack on local k8s cluster&quot;&gt;&lt;/a&gt;Localstack</summary>
+        
+      
+    
+    
+    
+    <category term="技术文章" scheme="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"/>
+    
+    
+    <category term="localstack" scheme="https://blog.excelsre.com/tags/localstack/"/>
+    
+    <category term="k8s" scheme="https://blog.excelsre.com/tags/k8s/"/>
+    
+    <category term="aws" scheme="https://blog.excelsre.com/tags/aws/"/>
+    
+    <category term="api" scheme="https://blog.excelsre.com/tags/api/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Building testing lab with Terraform and Ansible</title>
     <link href="https://blog.excelsre.com/2023/12/10/build-testing-lab-in-local-dc-with-terraform-and-ansible/"/>
     <id>https://blog.excelsre.com/2023/12/10/build-testing-lab-in-local-dc-with-terraform-and-ansible/</id>
     <published>2023-12-10T12:42:04.138Z</published>
-    <updated>2023-12-11T09:29:15.517Z</updated>
+    <updated>2024-01-21T17:59:30.391Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h1&gt;&lt;h2 id=&quot;Linux-VM-provision-in-Batch-with-Terraform&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h1&gt;&lt;h2</summary>
         
       
     
@@ -111,8 +195,8 @@
   
   <entry>
     <title>NFS server on CentOS8</title>
-    <link href="https://blog.excelsre.com/2023/12/08/nfs-server-on-centos8/"/>
-    <id>https://blog.excelsre.com/2023/12/08/nfs-server-on-centos8/</id>
+    <link href="https://blog.excelsre.com/2023/12/07/nfs-server-on-centos8/"/>
+    <id>https://blog.excelsre.com/2023/12/07/nfs-server-on-centos8/</id>
     <published>2023-12-08T03:28:39.529Z</published>
     <updated>2023-12-08T03:40:13.946Z</updated>
     
@@ -140,8 +224,8 @@
   
   <entry>
     <title>Alist on Synology NA</title>
-    <link href="https://blog.excelsre.com/2023/11/21/alist-on-synology-nas/"/>
-    <id>https://blog.excelsre.com/2023/11/21/alist-on-synology-nas/</id>
+    <link href="https://blog.excelsre.com/2023/11/20/alist-on-synology-nas/"/>
+    <id>https://blog.excelsre.com/2023/11/20/alist-on-synology-nas/</id>
     <published>2023-11-20T19:07:19.282Z</published>
     <updated>2023-11-20T21:36:00.572Z</updated>
     
@@ -168,8 +252,8 @@
   
   <entry>
     <title>How to make a bootable windows 10 USB on a Mac</title>
-    <link href="https://blog.excelsre.com/2023/11/20/how-to-make-a-bootable-windows-10-usb-on-a-mac/"/>
-    <id>https://blog.excelsre.com/2023/11/20/how-to-make-a-bootable-windows-10-usb-on-a-mac/</id>
+    <link href="https://blog.excelsre.com/2023/11/19/how-to-make-a-bootable-windows-10-usb-on-a-mac/"/>
+    <id>https://blog.excelsre.com/2023/11/19/how-to-make-a-bootable-windows-10-usb-on-a-mac/</id>
     <published>2023-11-20T05:17:29.199Z</published>
     <updated>2023-11-20T05:17:29.200Z</updated>
     
@@ -197,8 +281,8 @@
   
   <entry>
     <title>Lab - Networking on AWS and Azure</title>
-    <link href="https://blog.excelsre.com/2023/11/08/lab-networking-on-aws-and-azure/"/>
-    <id>https://blog.excelsre.com/2023/11/08/lab-networking-on-aws-and-azure/</id>
+    <link href="https://blog.excelsre.com/2023/11/07/lab-networking-on-aws-and-azure/"/>
+    <id>https://blog.excelsre.com/2023/11/07/lab-networking-on-aws-and-azure/</id>
     <published>2023-11-08T03:02:33.522Z</published>
     <updated>2023-12-12T03:58:41.227Z</updated>
     
@@ -227,8 +311,8 @@
   
   <entry>
     <title>Setup SAML server in lab</title>
-    <link href="https://blog.excelsre.com/2023/09/28/install-a-virtual-machine-softwaredownload-and-install-a-virtual-machine-software-like-virtualbox-or-vmware-on-your-com/"/>
-    <id>https://blog.excelsre.com/2023/09/28/install-a-virtual-machine-softwaredownload-and-install-a-virtual-machine-software-like-virtualbox-or-vmware-on-your-com/</id>
+    <link href="https://blog.excelsre.com/2023/09/27/install-a-virtual-machine-softwaredownload-and-install-a-virtual-machine-software-like-virtualbox-or-vmware-on-your-com/"/>
+    <id>https://blog.excelsre.com/2023/09/27/install-a-virtual-machine-softwaredownload-and-install-a-virtual-machine-software-like-virtualbox-or-vmware-on-your-com/</id>
     <published>2023-09-27T20:36:01.319Z</published>
     <updated>2023-12-12T03:53:28.275Z</updated>
     
@@ -254,8 +338,8 @@
   
   <entry>
     <title>扩展磁盘-GCP VM</title>
-    <link href="https://blog.excelsre.com/2023/06/12/kuo-zhan-ci-pan-gcp-vm/"/>
-    <id>https://blog.excelsre.com/2023/06/12/kuo-zhan-ci-pan-gcp-vm/</id>
+    <link href="https://blog.excelsre.com/2023/06/11/kuo-zhan-ci-pan-gcp-vm/"/>
+    <id>https://blog.excelsre.com/2023/06/11/kuo-zhan-ci-pan-gcp-vm/</id>
     <published>2023-06-12T02:00:12.000Z</published>
     <updated>2023-06-12T02:35:02.960Z</updated>
     
@@ -312,8 +396,8 @@
   
   <entry>
     <title>科学上网 - 最佳实践</title>
-    <link href="https://blog.excelsre.com/2023/06/06/ke-xue-shang-wang-zui-jia-shi-jian/"/>
-    <id>https://blog.excelsre.com/2023/06/06/ke-xue-shang-wang-zui-jia-shi-jian/</id>
+    <link href="https://blog.excelsre.com/2023/06/05/ke-xue-shang-wang-zui-jia-shi-jian/"/>
+    <id>https://blog.excelsre.com/2023/06/05/ke-xue-shang-wang-zui-jia-shi-jian/</id>
     <published>2023-06-06T01:22:44.000Z</published>
     <updated>2023-06-06T03:34:10.240Z</updated>
     
@@ -368,8 +452,8 @@
   
   <entry>
     <title>Hexo 博客搭建</title>
-    <link href="https://blog.excelsre.com/2023/05/29/hexo-bo-ke-da-jian/"/>
-    <id>https://blog.excelsre.com/2023/05/29/hexo-bo-ke-da-jian/</id>
+    <link href="https://blog.excelsre.com/2023/05/28/hexo-bo-ke-da-jian/"/>
+    <id>https://blog.excelsre.com/2023/05/28/hexo-bo-ke-da-jian/</id>
     <published>2023-05-29T02:45:54.000Z</published>
     <updated>2023-05-29T03:50:35.250Z</updated>
     
@@ -567,28 +651,6 @@
   </entry>
   
   <entry>
-    <title>Github 教程</title>
-    <link href="https://blog.excelsre.com/1984/01/24/github-workflow/"/>
-    <id>https://blog.excelsre.com/1984/01/24/github-workflow/</id>
-    <published>1984-01-24T08:00:00.000Z</published>
-    <updated>2023-11-06T21:24:11.570Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Step-by-step&quot;&gt;&lt;a href=&quot;#Step-by-step&quot; class=&quot;headerlink&quot; title=&quot;Step by step&quot;&gt;&lt;/a&gt;Step by step&lt;/h1&gt;&lt;iframe</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>内置函数，工厂函数和魔法函数</title>
     <link href="https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/"/>
     <id>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/</id>
@@ -608,6 +670,28 @@
     
     
     <category term="python" scheme="https://blog.excelsre.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Github 教程</title>
+    <link href="https://blog.excelsre.com/1984/01/24/github-workflow/"/>
+    <id>https://blog.excelsre.com/1984/01/24/github-workflow/</id>
+    <published>1984-01-24T08:00:00.000Z</published>
+    <updated>2023-11-06T21:24:11.570Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Step-by-step&quot;&gt;&lt;a href=&quot;#Step-by-step&quot; class=&quot;headerlink&quot; title=&quot;Step by step&quot;&gt;&lt;/a&gt;Step by step&lt;/h1&gt;&lt;iframe</summary>
+        
+      
+    
+    
+    
     
   </entry>
   

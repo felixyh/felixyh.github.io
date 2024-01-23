@@ -1,0 +1,691 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Felix Yang">
+  <meta name="keywords" content="Python,SRE,Flask,AWS,Azure,运维， 读书">
+  
+    <meta name="description" content="[TOC] Flask Web Application DevOpsFlask Application Structure1. Flask Application Structure: Let’s say you have a Flask project with the following structure: 12345678myapp&#x2F;│├── app&#x2F;│   ├── __init__.py">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask Application Structure">
+<meta property="og:url" content="https://blog.excelsre.com/2024/01/14/flask-web-application-devops/index.html">
+<meta property="og:site_name" content="Felix Yang&#39;s Blog">
+<meta property="og:description" content="[TOC] Flask Web Application DevOpsFlask Application Structure1. Flask Application Structure: Let’s say you have a Flask project with the following structure: 12345678myapp&#x2F;│├── app&#x2F;│   ├── __init__.py">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-14T18:09:15.921Z">
+<meta property="article:modified_time" content="2024-01-20T18:26:38.651Z">
+<meta property="article:author" content="Felix Yang">
+<meta property="article:tag" content="flask">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Flask Application Structure - Felix Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.excelsre.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":120,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Felix Yang's Blog" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Felix Yang's Blog" type="application/rss+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>大良造</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Flask Application Structure</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-15 02:09" pubdate>
+          2024年1月15日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          63 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Flask Application Structure</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h1 id="Flask-Web-Application-DevOps"><a href="#Flask-Web-Application-DevOps" class="headerlink" title="Flask Web Application DevOps"></a>Flask Web Application DevOps</h1><h2 id="Flask-Application-Structure"><a href="#Flask-Application-Structure" class="headerlink" title="Flask Application Structure"></a>Flask Application Structure</h2><p><strong>1. Flask Application Structure:</strong></p>
+<p>Let’s say you have a Flask project with the following structure:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs vim">myapp/<br>│<br>├── app/<br>│   ├── __init__.<span class="hljs-keyword">py</span><br>│   ├── routes.<span class="hljs-keyword">py</span><br>│   └── ...<br>│<br>└── run.<span class="hljs-keyword">py</span><br></code></pre></td></tr></table></figure>
+
+<p>In this structure, <code>app</code> is the package containing your Flask application, <code>routes.py</code> contains route definitions, and <code>run.py</code> is the entry point for running the app.</p>
+<p><strong>2. Initializing Flask App (<code>__init__.py</code>):</strong></p>
+<p>In <code>app/__init__.py</code>, you initialize your Flask application:</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask<br><br>app = Flask(__name__)<br><br><span class="hljs-keyword">from</span> app <span class="hljs-keyword">import</span> routes<br></code></pre></td></tr></table></figure>
+
+<p>In this file, you create an instance of <code>Flask</code> called <code>app</code>. After the instance is created, you import the <code>routes</code>. It is important that the import statement for <code>routes</code> comes after the creation of the <code>Flask</code> instance to avoid circular imports.</p>
+<p><strong>3. Defining Routes (<code>routes.py</code>):</strong></p>
+<p>In <code>routes.py</code>, you define your route handlers:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> app <span class="hljs-keyword">import</span> app<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello, World!&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>Here, you’re importing the <code>app</code> instance from your <code>app</code> package and using the <code>route</code> decorator to tell Flask what URL should trigger the <code>index</code> function.</p>
+<p><strong>4. Running the Flask App (<code>run.py</code>):</strong></p>
+<p>Finally, in <code>run.py</code>, you run the application:</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> app import app<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    app.<span class="hljs-built_in">run</span>(<span class="hljs-attribute">debug</span>=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+
+<p>When you execute <code>run.py</code>, it imports the <code>app</code> instance from the <code>app</code> package. This import statement triggers the execution of <code>__init__.py</code>, which in turn initializes the Flask app and imports <code>routes.py</code>. As a result, the routes you defined in <code>routes.py</code> are registered with the Flask app.</p>
+<p><strong>5. Running the Application:</strong></p>
+<p>To start the Flask application, you would run the <code>run.py</code> script:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">python</span> run.<span class="hljs-keyword">py</span><br></code></pre></td></tr></table></figure>
+
+<p>This starts the Flask web server, and your application should be accessible according to the routes you’ve defined in <code>routes.py</code>.</p>
+<p>This modular setup helps in keeping the code organized and makes it easier to maintain and scale your Flask application.</p>
+<h2 id="Chapter-1"><a href="#Chapter-1" class="headerlink" title="Chapter-1"></a>Chapter-1</h2><h2 id="Chapter-2"><a href="#Chapter-2" class="headerlink" title="Chapter-2"></a>Chapter-2</h2><h2 id="Chapter-3"><a href="#Chapter-3" class="headerlink" title="Chapter-3"></a>Chapter-3</h2><h2 id="Chapter-4"><a href="#Chapter-4" class="headerlink" title="Chapter-4"></a>Chapter-4</h2><h2 id="Chapter-5-Database"><a href="#Chapter-5-Database" class="headerlink" title="Chapter-5 Database"></a>Chapter-5 Database</h2><ol>
+<li><p><strong>Database Configuration</strong>: Introduction to database configuration in Flask, explaining how to set up and configure a database for use with a Flask application. This likely includes choosing a database system (like SQLite for development purposes) and setting up the database URI in the Flask app’s configuration.</p>
+</li>
+<li><p><strong>ORM (Object-Relational Mapping)</strong>: Discussion of using an ORM like SQLAlchemy in Flask. ORM allows developers to interact with the database using Python classes and objects instead of writing raw SQL queries.</p>
+</li>
+<li><p><strong>Database Models</strong>: Explanation of how to define database models in Flask. This involves creating Python classes that define the tables and relationships in the database. For example, defining a <code>User</code> model for a user table.</p>
+</li>
+<li><p><strong>Database Migrations</strong>: Introduction to database migration tools, such as Flask-Migrate, which is an extension that handles SQLAlchemy database migrations for Flask applications. The tutorial likely covers how to create and apply database migrations, which is essential for evolving the database schema over time without losing data.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Creating The Migration Repository</span><br>(venv) $ flask db init<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Generating the migration script</span><br>(venv) $ flask db migrate -m &quot;users table&quot;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">The flask db migrate <span class="hljs-built_in">command</span> does not make any changes to the database, it just generates the migration script. To apply the changes to the database, the flask db upgrade <span class="hljs-built_in">command</span> must be used.</span><br>(venv) $ flask db upgrade<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Flask db downgrade <span class="hljs-built_in">command</span>, <span class="hljs-built_in">which</span> undoes the last migration</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">The first <span class="hljs-built_in">command</span> tells Flask-Migrate to apply the database migrations <span class="hljs-keyword">in</span> reverse order. When the downgrade <span class="hljs-built_in">command</span> is not given a target, it downgrades one revision. The base target causes all migrations to be downgraded, <span class="hljs-keyword">until</span> the database is left at its initial state, with no tables.</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">The upgrade <span class="hljs-built_in">command</span> re-applies all the migrations <span class="hljs-keyword">in</span> forward order. The default target <span class="hljs-keyword">for</span> upgrades is <span class="hljs-built_in">head</span>, <span class="hljs-built_in">which</span> is a shortcut <span class="hljs-keyword">for</span> the most recent migration.</span> <br><span class="hljs-meta prompt_"># </span><span class="language-bash">Since database migrations <span class="hljs-keyword">do</span> not preserve the data stored <span class="hljs-keyword">in</span> the database, downgrading and <span class="hljs-keyword">then</span> upgrading has the effect of quickly emptying all the tables.</span><br>(venv) $ flask db downgrade base<br>(venv) $ flask db upgrade<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p><strong>Database Operations</strong>: Overview of basic database operations like creating, reading, updating, and deleting records (CRUD operations). This section might include examples of how to perform these operations using SQLAlchemy in a Flask app.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># import modules</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> app <span class="hljs-keyword">import</span> app, db<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> app.models <span class="hljs-keyword">import</span> User, Post<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> sqlalchemy <span class="hljs-keyword">as</span> sa<br><span class="hljs-meta">&gt;&gt;&gt; </span>app.app_context().push()<br><br><span class="hljs-comment"># For Flask and its extensions to have access to the Flask application without having to pass app as an argument into every function, an application context must be created and pushed.</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>app.app_context().push()<br><br><span class="hljs-comment"># Create a user, changes are only written to the database when a commit is issued with db.session.commit()</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>u = User(username=<span class="hljs-string">&#x27;john&#x27;</span>, email=<span class="hljs-string">&#x27;john@example.com&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>db.session.add(u)<br><span class="hljs-meta">&gt;&gt;&gt; </span>db.session.commit()<br><br><span class="hljs-comment"># Add another user</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>u = User(username=<span class="hljs-string">&#x27;susan&#x27;</span>, email=<span class="hljs-string">&#x27;susan@example.com&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>db.session.add(u)<br><span class="hljs-meta">&gt;&gt;&gt; </span>db.session.commit()<br><br><span class="hljs-comment"># query the suer</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>query = sa.select(User)<br><span class="hljs-meta">&gt;&gt;&gt; </span>users = db.session.scalars(query).<span class="hljs-built_in">all</span>()<br><span class="hljs-meta">&gt;&gt;&gt; </span>users<br>[&lt;User john&gt;, &lt;User susan&gt;]<br><br><span class="hljs-comment"># use the results iterator in a for-loop instead of converting it to a list</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>users = db.session.scalars(query)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> u <span class="hljs-keyword">in</span> users:<br><span class="hljs-meta">... </span>    <span class="hljs-built_in">print</span>(u.<span class="hljs-built_in">id</span>, u.username)<br>...<br><span class="hljs-number">1</span> john<br><span class="hljs-number">2</span> susan<br><br><span class="hljs-comment"># Another way to query, if you know the id of a user, you can retrieve that user as follows</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>u = db.session.get(User, <span class="hljs-number">1</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>u<br>&lt;User john&gt;<br><br><br><span class="hljs-comment"># Add a blog post</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>u = db.session.get(User, <span class="hljs-number">1</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>p = Post(body=<span class="hljs-string">&#x27;my first post!&#x27;</span>, author=u)<br><span class="hljs-meta">&gt;&gt;&gt; </span>db.session.add(p)<br><span class="hljs-meta">&gt;&gt;&gt; </span>db.session.commit()<br><br><br><span class="hljs-comment">## --------- more useful db queries</span><br><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># get all posts written by a user</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>u = db.session.get(User, <span class="hljs-number">1</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>u<br>&lt;User john&gt;<br><span class="hljs-meta">&gt;&gt;&gt; </span>query = u.posts.select()<br><span class="hljs-meta">&gt;&gt;&gt; </span>posts = db.session.scalars(query).<span class="hljs-built_in">all</span>()<br><span class="hljs-meta">&gt;&gt;&gt; </span>posts<br>[&lt;Post my first post!&gt;]<br><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># same, but with a user that has no posts</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>u = db.session.get(User, <span class="hljs-number">2</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>u<br>&lt;User susan&gt;<br><span class="hljs-meta">&gt;&gt;&gt; </span>query = u.posts.select()<br><span class="hljs-meta">&gt;&gt;&gt; </span>posts = db.session.scalars(query).<span class="hljs-built_in">all</span>()<br><span class="hljs-meta">&gt;&gt;&gt; </span>posts<br>[]<br><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># print post author and body for all posts</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>query = sa.select(Post)<br><span class="hljs-meta">&gt;&gt;&gt; </span>posts = db.session.scalars(query)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> posts:<br><span class="hljs-meta">... </span>    <span class="hljs-built_in">print</span>(p.<span class="hljs-built_in">id</span>, p.author.username, p.body)<br>...<br><span class="hljs-number">1</span> john my first post!<br><br><span class="hljs-comment"># get all users in reverse alphabetical order</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>query = sa.select(User).order_by(User.username.desc())<br><span class="hljs-meta">&gt;&gt;&gt; </span>db.session.scalars(query).<span class="hljs-built_in">all</span>()<br>[&lt;User susan&gt;, &lt;User john&gt;]<br><br><span class="hljs-comment"># get all users that have usernames starting with &quot;s&quot;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>query = sa.select(User).where(User.username.like(<span class="hljs-string">&#x27;s%&#x27;</span>))<br><span class="hljs-meta">&gt;&gt;&gt; </span>db.session.scalars(query).<span class="hljs-built_in">all</span>()<br>[&lt;User susan&gt;]<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p><strong>Integrating with Flask Application</strong>: Steps to integrate the database with the main Flask application, including initializing the database with the app and possibly creating a shell context for working with the database in the Flask shell.</p>
+<blockquote>
+<p>without flask shell, it is boring to test database as you need to import the modules&#x2F;db models everytime. </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; from app import app, db</span><br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; from app.models import User, Post</span><br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; import sqlalchemy as sa</span><br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; app.app_context().push()</span><br></code></pre></td></tr></table></figure>
+
+
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># The following function in microblog.py creates a shell context that adds the database instance and models to the shell session:</span><br><span class="hljs-keyword">import</span> sqlalchemy <span class="hljs-keyword">as</span> sa<br><span class="hljs-keyword">import</span> sqlalchemy.orm <span class="hljs-keyword">as</span> so<br><span class="hljs-keyword">from</span> app <span class="hljs-keyword">import</span> app, db<br><span class="hljs-keyword">from</span> app.models <span class="hljs-keyword">import</span> User, Post<br><br><span class="hljs-meta">@app.shell_context_processor</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">make_shell_context</span>():<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;sa&#x27;</span>: sa, <span class="hljs-string">&#x27;so&#x27;</span>: so, <span class="hljs-string">&#x27;db&#x27;</span>: db, <span class="hljs-string">&#x27;User&#x27;</span>: User, <span class="hljs-string">&#x27;Post&#x27;</span>: Post&#125;<br></code></pre></td></tr></table></figure>
+
+<p>After you add the shell context processor function you can work with database entities without having to import them:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">(venv) $ flask shell<br><span class="hljs-meta">&gt;&gt;&gt; </span>db<br>&lt;SQLAlchemy sqlite:////home/miguel/microblog/app.db&gt;<br><span class="hljs-meta">&gt;&gt;&gt; </span>User<br>&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;app.models.User&#x27;</span>&gt;<br><span class="hljs-meta">&gt;&gt;&gt; </span>Post<br>&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;app.models.Post&#x27;</span>&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Chapter-19-Deployment-on-Docker-Containers"><a href="#Chapter-19-Deployment-on-Docker-Containers" class="headerlink" title="Chapter-19 Deployment on Docker Containers"></a>Chapter-19 Deployment on Docker Containers</h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" class="category-chain-item">技术文章</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/flask/" class="print-no-link">#flask</a>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Flask Application Structure</div>
+      <div>https://blog.excelsre.com/2024/01/14/flask-web-application-devops/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Felix Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/20/revised-steps-with-iam-role-creation-and-assignment/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/10/build-localstack-on-local-k8s-cluster-updated/" title="Build localstack on local k8s cluster - updated">
+                        <span class="hidden-mobile">Build localstack on local k8s cluster - updated</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/felixyh" target="_blank" rel="nofollow noopener"><span>Yixiao</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/felixyh" target="_blank" rel="nofollow noopener"><span>Yizhen</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

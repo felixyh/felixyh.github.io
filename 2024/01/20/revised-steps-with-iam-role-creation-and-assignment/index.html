@@ -1,0 +1,732 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Felix Yang">
+  <meta name="keywords" content="Python,SRE,Flask,AWS,Azure,运维， 读书">
+  
+    <meta name="description" content="Revised Steps with IAM Role Creation and Assignment1. Create VPC and Subnets VPC Creation: 12bashCopy codeaws ec2 create-vpc --cidr-block 10.0.0.0&#x2F;16  Note the VPC ID (e.g., vpc-xxxxx) for future step">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Felix Yang&#39;s Blog">
+<meta property="og:url" content="https://blog.excelsre.com/2024/01/20/revised-steps-with-iam-role-creation-and-assignment/index.html">
+<meta property="og:site_name" content="Felix Yang&#39;s Blog">
+<meta property="og:description" content="Revised Steps with IAM Role Creation and Assignment1. Create VPC and Subnets VPC Creation: 12bashCopy codeaws ec2 create-vpc --cidr-block 10.0.0.0&#x2F;16  Note the VPC ID (e.g., vpc-xxxxx) for future step">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-21T05:22:52.060Z">
+<meta property="article:modified_time" content="2024-01-21T05:22:52.060Z">
+<meta property="article:author" content="Felix Yang">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="SRE">
+<meta property="article:tag" content="Flask">
+<meta property="article:tag" content="AWS">
+<meta property="article:tag" content="Azure">
+<meta property="article:tag" content="运维， 读书">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Felix Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.excelsre.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":120,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Felix Yang's Blog" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Felix Yang's Blog" type="application/rss+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>大良造</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-21 13:22" pubdate>
+          2024年1月21日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          60 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="Revised-Steps-with-IAM-Role-Creation-and-Assignment"><a href="#Revised-Steps-with-IAM-Role-Creation-and-Assignment" class="headerlink" title="Revised Steps with IAM Role Creation and Assignment"></a>Revised Steps with IAM Role Creation and Assignment</h3><h4 id="1-Create-VPC-and-Subnets"><a href="#1-Create-VPC-and-Subnets" class="headerlink" title="1. Create VPC and Subnets"></a>1. Create VPC and Subnets</h4><ul>
+<li><p><strong>VPC Creation</strong>:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">bashCopy</span> <span class="hljs-string">code</span><br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-vpc</span> <span class="hljs-built_in">--cidr-block</span> <span class="hljs-string">10</span>.<span class="hljs-string">0</span>.<span class="hljs-string">0</span>.<span class="hljs-string">0</span>/<span class="hljs-string">16</span><br></code></pre></td></tr></table></figure>
+
+<p>Note the VPC ID (e.g., <code>vpc-xxxxx</code>) for future steps.</p>
+</li>
+<li><p><strong>Subnet Creation</strong>: Create subnets in different Availability Zones.</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">bashCopy</span> <span class="hljs-string">code</span><br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-subnet</span> <span class="hljs-built_in">--vpc-id</span> <span class="hljs-string">vpc-xxxxx</span> <span class="hljs-built_in">--cidr-block</span> <span class="hljs-string">10</span>.<span class="hljs-string">0</span>.<span class="hljs-string">1</span>.<span class="hljs-string">0</span>/<span class="hljs-string">24</span> <span class="hljs-built_in">--availability-zone</span> <span class="hljs-string">us-west-2a</span><br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-subnet</span> <span class="hljs-built_in">--vpc-id</span> <span class="hljs-string">vpc-xxxxx</span> <span class="hljs-built_in">--cidr-block</span> <span class="hljs-string">10</span>.<span class="hljs-string">0</span>.<span class="hljs-string">2</span>.<span class="hljs-string">0</span>/<span class="hljs-string">24</span> <span class="hljs-built_in">--availability-zone</span> <span class="hljs-string">us-west-2b</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-Create-IAM-Roles"><a href="#2-Create-IAM-Roles" class="headerlink" title="2. Create IAM Roles"></a>2. Create IAM Roles</h4><ul>
+<li><p><strong>EKS Service Role</strong>: Create an IAM role with the required policies for EKS.</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">bashCopy</span> <span class="hljs-string">code</span><br><span class="hljs-string">aws</span> <span class="hljs-string">iam</span> <span class="hljs-built_in">create-role</span> <span class="hljs-built_in">--role-name</span> <span class="hljs-string">eksServiceRole</span> <span class="hljs-built_in">--assume-role-policy-document</span> <span class="hljs-string">file</span>://<span class="hljs-string">eks-trust-policy</span>.<span class="hljs-string">json</span><br></code></pre></td></tr></table></figure>
+
+<p>Attach the necessary policies:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cmake">bashCopy code<br>aws iam attach-role-<span class="hljs-keyword">policy</span> --role-name eksServiceRole --<span class="hljs-keyword">policy</span>-arn arn:aws:iam::aws:<span class="hljs-keyword">policy</span>/AmazonEKSClusterPolicy<br>aws iam attach-role-<span class="hljs-keyword">policy</span> --role-name eksServiceRole --<span class="hljs-keyword">policy</span>-arn arn:aws:iam::aws:<span class="hljs-keyword">policy</span>/AmazonEKSServicePolicy<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Node Group Role</strong>: Create an IAM role for the EKS worker nodes.</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">bashCopy</span> <span class="hljs-string">code</span><br><span class="hljs-string">aws</span> <span class="hljs-string">iam</span> <span class="hljs-built_in">create-role</span> <span class="hljs-built_in">--role-name</span> <span class="hljs-string">eksNodeRole</span> <span class="hljs-built_in">--assume-role-policy-document</span> <span class="hljs-string">file</span>://<span class="hljs-string">eks-node-trust-policy</span>.<span class="hljs-string">json</span><br></code></pre></td></tr></table></figure>
+
+<p>Attach policies required by worker nodes:</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">bashCopy code<br>aws iam attach-<span class="hljs-keyword">role</span>-<span class="hljs-keyword">policy</span> <span class="hljs-comment">--role-name eksNodeRole --policy-arn arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy</span><br>aws iam attach-<span class="hljs-keyword">role</span>-<span class="hljs-keyword">policy</span> <span class="hljs-comment">--role-name eksNodeRole --policy-arn arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy</span><br>aws iam attach-<span class="hljs-keyword">role</span>-<span class="hljs-keyword">policy</span> <span class="hljs-comment">--role-name eksNodeRole --policy-arn arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3-Create-Elastic-Container-Registry-ECR"><a href="#3-Create-Elastic-Container-Registry-ECR" class="headerlink" title="3. Create Elastic Container Registry (ECR)"></a>3. Create Elastic Container Registry (ECR)</h4><ul>
+<li><p>ECR Repository</p>
+<p>:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">bashCopy</span> <span class="hljs-string">code</span><br><span class="hljs-string">aws</span> <span class="hljs-string">ecr</span> <span class="hljs-built_in">create-repository</span> <span class="hljs-built_in">--repository-name</span> <span class="hljs-string">my-app-repo</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="4-Create-Elastic-Kubernetes-Service-EKS-Cluster"><a href="#4-Create-Elastic-Kubernetes-Service-EKS-Cluster" class="headerlink" title="4. Create Elastic Kubernetes Service (EKS) Cluster"></a>4. Create Elastic Kubernetes Service (EKS) Cluster</h4><ul>
+<li><p>EKS Cluster</p>
+<p>:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">bashCopy</span> <span class="hljs-string">code</span><br><span class="hljs-string">aws</span> <span class="hljs-string">eks</span> <span class="hljs-built_in">create-cluster</span> <span class="hljs-built_in">--name</span> <span class="hljs-string">my-eks-cluster</span> <span class="hljs-built_in">--role-arn</span> <span class="hljs-string">arn:aws:</span><span class="hljs-string">iam</span>::<span class="hljs-string">123456789012:role/</span><span class="hljs-string">eksServiceRole</span> <span class="hljs-built_in">--resources-vpc-config</span> <span class="hljs-string">subnetIds</span>=<span class="hljs-string">subnet-abcde01</span>,<span class="hljs-string">subnet-abcde02</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="5-Create-Security-Groups"><a href="#5-Create-Security-Groups" class="headerlink" title="5. Create Security Groups"></a>5. Create Security Groups</h4><ul>
+<li><p>Security Group</p>
+<p>:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">bashCopy</span> <span class="hljs-string">code</span><br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-security-group</span> <span class="hljs-built_in">--group-name</span> <span class="hljs-string">my-sg</span> <span class="hljs-built_in">--description</span> <span class="hljs-string">&quot;My security group&quot;</span> <span class="hljs-built_in">--vpc-id</span> <span class="hljs-string">vpc-xxxxx</span><br></code></pre></td></tr></table></figure>
+
+<p>Then, add rules to allow traffic from restricted IPs:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css">bashCopy <span class="hljs-selector-tag">code</span><br>aws ec2 authorize-security-group-ingress <span class="hljs-attr">--group-id</span> sg-xxxxx <span class="hljs-attr">--protocol</span> tcp <span class="hljs-attr">--port</span> <span class="hljs-number">80</span> <span class="hljs-attr">--cidr</span> restricted-ip-<span class="hljs-selector-tag">address</span>/<span class="hljs-number">32</span><br>aws ec2 authorize-security-group-ingress <span class="hljs-attr">--group-id</span> sg-xxxxx <span class="hljs-attr">--protocol</span> tcp <span class="hljs-attr">--port</span> <span class="hljs-number">443</span> <span class="hljs-attr">--cidr</span> restricted-ip-<span class="hljs-selector-tag">address</span>/<span class="hljs-number">32</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="6-Create-Worker-Nodes-for-EKS"><a href="#6-Create-Worker-Nodes-for-EKS" class="headerlink" title="6. Create Worker Nodes for EKS"></a>6. Create Worker Nodes for EKS</h4><blockquote>
+<h4 id="1-Download-the-AWS-EKS-Worker-Node-CloudFormation-Template"><a href="#1-Download-the-AWS-EKS-Worker-Node-CloudFormation-Template" class="headerlink" title="1. Download the AWS EKS Worker Node CloudFormation Template"></a>1. Download the AWS EKS Worker Node CloudFormation Template</h4><p>First, you need to download the appropriate CloudFormation template provided by AWS. These templates are available in the AWS EKS documentation. You can use <code>wget</code> or <code>curl</code> to download it:</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">bashCopy</span> code<br><span class="hljs-attribute">wget</span> https://amazon-eks.s3.us-west-<span class="hljs-number">2</span>.amazonaws.com/cloudformation/<span class="hljs-number">2020</span>-<span class="hljs-number">08</span>-<span class="hljs-number">17</span>/amazon-eks-nodegroup.yaml<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-Create-a-Key-Pair-for-EC2-Instances"><a href="#2-Create-a-Key-Pair-for-EC2-Instances" class="headerlink" title="2. Create a Key Pair for EC2 Instances"></a>2. Create a Key Pair for EC2 Instances</h4><p>Create a key pair for SSH access to the EC2 instances:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">bashCopy</span> <span class="hljs-string">code</span><br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-key-pair</span> <span class="hljs-built_in">--key-name</span> <span class="hljs-string">MyKeyPair</span><br></code></pre></td></tr></table></figure>
+
+<p>Note: Remember to save the key material (.pem file) that you receive in response.</p>
+<h4 id="3-Deploy-the-CloudFormation-Stack-using-AWS-CLI"><a href="#3-Deploy-the-CloudFormation-Stack-using-AWS-CLI" class="headerlink" title="3. Deploy the CloudFormation Stack using AWS CLI"></a>3. Deploy the CloudFormation Stack using AWS CLI</h4><p>Now, deploy the CloudFormation stack with the template you downloaded. You’ll need to provide various parameters such as the EKS cluster name, node group role ARN, subnet IDs, and the key pair name.</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">bashCopy</span> <span class="hljs-string">code</span><br><span class="hljs-string">aws</span> <span class="hljs-string">cloudformation</span> <span class="hljs-built_in">create-stack</span> <span class="hljs-built_in">--stack-name</span> <span class="hljs-string">my-eks-nodes</span> <span class="hljs-built_in">--template-body</span> <span class="hljs-string">file</span>://<span class="hljs-string">amazon-eks-nodegroup</span>.<span class="hljs-string">yaml</span> <span class="hljs-built_in">--parameters</span> <span class="hljs-string">ParameterKey</span>=<span class="hljs-string">ClusterName</span>,<span class="hljs-string">ParameterValue</span>=<span class="hljs-string">my-eks-cluster</span> <span class="hljs-string">ParameterKey</span>=<span class="hljs-string">ClusterControlPlaneSecurityGroup</span>,<span class="hljs-string">ParameterValue</span>=<span class="hljs-string">sg-xxxxx</span> <span class="hljs-string">ParameterKey</span>=<span class="hljs-string">NodeGroupName</span>,<span class="hljs-string">ParameterValue</span>=<span class="hljs-string">my-node-group</span> <span class="hljs-string">ParameterKey</span>=<span class="hljs-string">NodeAutoScalingGroupMinSize</span>,<span class="hljs-string">ParameterValue</span>=<span class="hljs-string">1</span> <span class="hljs-string">ParameterKey</span>=<span class="hljs-string">NodeAutoScalingGroupMaxSize</span>,<span class="hljs-string">ParameterValue</span>=<span class="hljs-string">3</span> <span class="hljs-string">ParameterKey</span>=<span class="hljs-string">NodeInstanceType</span>,<span class="hljs-string">ParameterValue</span>=<span class="hljs-string">t3</span>.<span class="hljs-string">medium</span> <span class="hljs-string">ParameterKey</span>=<span class="hljs-string">NodeImageId</span>,<span class="hljs-string">ParameterValue</span>=<span class="hljs-string">ami-0a887e401f7654935</span> <span class="hljs-string">ParameterKey</span>=<span class="hljs-string">KeyName</span>,<span class="hljs-string">ParameterValue</span>=<span class="hljs-string">MyKeyPair</span> <span class="hljs-string">ParameterKey</span>=<span class="hljs-string">VpcId</span>,<span class="hljs-string">ParameterValue</span>=<span class="hljs-string">vpc-xxxxx</span> <span class="hljs-string">ParameterKey</span>=<span class="hljs-string">Subnets</span>,<span class="hljs-string">ParameterValue</span>=\<span class="hljs-string">&quot;subnet-abcde01,subnet-abcde02\&quot;</span> <span class="hljs-string">ParameterKey</span>=<span class="hljs-string">NodeGroupRoleArn</span>,<span class="hljs-string">ParameterValue</span>=<span class="hljs-string">arn:aws:</span><span class="hljs-string">iam</span>::<span class="hljs-string">123456789012:role/</span><span class="hljs-string">eksNodeRole</span> <span class="hljs-built_in">--capabilities</span> <span class="hljs-string">CAPABILITY_IAM</span><br></code></pre></td></tr></table></figure>
+
+<p>Replace the placeholders like <code>my-eks-cluster</code>, <code>sg-xxxxx</code>, <code>vpc-xxxxx</code>, <code>subnet-abcde01</code>, <code>subnet-abcde02</code>, etc., with your actual values.</p>
+<h4 id="4-Monitor-the-Stack-Creation"><a href="#4-Monitor-the-Stack-Creation" class="headerlink" title="4. Monitor the Stack Creation"></a>4. Monitor the Stack Creation</h4><p>You can monitor the status of the stack creation using the AWS Management Console or AWS CLI:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css">bashCopy <span class="hljs-selector-tag">code</span><br>aws cloudformation describe-stacks <span class="hljs-attr">--stack-name</span> my-eks-nodes<br></code></pre></td></tr></table></figure>
+
+<p>Once the stack status is <code>CREATE_COMPLETE</code>, your worker nodes are ready and should join your EKS cluster automatically.</p>
+</blockquote>
+<h4 id="7-Networking-and-Access"><a href="#7-Networking-and-Access" class="headerlink" title="7. Networking and Access"></a>7. Networking and Access</h4><ul>
+<li><p><strong>Internet Gateway &amp; Route Tables</strong>: Set up as needed for external access.</p>
+<blockquote>
+<ol>
+<li><p><strong>Create an Internet Gateway</strong>:</p>
+<ul>
+<li>This is needed if your worker nodes need access to the internet.</li>
+</ul>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gauss">bashCopy <span class="hljs-built_in">code</span><br>aws ec2 <span class="hljs-keyword">create</span>-internet-gateway<br></code></pre></td></tr></table></figure>
+
+<p>Note the Internet Gateway ID (<code>igw-xxxx</code>) for future steps.</p>
+</li>
+<li><p><strong>Attach the Internet Gateway to Your VPC</strong>:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css">bashCopy <span class="hljs-selector-tag">code</span><br>aws ec2 attach-internet-gateway <span class="hljs-attr">--internet-gateway-id</span> igw-xxxx <span class="hljs-attr">--vpc-id</span> vpc-xxxxx<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Create a Route Table</strong>:</p>
+<ul>
+<li>Create a route table in your VPC for routing traffic.</li>
+</ul>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">bashCopy</span> <span class="hljs-string">code</span><br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-route-table</span> <span class="hljs-built_in">--vpc-id</span> <span class="hljs-string">vpc-xxxxx</span><br></code></pre></td></tr></table></figure>
+
+<p>Note the Route Table ID (<code>rtb-xxxx</code>) for future steps.</p>
+</li>
+<li><p><strong>Create a Route to the Internet Gateway</strong>:</p>
+<ul>
+<li>This enables traffic from the VPC to the internet via the Internet Gateway.</li>
+</ul>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">bashCopy</span> <span class="hljs-string">code</span><br><span class="hljs-string">aws</span> <span class="hljs-string">ec2</span> <span class="hljs-built_in">create-route</span> <span class="hljs-built_in">--route-table-id</span> <span class="hljs-string">rtb-xxxx</span> <span class="hljs-built_in">--destination-cidr-block</span> <span class="hljs-string">0</span>.<span class="hljs-string">0</span>.<span class="hljs-string">0</span>.<span class="hljs-string">0</span>/<span class="hljs-string">0</span> <span class="hljs-built_in">--gateway-id</span> <span class="hljs-string">igw-xxxx</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Associate the Route Table with Subnets</strong>:</p>
+<ul>
+<li>Associate the route table with each of your subnets.</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css">bashCopy <span class="hljs-selector-tag">code</span><br>aws ec2 associate-route-<span class="hljs-selector-tag">table</span> <span class="hljs-attr">--route-table-id</span> rtb-xxxx <span class="hljs-attr">--subnet-id</span> subnet-abcde01<br>aws ec2 associate-route-<span class="hljs-selector-tag">table</span> <span class="hljs-attr">--route-table-id</span> rtb-xxxx <span class="hljs-attr">--subnet-id</span> subnet-abcde02<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Adjust Security Groups as Needed</strong>:</p>
+<ul>
+<li>Update your security groups to allow the necessary inbound and outbound traffic for your application.</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h4 id="8-Configure-kubectl-for-EKS"><a href="#8-Configure-kubectl-for-EKS" class="headerlink" title="8. Configure kubectl for EKS"></a>8. Configure kubectl for EKS</h4><ul>
+<li><p>Update kubeconfig</p>
+<p>:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css">bashCopy <span class="hljs-selector-tag">code</span><br>aws eks update-kubeconfig <span class="hljs-attr">--name</span> my-eks-cluster<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Notes-on-IAM-Policy-Documents"><a href="#Notes-on-IAM-Policy-Documents" class="headerlink" title="Notes on IAM Policy Documents"></a>Notes on IAM Policy Documents</h4><ul>
+<li><p>The <code>eks-trust-policy.json</code> and <code>eks-node-trust-policy.json</code> files are JSON policy documents that allow EKS and EC2 to assume the role, respectively. You need to create these JSON files as per AWS IAM policies guidelines.</p>
+<blockquote>
+<h3 id="eks-trust-policy-json"><a href="#eks-trust-policy-json" class="headerlink" title="eks-trust-policy.json"></a>eks-trust-policy.json</h3><p>This trust policy is used when creating the IAM role for the EKS cluster. It allows the EKS service to assume this role.</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">jsonCopy</span> <span class="hljs-meta">code</span><br>&#123;<br>  <span class="hljs-string">&quot;Version&quot;</span>: <span class="hljs-string">&quot;2012-10-17&quot;</span>,<br>  <span class="hljs-string">&quot;Statement&quot;</span>: [<br>    &#123;<br>      <span class="hljs-string">&quot;Effect&quot;</span>: <span class="hljs-string">&quot;Allow&quot;</span>,<br>      <span class="hljs-string">&quot;Principal&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;Service&quot;</span>: <span class="hljs-string">&quot;eks.amazonaws.com&quot;</span><br>      &#125;,<br>      <span class="hljs-string">&quot;Action&quot;</span>: <span class="hljs-string">&quot;sts:AssumeRole&quot;</span><br>    &#125;<br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="eks-node-trust-policy-json"><a href="#eks-node-trust-policy-json" class="headerlink" title="eks-node-trust-policy.json"></a>eks-node-trust-policy.json</h3><p>This trust policy is for the IAM role assigned to EKS worker nodes. It allows the EC2 instances (worker nodes) to assume this role.</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">jsonCopy</span> <span class="hljs-meta">code</span><br>&#123;<br>  <span class="hljs-string">&quot;Version&quot;</span>: <span class="hljs-string">&quot;2012-10-17&quot;</span>,<br>  <span class="hljs-string">&quot;Statement&quot;</span>: [<br>    &#123;<br>      <span class="hljs-string">&quot;Effect&quot;</span>: <span class="hljs-string">&quot;Allow&quot;</span>,<br>      <span class="hljs-string">&quot;Principal&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;Service&quot;</span>: <span class="hljs-string">&quot;ec2.amazonaws.com&quot;</span><br>      &#125;,<br>      <span class="hljs-string">&quot;Action&quot;</span>: <span class="hljs-string">&quot;sts:AssumeRole&quot;</span><br>    &#125;<br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><p>When you create the IAM roles using the AWS CLI, you’ll reference these files. For example:</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">bashCopy</span> <span class="hljs-string">code</span><br><span class="hljs-string">aws</span> <span class="hljs-string">iam</span> <span class="hljs-built_in">create-role</span> <span class="hljs-built_in">--role-name</span> <span class="hljs-string">eksServiceRole</span> <span class="hljs-built_in">--assume-role-policy-document</span> <span class="hljs-string">file</span>://<span class="hljs-string">eks-trust-policy</span>.<span class="hljs-string">json</span><br><span class="hljs-string">aws</span> <span class="hljs-string">iam</span> <span class="hljs-built_in">create-role</span> <span class="hljs-built_in">--role-name</span> <span class="hljs-string">eksNodeRole</span> <span class="hljs-built_in">--assume-role-policy-document</span> <span class="hljs-string">file</span>://<span class="hljs-string">eks-node-trust-policy</span>.<span class="hljs-string">json</span><br></code></pre></td></tr></table></figure>
+
+<p>Ensure that these JSON files are correctly formatted and stored locally where the AWS CLI can access them. These trust policies are crucial for setting up IAM roles that align with AWS security best practices, by explicitly defining which AWS services can assume these roles.</p>
+</blockquote>
+</li>
+</ul>
+<p>This revised procedure includes the creation and assignment of IAM roles, which are vital for managing access and permissions for EKS and its worker nodes. Remember to replace placeholder values (like <code>subnet-abcde01</code>, <code>vpc-xxxxx</code>, <code>sg-xxxxx</code>, etc.) with actual values from your AWS setup.</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://blog.excelsre.com/2024/01/20/revised-steps-with-iam-role-creation-and-assignment/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Felix Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/21/cicd-build-test-and-deploy-containers-to-acr-aks-using-github-actions/" title="CICD - Build, test, and deploy containers to ACR/AKS using GitHub Actions">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CICD - Build, test, and deploy containers to ACR/AKS using GitHub Actions</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/14/flask-web-application-devops/" title="Flask Application Structure">
+                        <span class="hidden-mobile">Flask Application Structure</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/felixyh" target="_blank" rel="nofollow noopener"><span>Yixiao</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/felixyh" target="_blank" rel="nofollow noopener"><span>Yizhen</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

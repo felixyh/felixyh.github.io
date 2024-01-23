@@ -9,20 +9,21 @@
     <atom:link href="https://blog.excelsre.com/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>人生何处不相逢</description>
-    <pubDate>Sun, 10 Dec 2023 14:44:19 GMT</pubDate>
+    <pubDate>Tue, 23 Jan 2024 23:35:41 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
-      <title>Build localstack on local k8s cluster</title>
-      <link>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/</link>
-      <guid>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/</guid>
-      <pubDate>Sun, 10 Dec 2023 14:34:04 GMT</pubDate>
+      <title>CICD - Build, test, and deploy containers to ACR/AKS using GitHub Actions</title>
+      <link>https://blog.excelsre.com/2024/01/21/cicd-build-test-and-deploy-containers-to-acr-aks-using-github-actions/</link>
+      <guid>https://blog.excelsre.com/2024/01/21/cicd-build-test-and-deploy-containers-to-acr-aks-using-github-actions/</guid>
+      <pubDate>Sun, 21 Jan 2024 18:15:53 GMT</pubDate>
       
         
         
           
           
-      <description>&lt;h1 id=&quot;Localstack-on-local-k8s-cluster&quot;&gt;&lt;a href=&quot;#Localstack-on-local-k8s-cluster&quot; class=&quot;headerlink&quot; title=&quot;Localstack on local k8s cluster&quot;&gt;&lt;/a&gt;Localstack</description>
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://learn.microsoft.com/en-us/azure/architecture/guide/aks/media/ci-cd-gitops-github-actions-aks-push.png&quot; alt=&quot;CI/CD for AKS</description>
           
         
       
@@ -32,16 +33,71 @@
       <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
       
       
-      <category domain="https://blog.excelsre.com/tags/localstack/">localstack</category>
+      <category domain="https://blog.excelsre.com/tags/AKS/">AKS</category>
       
-      <category domain="https://blog.excelsre.com/tags/k8s/">k8s</category>
+      <category domain="https://blog.excelsre.com/tags/CICD/">CICD</category>
       
-      <category domain="https://blog.excelsre.com/tags/aws/">aws</category>
+      <category domain="https://blog.excelsre.com/tags/flask/">flask</category>
       
-      <category domain="https://blog.excelsre.com/tags/api/">api</category>
+      <category domain="https://blog.excelsre.com/tags/ACR/">ACR</category>
+      
+      <category domain="https://blog.excelsre.com/tags/GitHub-actions/">GitHub actions</category>
       
       
-      <comments>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/#disqus_thread</comments>
+      <comments>https://blog.excelsre.com/2024/01/21/cicd-build-test-and-deploy-containers-to-acr-aks-using-github-actions/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.excelsre.com/2024/01/20/revised-steps-with-iam-role-creation-and-assignment/</link>
+      <guid>https://blog.excelsre.com/2024/01/20/revised-steps-with-iam-role-creation-and-assignment/</guid>
+      <pubDate>Sun, 21 Jan 2024 05:22:52 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h3 id=&quot;Revised-Steps-with-IAM-Role-Creation-and-Assignment&quot;&gt;&lt;a href=&quot;#Revised-Steps-with-IAM-Role-Creation-and-Assignment&quot; class=&quot;headerlink&quot; title=&quot;Revised</description>
+          
+        
+      
+      
+      
+      
+      
+      
+      <comments>https://blog.excelsre.com/2024/01/20/revised-steps-with-iam-role-creation-and-assignment/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Flask Application Structure</title>
+      <link>https://blog.excelsre.com/2024/01/14/flask-web-application-devops/</link>
+      <guid>https://blog.excelsre.com/2024/01/14/flask-web-application-devops/</guid>
+      <pubDate>Sun, 14 Jan 2024 18:09:15 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Flask-Web-Application-DevOps&quot;&gt;&lt;a href=&quot;#Flask-Web-Application-DevOps&quot; class=&quot;headerlink&quot; title=&quot;Flask Web Application DevOps&quot;&gt;&lt;/a&gt;Flask</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      
+      
+      <category domain="https://blog.excelsre.com/tags/flask/">flask</category>
+      
+      <category domain="https://blog.excelsre.com/tags/python/">python</category>
+      
+      
+      <comments>https://blog.excelsre.com/2024/01/14/flask-web-application-devops/#disqus_thread</comments>
       
     </item>
     
@@ -79,6 +135,39 @@
     </item>
     
     <item>
+      <title>Build localstack on local k8s cluster</title>
+      <link>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/</link>
+      <guid>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/</guid>
+      <pubDate>Sun, 10 Dec 2023 14:34:04 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;Localstack-on-local-k8s-cluster&quot;&gt;&lt;a href=&quot;#Localstack-on-local-k8s-cluster&quot; class=&quot;headerlink&quot; title=&quot;Localstack on local k8s cluster&quot;&gt;&lt;/a&gt;Localstack</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      
+      
+      <category domain="https://blog.excelsre.com/tags/localstack/">localstack</category>
+      
+      <category domain="https://blog.excelsre.com/tags/k8s/">k8s</category>
+      
+      <category domain="https://blog.excelsre.com/tags/aws/">aws</category>
+      
+      <category domain="https://blog.excelsre.com/tags/api/">api</category>
+      
+      
+      <comments>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>Building testing lab with Terraform and Ansible</title>
       <link>https://blog.excelsre.com/2023/12/10/build-testing-lab-in-local-dc-with-terraform-and-ansible/</link>
       <guid>https://blog.excelsre.com/2023/12/10/build-testing-lab-in-local-dc-with-terraform-and-ansible/</guid>
@@ -88,7 +177,8 @@
         
           
           
-      <description>&lt;h1 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h1&gt;&lt;h2 id=&quot;Linux-VM-provision-in-Batch-with-Terraform&quot;&gt;&lt;a</description>
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h1&gt;&lt;h2</description>
           
         
       
@@ -113,8 +203,8 @@
     
     <item>
       <title>NFS server on CentOS8</title>
-      <link>https://blog.excelsre.com/2023/12/08/nfs-server-on-centos8/</link>
-      <guid>https://blog.excelsre.com/2023/12/08/nfs-server-on-centos8/</guid>
+      <link>https://blog.excelsre.com/2023/12/07/nfs-server-on-centos8/</link>
+      <guid>https://blog.excelsre.com/2023/12/07/nfs-server-on-centos8/</guid>
       <pubDate>Fri, 08 Dec 2023 03:28:39 GMT</pubDate>
       
         
@@ -138,14 +228,14 @@
       <category domain="https://blog.excelsre.com/tags/NFS/">NFS</category>
       
       
-      <comments>https://blog.excelsre.com/2023/12/08/nfs-server-on-centos8/#disqus_thread</comments>
+      <comments>https://blog.excelsre.com/2023/12/07/nfs-server-on-centos8/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>Alist on Synology NA</title>
-      <link>https://blog.excelsre.com/2023/11/21/alist-on-synology-nas/</link>
-      <guid>https://blog.excelsre.com/2023/11/21/alist-on-synology-nas/</guid>
+      <link>https://blog.excelsre.com/2023/11/20/alist-on-synology-nas/</link>
+      <guid>https://blog.excelsre.com/2023/11/20/alist-on-synology-nas/</guid>
       <pubDate>Mon, 20 Nov 2023 19:07:19 GMT</pubDate>
       
         
@@ -168,14 +258,14 @@
       <category domain="https://blog.excelsre.com/tags/Docker/">Docker</category>
       
       
-      <comments>https://blog.excelsre.com/2023/11/21/alist-on-synology-nas/#disqus_thread</comments>
+      <comments>https://blog.excelsre.com/2023/11/20/alist-on-synology-nas/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>How to make a bootable windows 10 USB on a Mac</title>
-      <link>https://blog.excelsre.com/2023/11/20/how-to-make-a-bootable-windows-10-usb-on-a-mac/</link>
-      <guid>https://blog.excelsre.com/2023/11/20/how-to-make-a-bootable-windows-10-usb-on-a-mac/</guid>
+      <link>https://blog.excelsre.com/2023/11/19/how-to-make-a-bootable-windows-10-usb-on-a-mac/</link>
+      <guid>https://blog.excelsre.com/2023/11/19/how-to-make-a-bootable-windows-10-usb-on-a-mac/</guid>
       <pubDate>Mon, 20 Nov 2023 05:17:29 GMT</pubDate>
       
         
@@ -199,14 +289,14 @@
       <category domain="https://blog.excelsre.com/tags/Mac/">Mac</category>
       
       
-      <comments>https://blog.excelsre.com/2023/11/20/how-to-make-a-bootable-windows-10-usb-on-a-mac/#disqus_thread</comments>
+      <comments>https://blog.excelsre.com/2023/11/19/how-to-make-a-bootable-windows-10-usb-on-a-mac/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>Lab - Networking on AWS and Azure</title>
-      <link>https://blog.excelsre.com/2023/11/08/lab-networking-on-aws-and-azure/</link>
-      <guid>https://blog.excelsre.com/2023/11/08/lab-networking-on-aws-and-azure/</guid>
+      <link>https://blog.excelsre.com/2023/11/07/lab-networking-on-aws-and-azure/</link>
+      <guid>https://blog.excelsre.com/2023/11/07/lab-networking-on-aws-and-azure/</guid>
       <pubDate>Wed, 08 Nov 2023 03:02:33 GMT</pubDate>
       
         
@@ -231,14 +321,14 @@
       <category domain="https://blog.excelsre.com/tags/network/">network</category>
       
       
-      <comments>https://blog.excelsre.com/2023/11/08/lab-networking-on-aws-and-azure/#disqus_thread</comments>
+      <comments>https://blog.excelsre.com/2023/11/07/lab-networking-on-aws-and-azure/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>Setup SAML server in lab</title>
-      <link>https://blog.excelsre.com/2023/09/28/install-a-virtual-machine-softwaredownload-and-install-a-virtual-machine-software-like-virtualbox-or-vmware-on-your-com/</link>
-      <guid>https://blog.excelsre.com/2023/09/28/install-a-virtual-machine-softwaredownload-and-install-a-virtual-machine-software-like-virtualbox-or-vmware-on-your-com/</guid>
+      <link>https://blog.excelsre.com/2023/09/27/install-a-virtual-machine-softwaredownload-and-install-a-virtual-machine-software-like-virtualbox-or-vmware-on-your-com/</link>
+      <guid>https://blog.excelsre.com/2023/09/27/install-a-virtual-machine-softwaredownload-and-install-a-virtual-machine-software-like-virtualbox-or-vmware-on-your-com/</guid>
       <pubDate>Wed, 27 Sep 2023 20:36:01 GMT</pubDate>
       
         
@@ -260,14 +350,14 @@
       <category domain="https://blog.excelsre.com/tags/SAML/">SAML</category>
       
       
-      <comments>https://blog.excelsre.com/2023/09/28/install-a-virtual-machine-softwaredownload-and-install-a-virtual-machine-software-like-virtualbox-or-vmware-on-your-com/#disqus_thread</comments>
+      <comments>https://blog.excelsre.com/2023/09/27/install-a-virtual-machine-softwaredownload-and-install-a-virtual-machine-software-like-virtualbox-or-vmware-on-your-com/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>扩展磁盘-GCP VM</title>
-      <link>https://blog.excelsre.com/2023/06/12/kuo-zhan-ci-pan-gcp-vm/</link>
-      <guid>https://blog.excelsre.com/2023/06/12/kuo-zhan-ci-pan-gcp-vm/</guid>
+      <link>https://blog.excelsre.com/2023/06/11/kuo-zhan-ci-pan-gcp-vm/</link>
+      <guid>https://blog.excelsre.com/2023/06/11/kuo-zhan-ci-pan-gcp-vm/</guid>
       <pubDate>Mon, 12 Jun 2023 02:00:12 GMT</pubDate>
       
         
@@ -294,7 +384,7 @@
       <category domain="https://blog.excelsre.com/tags/Disk/">Disk</category>
       
       
-      <comments>https://blog.excelsre.com/2023/06/12/kuo-zhan-ci-pan-gcp-vm/#disqus_thread</comments>
+      <comments>https://blog.excelsre.com/2023/06/11/kuo-zhan-ci-pan-gcp-vm/#disqus_thread</comments>
       
     </item>
     
@@ -328,8 +418,8 @@
     
     <item>
       <title>科学上网 - 最佳实践</title>
-      <link>https://blog.excelsre.com/2023/06/06/ke-xue-shang-wang-zui-jia-shi-jian/</link>
-      <guid>https://blog.excelsre.com/2023/06/06/ke-xue-shang-wang-zui-jia-shi-jian/</guid>
+      <link>https://blog.excelsre.com/2023/06/05/ke-xue-shang-wang-zui-jia-shi-jian/</link>
+      <guid>https://blog.excelsre.com/2023/06/05/ke-xue-shang-wang-zui-jia-shi-jian/</guid>
       <pubDate>Tue, 06 Jun 2023 01:22:44 GMT</pubDate>
       
         
@@ -348,7 +438,7 @@
       <category domain="https://blog.excelsre.com/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/">科学上网</category>
       
       
-      <comments>https://blog.excelsre.com/2023/06/06/ke-xue-shang-wang-zui-jia-shi-jian/#disqus_thread</comments>
+      <comments>https://blog.excelsre.com/2023/06/05/ke-xue-shang-wang-zui-jia-shi-jian/#disqus_thread</comments>
       
     </item>
     
@@ -388,8 +478,8 @@
     
     <item>
       <title>Hexo 博客搭建</title>
-      <link>https://blog.excelsre.com/2023/05/29/hexo-bo-ke-da-jian/</link>
-      <guid>https://blog.excelsre.com/2023/05/29/hexo-bo-ke-da-jian/</guid>
+      <link>https://blog.excelsre.com/2023/05/28/hexo-bo-ke-da-jian/</link>
+      <guid>https://blog.excelsre.com/2023/05/28/hexo-bo-ke-da-jian/</guid>
       <pubDate>Mon, 29 May 2023 02:45:54 GMT</pubDate>
       
         
@@ -409,7 +499,7 @@
       <category domain="https://blog.excelsre.com/tags/hero/">hero</category>
       
       
-      <comments>https://blog.excelsre.com/2023/05/29/hexo-bo-ke-da-jian/#disqus_thread</comments>
+      <comments>https://blog.excelsre.com/2023/05/28/hexo-bo-ke-da-jian/#disqus_thread</comments>
       
     </item>
     
@@ -603,30 +693,6 @@
     </item>
     
     <item>
-      <title>Github 教程</title>
-      <link>https://blog.excelsre.com/1984/01/24/github-workflow/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/github-workflow/</guid>
-      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Step-by-step&quot;&gt;&lt;a href=&quot;#Step-by-step&quot; class=&quot;headerlink&quot; title=&quot;Step by step&quot;&gt;&lt;/a&gt;Step by step&lt;/h1&gt;&lt;iframe</description>
-          
-        
-      
-      
-      
-      
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/github-workflow/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
       <title>内置函数，工厂函数和魔法函数</title>
       <link>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/</link>
       <guid>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/</guid>
@@ -648,6 +714,30 @@
       
       
       <comments>https://blog.excelsre.com/1984/01/24/nei-zhi-han-shu-gong-han-han-shu-mo-fa-han-shu/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Github 教程</title>
+      <link>https://blog.excelsre.com/1984/01/24/github-workflow/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/github-workflow/</guid>
+      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Step-by-step&quot;&gt;&lt;a href=&quot;#Step-by-step&quot; class=&quot;headerlink&quot; title=&quot;Step by step&quot;&gt;&lt;/a&gt;Step by step&lt;/h1&gt;&lt;iframe</description>
+          
+        
+      
+      
+      
+      
+      
+      
+      <comments>https://blog.excelsre.com/1984/01/24/github-workflow/#disqus_thread</comments>
       
     </item>
     

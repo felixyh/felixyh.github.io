@@ -1,0 +1,948 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Felix Yang">
+  <meta name="keywords" content="Python,SRE,Flask,AWS,Azure,运维， 读书">
+  
+    <meta name="description" content="[TOC]  CICD - Build, test, and deploy containers to ACR, AKS using GitHub ActionsRefer to: Build, test, and deploy containers to Azure Kubernetes Service (AKS) using GitHub Actions Authenticate with A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CICD - Build, test, and deploy containers to ACR&#x2F;AKS using GitHub Actions">
+<meta property="og:url" content="https://blog.excelsre.com/2024/01/21/cicd-build-test-and-deploy-containers-to-acr-aks-using-github-actions/index.html">
+<meta property="og:site_name" content="Felix Yang&#39;s Blog">
+<meta property="og:description" content="[TOC]  CICD - Build, test, and deploy containers to ACR, AKS using GitHub ActionsRefer to: Build, test, and deploy containers to Azure Kubernetes Service (AKS) using GitHub Actions Authenticate with A">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://learn.microsoft.com/en-us/azure/architecture/guide/aks/media/ci-cd-gitops-github-actions-aks-push.png">
+<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2024/01/22/image-20240121190648384.png">
+<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2024/01/22/image-20240121181354342.png">
+<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2024/01/24/image-20240123173338222.png">
+<meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2024/01/24/image-20240123173525810.png">
+<meta property="article:published_time" content="2024-01-21T18:15:53.084Z">
+<meta property="article:modified_time" content="2024-01-23T23:35:41.393Z">
+<meta property="article:author" content="Felix Yang">
+<meta property="article:tag" content="AKS">
+<meta property="article:tag" content="CICD">
+<meta property="article:tag" content="flask">
+<meta property="article:tag" content="ACR">
+<meta property="article:tag" content="GitHub actions">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://learn.microsoft.com/en-us/azure/architecture/guide/aks/media/ci-cd-gitops-github-actions-aks-push.png">
+  
+  
+  
+  <title>CICD - Build, test, and deploy containers to ACR/AKS using GitHub Actions - Felix Yang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.excelsre.com","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":120,"cursorChar":"_","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Felix Yang's Blog" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Felix Yang's Blog" type="application/rss+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>大良造</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">CICD - Build, test, and deploy containers to ACR/AKS using GitHub Actions</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-22 02:15" pubdate>
+          2024年1月22日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          19k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          156 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">CICD - Build, test, and deploy containers to ACR/AKS using GitHub Actions</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<p><img src="https://learn.microsoft.com/en-us/azure/architecture/guide/aks/media/ci-cd-gitops-github-actions-aks-push.png" srcset="/img/loading.gif" lazyload alt="CI/CD for AKS apps with GitHub Actions and GitFlow - Azure Example  Scenarios | Microsoft Learn"></p>
+<h1 id="CICD-Build-test-and-deploy-containers-to-ACR-AKS-using-GitHub-Actions"><a href="#CICD-Build-test-and-deploy-containers-to-ACR-AKS-using-GitHub-Actions" class="headerlink" title="CICD - Build, test, and deploy containers to ACR, AKS using GitHub Actions"></a>CICD - Build, test, and deploy containers to ACR, AKS using GitHub Actions</h1><p>Refer to:</p>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/azure/aks/kubernetes-action">Build, test, and deploy containers to Azure Kubernetes Service (AKS) using GitHub Actions</a></p>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/azure/aks/cluster-container-registry-integration?tabs=azure-cli">Authenticate with Azure Container Registry (ACR) from Azure Kubernetes Service (AKS)</a></p>
+<h2 id="Prepare-ACR-and-AKS"><a href="#Prepare-ACR-and-AKS" class="headerlink" title="Prepare ACR and AKS"></a>Prepare ACR and AKS</h2><ol>
+<li><p>Create ACR, AKS and attach ACR to AKS with AZ CLI</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs shell">MYRG=felixRG<br>MYACR=felixacr<br>MYAKS=felixaks<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">create ACR</span><br>az acr create -n $MYACR -g $MYRG --sku basic<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Enable admin access of ACR, to docker login to acr</span><br>az acr update --name $MYACR --admin-enabled true<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">create AKS</span><br>az aks create -n $MYAKS -g $MYRG --generate-ssh-keys --attach-acr $MYACR<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Attach using acr-name</span><br>az aks update -n $MYAKS -g $MYRG --attach-acr $MYACR<br><span class="hljs-meta prompt_"># </span><span class="language-bash">Option: you can also Attach using acr-resource-id</span><br>az aks update -n $MYAKS -g $MYRG --attach-acr &lt;acr-resource-id&gt;<br><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!NOTE]</p>
+<p>To detach a ACR from AKS</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Detach using acr-name</span><br>az aks update -n myAKSCluster -g myResourceGroup --detach-acr &lt;acr-name&gt;<br><span class="hljs-meta prompt_"># </span><span class="language-bash">Detach using acr-resource-id</span><br>az aks update -n myAKSCluster -g myResourceGroup --detach-acr &lt;acr-resource-id&gt;<br></code></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>Test: working with ACR &amp; AKS</p>
+<ul>
+<li><p>Import an nginx image into ACR</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">az acr import  -n $MYACR --source docker.io/library/nginx:latest --image nginx:v1<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Get AKS credentials to connect to AKS through kubectl</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">az aks get-credentials -g $MYRG -n $MYAKS<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!NOTE]</p>
+<p>Example of default AKS setup:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs shell">felixy@USLC-FELIXY-M ~ % az aks get-credentials -g $MYRG -n $MYAKS<br>Merged &quot;felixaks&quot; as current context in /Users/felixy/.kube/config<br><br>felixy@USLC-FELIXY-M ~ % kubectl get nodes<br>NAME                                STATUS   ROLES   AGE    VERSION<br>aks-nodepool1-32082944-vmss000000   Ready    agent   4h3m   v1.27.7<br>aks-nodepool1-32082944-vmss000001   Ready    agent   4h3m   v1.27.7<br>aks-nodepool1-32082944-vmss000002   Ready    agent   4h3m   v1.27.7<br><br>felixy@USLC-FELIXY-M ~ % kubectl get pods -A<br>NAMESPACE     NAME                                  READY   STATUS    RESTARTS   AGE<br>kube-system   azure-ip-masq-agent-42rds             1/1     Running   0          4h4m<br>kube-system   azure-ip-masq-agent-m8fcj             1/1     Running   0          4h4m<br>kube-system   azure-ip-masq-agent-pzgxd             1/1     Running   0          4h4m<br>kube-system   cloud-node-manager-hwhql              1/1     Running   0          4h4m<br>kube-system   cloud-node-manager-pj289              1/1     Running   0          4h4m<br>kube-system   cloud-node-manager-s6h57              1/1     Running   0          4h4m<br>kube-system   coredns-789789675-6pkjs               1/1     Running   0          4h4m<br>kube-system   coredns-789789675-sh56f               1/1     Running   0          4h3m<br>kube-system   coredns-autoscaler-649b947bbd-kdthp   1/1     Running   0          4h4m<br>kube-system   csi-azuredisk-node-79vq5              3/3     Running   0          4h4m<br>kube-system   csi-azuredisk-node-dpvvp              3/3     Running   0          4h4m<br>kube-system   csi-azuredisk-node-q547p              3/3     Running   0          4h4m<br>kube-system   csi-azurefile-node-kwf2b              3/3     Running   0          4h4m<br>kube-system   csi-azurefile-node-nqb98              3/3     Running   0          4h4m<br>kube-system   csi-azurefile-node-wqwjn              3/3     Running   0          4h4m<br>kube-system   konnectivity-agent-7797848fc-4bzp4    1/1     Running   0          3h9m<br>kube-system   konnectivity-agent-7797848fc-d9wlc    1/1     Running   0          3h9m<br>kube-system   kube-proxy-flssc                      1/1     Running   0          4h4m<br>kube-system   kube-proxy-l4g5j                      1/1     Running   0          4h4m<br>kube-system   kube-proxy-qlgvl                      1/1     Running   0          4h4m<br>kube-system   metrics-server-5467676b76-ghmfd       2/2     Running   0          4h3m<br>kube-system   metrics-server-5467676b76-rx7p4       2/2     Running   0          4h3m<br></code></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>Create a deployment yaml file <code>nginx-deployment.yaml</code> for a nginx deployment and a service for load balancer for expose the nginx service to public internet</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx0-deployment</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx0</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">2</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx0</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx0</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span><br>          <span class="hljs-attr">image:</span> <span class="hljs-string">felixacr.azurecr.io/nginx:v1</span><br>          <span class="hljs-attr">ports:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span><br><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx0-service</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">LoadBalancer</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx0</span><br>  <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>      <span class="hljs-attr">port:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!CAUTION]</p>
+<p><img src="https://felixyanghui.synology.me:8441/images/2024/01/22/image-20240121190648384.png" srcset="/img/loading.gif" lazyload alt="image-20240121190648384"></p>
+<p>When you use a Kubernetes Service of type <code>LoadBalancer</code> in Azure Kubernetes Service (AKS), it will automatically create an Azure Load Balancer and expose your service to the internet. This Load Balancer acts as the point of contact for external traffic to your service.</p>
+<p>Here’s what happens when you apply the provided YAML in an AKS environment:</p>
+<ol>
+<li><p><strong>Resource Group:</strong></p>
+<p>AKS often creates a separate <em>managed</em> resource group for resources like network resources and VMs. This is different from the resource group you specify when creating the AKS cluster. The Load Balancer might be located in this managed resource group. The name of this managed resource group usually follows the pattern <code>MC_&lt;yourResourceGroup&gt;_&lt;yourAKSClusterName&gt;_&lt;region&gt;</code>.</p>
+<p>Azure create a VNet and subnet and NSG together with the load balancer in the resource group for a standard AKS setup</p>
+</li>
+<li><p><strong>Azure Load Balancer Creation</strong>:</p>
+<ul>
+<li><p>The <code>type: LoadBalancer</code> specification in the Service manifest instructs Kubernetes to provision an external Load Balancer in your Azure cloud environment.</p>
+</li>
+<li><p><em>AKS communicates with Azure to <strong>create a Load Balancer instance</strong>.</em></p>
+</li>
+<li><p>You can identify the created LB by default:</p>
+<p><code>az network lb list --query &quot;[].&#123;name:name, resourceGroup:resourceGroup&#125;&quot; -o table</code></p>
+</li>
+</ul>
+</li>
+<li><p><strong>Networking Setup</strong>:</p>
+<ul>
+<li>The Load Balancer is configured with a public IP address.</li>
+<li>It forwards incoming traffic on the specified port (in this case, port 80) to the selected pods, matching the <code>selector</code> criteria in the Service definition.</li>
+</ul>
+</li>
+<li><p><strong>Service Exposure</strong>:</p>
+<ul>
+<li>The service <code>nginx0-service</code> will be exposed on the public IP address of the Azure Load Balancer.</li>
+<li>This means the Nginx deployment becomes accessible over the internet at this public IP on port 80.</li>
+</ul>
+</li>
+<li><p><strong>Integration with AKS</strong>:</p>
+<ul>
+<li>AKS manages the integration between the Kubernetes Service and the Azure Load Balancer, including health checks and updating the Load Balancer configuration if the underlying pods change.</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>[!NOTE]</p>
+<p>When you add more services in Azure Kubernetes Service (AKS), AKS will not provision a new load balancer for each service if these services are of type <code>LoadBalancer</code>. Instead, it continues to use the default Load Balancer that was initially created and adds new rules to it. This is how it typically works:</p>
+<ol>
+<li><strong>Single Load Balancer for Multiple Services</strong>:<ul>
+<li>When you create the first service of type <code>LoadBalancer</code> in AKS, a Load Balancer is provisioned in Azure.</li>
+<li>Subsequent services of type <code>LoadBalancer</code> that you create in the same AKS cluster will use the same Load Balancer.</li>
+<li>AKS efficiently manages this by adding new frontend configurations, backend pools, and routing rules to the existing Load Balancer for each new service.</li>
+</ul>
+</li>
+<li><strong>Public IP Addresses</strong>:<ul>
+<li>Each service of type <code>LoadBalancer</code> will typically get its own public IP address.</li>
+<li>These IP addresses are associated with the Load Balancer but are unique for each service, allowing external traffic to be directed to the correct service.</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+</li>
+<li><p>Run the yaml file to deploy the niginx and load balancer service</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">apply the yaml file</span><br>kubectl apply -f nginx-deployment.yaml<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Monitor the deployment using the kubectl get pods <span class="hljs-built_in">command</span></span><br>kubectl get pods -A<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">It might take a few mins <span class="hljs-keyword">for</span> loadbalancer to be provisioned and receive an extermal IP.</span> <br><span class="hljs-meta prompt_"># </span><span class="language-bash">Check the service status:</span><br>kubectl get svc nginx0-service<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!NOTE]</p>
+<p>output of commands:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">felixy@USLC-FELIXY-M ~ % kubectl get pods   <br>NAME                                 READY   STATUS    RESTARTS   AGE<br>nginx0-deployment-55ccd79fcd-j6pzj   1/1     Running   0          26s<br>nginx0-deployment-55ccd79fcd-kblvb   1/1     Running   0          26s<br>felixy@USLC-FELIXY-M ~ % kubectl get svc nginx0-service<br>NAME             TYPE           CLUSTER-IP    EXTERNAL-IP   PORT(S)        AGE<br>nginx0-service   LoadBalancer   10.0.23.234   4.246.240.1   80:30170/TCP   37s<br></code></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>Identify the created resource group and load balancer by default, and list down all the resources in the resource group</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">Identify the resource group and load balancer</span><br>az network lb list --query &quot;[].&#123;name:name, resourceGroup:resourceGroup&#125;&quot; -o table<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">List all the resources <span class="hljs-keyword">in</span> the resource group</span><br>az resource list -g mc_felixrg_felixaks_eastus -o table<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!NOTE]</p>
+<p>output of commands:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs shell">felixy@USLC-FELIXY-M ~ % az network lb list --query &quot;[].&#123;name:name, resourceGroup:resourceGroup&#125;&quot; -o table<br><br>Name        ResourceGroup<br>----------  --------------------------<br>kubernetes  mc_felixrg_felixaks_eastus<br><br><br>felixy@USLC-FELIXY-M ~ % az resource list -g mc_felixrg_felixaks_eastus -o table<br>Name                                         ResourceGroup               Location    Type                                              Status<br>-------------------------------------------  --------------------------  ----------  ------------------------------------------------  --------<br>aks-nodepool1-32082944-vmss                  MC_felixRG_felixaks_eastus  eastus      Microsoft.Compute/virtualMachineScaleSets<br>felixaks-agentpool                           MC_felixRG_felixaks_eastus  eastus      Microsoft.ManagedIdentity/userAssignedIdentities<br>kubernetes                                   mc_felixrg_felixaks_eastus  eastus      Microsoft.Network/loadBalancers<br>aks-agentpool-28367344-nsg                   mc_felixrg_felixaks_eastus  eastus      Microsoft.Network/networkSecurityGroups<br>b0367e75-6f66-41a8-9551-69e090ccb40f         MC_felixRG_felixaks_eastus  eastus      Microsoft.Network/publicIPAddresses<br>kubernetes-a8ad97b6f249341f987b1881f407c5f0  mc_felixrg_felixaks_eastus  eastus      Microsoft.Network/publicIPAddresses<br>aks-agentpool-28367344-routetable            mc_felixrg_felixaks_eastus  eastus      Microsoft.Network/routeTables<br>aks-vnet-28367344                            MC_felixRG_felixaks_eastus  eastus      Microsoft.Network/virtualNetworks<br></code></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>Restrict the access from specific IP to Nginx service</p>
+<p>Once you identify the newly created resource group <code>MC_&lt;yourResourceGroup&gt;_&lt;yourAKSClusterName&gt;_&lt;region&gt;</code> and load balancer, you can go to the resource group and edit the NSG, specify the source IP address allowed to access the load balancer</p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>You may not need to manually create a VNet and subnet for a standard AKS setup, as Azure can handle this automatically. However, for custom networking needs, pre-creating these resources gives you more flexibility and control.</p>
+<p><strong>Custom Networking in AKS (Advanced):</strong></p>
+<ul>
+<li><strong>Manual Configuration</strong>: For more complex scenarios, such as integrating with existing VNets or configuring advanced networking features, you can manually create and configure your VNet and subnets.</li>
+<li><strong>Custom VNet and Subnet</strong>: You can create a VNet and subnets according to your specific network requirements and then deploy the AKS cluster into this custom network.</li>
+<li>AKS with Custom Networking<ul>
+<li>When creating the AKS cluster, specify your custom VNet and subnet.</li>
+<li>This approach is often used in enterprise environments for better control over networking, security, and compliance.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Checking Existing Network Resources:</strong></p>
+<p>If you’re unsure whether a VNet and subnet were automatically created for your AKS cluster, you can check:</p>
+<ol>
+<li><p><strong>Azure Portal</strong>:</p>
+<ul>
+<li>Go to the Azure Portal.</li>
+<li>Navigate to your AKS cluster resource.</li>
+<li>Under the “Settings” section, look for “Networking” to see the details of the network configuration.</li>
+</ul>
+</li>
+<li><p><strong>Azure CLI</strong>:</p>
+<ul>
+<li>Use Azure CLI to list the network details of your AKS cluster.</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">az aks show --resource-group myResourceGroup --name myAKSCluster --query &quot;networkProfile&quot;<br></code></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+</li>
+<li><p>Finally, now you can access the nginx from internet by accessing the external IP as below</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">felixy@USLC-FELIXY-M ~ % kubectl get svc nginx0-service<br>NAME             TYPE           CLUSTER-IP    EXTERNAL-IP   PORT(S)        AGE<br>nginx0-service   LoadBalancer   10.0.23.234   4.246.240.1   80:30170/TCP   150m<br></code></pre></td></tr></table></figure>
+
+<img src="https://felixyanghui.synology.me:8441/images/2024/01/22/image-20240121181354342.png" srcset="/img/loading.gif" lazyload alt="image-20240121181354342" style="zoom:50%;" />
+</li>
+<li><p>Remove all the infra resources of AKS and ACR</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">felixy@USLC-FELIXY-M ~ % az aks delete -n $MYAKS -g $MYRG --yes --no-wait<br><br>felixy@USLC-FELIXY-M ~ % az acr delete -n $MYACR --yes<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!NOTE]</p>
+<p>This command will remove the AKS provisioned in your designated resource group, as well as the resource group AKS provisioned and all associated resources such as load balancer, vnet, subnet, nsg, public ip address, etc…</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="Create-the-CICD-pipeline"><a href="#Create-the-CICD-pipeline" class="headerlink" title="Create the CICD pipeline"></a>Create the CICD pipeline</h2><h3 id="Prepare-the-github-actions-workflow"><a href="#Prepare-the-github-actions-workflow" class="headerlink" title="Prepare the github actions workflow"></a>Prepare the github actions workflow</h3><ol>
+<li><p>In the GitHub repo, create a new file in the <code>.github/workflows</code> directory, e.g., <code>ussrelab-ci-cd.yml</code>.</p>
+</li>
+<li><p><strong>Define the Workflow</strong>:</p>
+<ul>
+<li>The workflow file should define jobs to:<ul>
+<li>Build and push the Flask application image to ACR.</li>
+<li>Optionally, build and push custom MySQL and Elasticsearch images if you have specific customizations. Otherwise, you can use the official images directly in your Kubernetes deployment.</li>
+<li>Deploy these images to AKS.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Example workflow yml file: <code>ussrelab-ci-cd.yml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">name:</span> <span class="hljs-string">USSRELab</span> <span class="hljs-string">CI/CD</span> <span class="hljs-string">Pipeline</span><br><br><span class="hljs-attr">on:</span><br>  <span class="hljs-attr">push:</span><br>    <span class="hljs-attr">branches:</span> [ <span class="hljs-string">flask2024</span> ]<br>    <span class="hljs-attr">paths:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;app&#x27;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;.github/workflows/ussrelab-ci-cd.yml&#x27;</span><br><br><span class="hljs-attr">jobs:</span><br>  <span class="hljs-attr">build-and-deploy:</span><br>    <span class="hljs-attr">runs-on:</span> <span class="hljs-string">ubuntu-latest</span><br>    <span class="hljs-attr">steps:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/checkout@v4</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Log</span> <span class="hljs-string">in</span> <span class="hljs-string">to</span> <span class="hljs-string">Azure</span> <span class="hljs-string">Container</span> <span class="hljs-string">Registry</span><br>      <span class="hljs-attr">uses:</span> <span class="hljs-string">azure/docker-login@v1</span><br>      <span class="hljs-attr">with:</span><br>        <span class="hljs-attr">login-server:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">secrets.acr_name</span> <span class="hljs-string">&#125;&#125;.azurecr.io</span><br>        <span class="hljs-attr">username:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">secrets.ACR_USERNAME</span> <span class="hljs-string">&#125;&#125;</span><br>        <span class="hljs-attr">password:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">secrets.ACR_PASSWORD</span> <span class="hljs-string">&#125;&#125;</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Build</span> <span class="hljs-string">and</span> <span class="hljs-string">push</span> <span class="hljs-string">Docker</span> <span class="hljs-string">image</span> <span class="hljs-string">for</span> <span class="hljs-string">Flask</span> <span class="hljs-string">App</span><br>      <span class="hljs-attr">run:</span> <span class="hljs-string">|</span><br><span class="hljs-string">        docker build -t $&#123;&#123; secrets.acr_name &#125;&#125;.azurecr.io/microblog:latest .</span><br><span class="hljs-string">        docker push $&#123;&#123; secrets.acr_name &#125;&#125;.azurecr.io/microblog:latest</span><br><span class="hljs-string"></span>    <br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Azure</span> <span class="hljs-string">login</span><br>      <span class="hljs-attr">id:</span> <span class="hljs-string">login</span><br>      <span class="hljs-attr">uses:</span> <span class="hljs-string">azure/login@v1.4.3</span><br>      <span class="hljs-attr">with:</span><br>          <span class="hljs-attr">creds:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">secrets.AZURE_CREDENTIALS</span> <span class="hljs-string">&#125;&#125;</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Connect</span> <span class="hljs-string">to</span> <span class="hljs-string">Azure</span> <span class="hljs-string">Kubernetes</span> <span class="hljs-string">Service</span><br>      <span class="hljs-attr">run:</span> <span class="hljs-string">|</span><br><span class="hljs-string">        az aks get-credentials --resource-group $&#123;&#123; secrets.resource_group &#125;&#125; --name $&#123;&#123; secrets.cluster_name &#125;&#125;</span><br><span class="hljs-string"></span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Deploy</span> <span class="hljs-string">Flask</span> <span class="hljs-string">App</span> <span class="hljs-string">to</span> <span class="hljs-string">AKS</span><br>      <span class="hljs-attr">run:</span> <span class="hljs-string">|</span><br><span class="hljs-string">        kubectl apply -f k8s-deployment/flask-deployment.yaml</span><br><span class="hljs-string"></span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!NOTE]</p>
+<p>Replace <code>&lt;acr-name&gt;</code>, <code>&lt;myResourceGroup&gt;</code>, and <code>&lt;myAKSCluster&gt;</code> with your actual Azure Container Registry name, AKS resource group name, and AKS cluster name. Make sure to store <code>ACR_USERNAME</code> and <code>ACR_PASSWORD</code> as secrets in your GitHub repository settings.</p>
+</blockquote>
+</li>
+<li><p>Set up required secrests in Github</p>
+<p>Store your Azure service principal credentials, ACR credentials, and any other required secrets in GitHub Secrets for use in your workflow.</p>
+<p>Example practice is to define it in Github responsitory and call the variables from github actions workflow</p>
+<ol>
+<li><p>Create a service principal to access your resource group with the <code>Contributor</code> role using the <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/cli/azure/ad/sp#az-ad-sp-create-for-rbac"><code>az ad sp create-for-rbac</code></a> command. Replace <code>&lt;SUBSCRIPTION_ID&gt;</code> with the subscription ID of your Azure account and <code>&lt;RESOURCE_GROUP&gt;</code> with the name of the resource group containing your ACR.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs azurecli">az ad sp create-for-rbac \<br>    --name &quot;ghActionAzureSREapp&quot; \<br>    --scope /subscriptions/&lt;SUBSCRIPTION_ID&gt;/resourceGroups/felixRG \<br>    --role Contributor \<br>    --json-auth<br></code></pre></td></tr></table></figure>
+
+<p>Your output should look similar to the following example output:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs output">&#123;<br>  &quot;clientId&quot;: &lt;clientId&gt;,<br>  &quot;clientSecret&quot;: &lt;clientSecret&gt;,<br>  &quot;subscriptionId&quot;: &lt;subscriptionId&gt;,<br>  &quot;tenantId&quot;: &lt;tenantId&gt;,<br>  ...<br>&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>[!NOTE]</p>
+<p>If you want to check the created SP and delete it, can use below commands</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">az ad sp list --all --query &quot;[?displayName==&#x27;ghActionAzureSREapp&#x27;].&#123;name:displayName, appId:appId&#125;&quot; <br><br>az ad sp delete --id 6e7fb2db-f767-401e-9ef4-ac3d80c9b66e<br></code></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>[!NOTE]</p>
+<p>If you want to get the clientId (appId) and secret, can use below commands</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">az ad sp list --filter &quot;displayName eq &#x27;ghActionAzureSREapp&#x27;&quot; --query &quot;[].appId&quot; -o tsv<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">This <span class="hljs-built_in">command</span> will output a new password, <span class="hljs-built_in">which</span> will be your new clientSecret</span><br>az ad sp credential reset --id &lt;YourServicePrincipalId&gt;<br></code></pre></td></tr></table></figure>
+
+<p>Get the “subscriptionId”,  “tenantId”</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">az account show --query &quot;&#123;subscriptionId: id, tenantId: tenantId&#125;&quot;<br></code></pre></td></tr></table></figure>
+
+
+</blockquote>
+<blockquote>
+<p>[!WARNING]</p>
+<p>As my orgnization policy only allow credential lifetime within 90 days, however az cli can only specifiy the parameter<code>--year</code> , the default lifetime is 1 year. </p>
+<p>So the alternative is to create the principal credentials through powershell commands as below</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs pow"># install powershell az module<br>PS /Users/felixy&gt; Install-Module -Name Az -AllowClobber -Scope CurrentUser<br><br># confirm the installation<br>PS /Users/felixy&gt; Get-Command -Module Az.*<br><br># connect to azure<br>PS /Users/felixy&gt; Connect-AzAccount<br><br># create the service principle credential for 1 month<br>PS /Users/felixy&gt; $endDate = (Get-Date).AddMonths(1)<br><br>PS /Users/felixy&gt; $endDate = (Get-Date).AddMonths(1)                                                                  PS /Users/felixy&gt; New-AzADServicePrincipal -DisplayName &quot;ghActionAzureSREapp&quot; -Role &quot;Contributor&quot; -Scope &quot;/subscriptions/6b892183-b95d-42e5-b659-fa2bef8f11f7/resourceGroups/felixRG&quot; -EndDate $endDate<br><br>DisplayName         Id                                   AppId<br>-----------         --                                   -----<br>ghActionAzureSREapp 15af80d8-fd8e-4038-a91d-2a5061d09519 545c5bc0-d4f8-49c6-8578-6a5770f40a1f<br></code></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>Navigate to your GitHub repository settings and select <strong>Security</strong> &gt; <strong>Secrets and variables</strong> &gt; <strong>Actions</strong>.</p>
+</li>
+<li><p>For each secret, select <strong>New Repository Secret</strong> and enter the name and value of the secret.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Secret name</th>
+<th align="left">Secret value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">AZURE_CREDENTIALS</td>
+<td align="left">The entire JSON output from the <code>az ad sp create-for-rbac</code> command.</td>
+</tr>
+<tr>
+<td align="left">service_principal</td>
+<td align="left">The value of <code>&lt;clientId&gt;</code>.</td>
+</tr>
+<tr>
+<td align="left">service_principal_password</td>
+<td align="left">The value of <code>&lt;clientSecret&gt;</code>.</td>
+</tr>
+<tr>
+<td align="left">subscription</td>
+<td align="left">The value of <code>&lt;subscriptionId&gt;</code>.</td>
+</tr>
+<tr>
+<td align="left">tenant</td>
+<td align="left">The value of <code>&lt;tenantId&gt;</code>.</td>
+</tr>
+<tr>
+<td align="left">registry</td>
+<td align="left">The name of your registry.</td>
+</tr>
+<tr>
+<td align="left">repository</td>
+<td align="left">azuredocs</td>
+</tr>
+<tr>
+<td align="left">resource_group</td>
+<td align="left">The name of your resource group.</td>
+</tr>
+<tr>
+<td align="left">cluster_name</td>
+<td align="left">The name of your cluster.</td>
+</tr>
+<tr>
+<td align="left">act_name</td>
+<td align="left">The name of your acr,  the same of registry</td>
+</tr>
+<tr>
+<td align="left">ACR_USERNAME</td>
+<td align="left">The value of name of your registry</td>
+</tr>
+<tr>
+<td align="left">ACR_PASSWORD</td>
+<td align="left">The value of registry access key:<br /> <code>az acr credential show --name &lt;acrName&gt;</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>you can compose your own  <code>AZURE_CREDENTIALS</code> JSON</p>
+<p>Create a JSON string with the required fields. It should look like this:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;clientId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&lt;YourClientId&gt;&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;clientSecret&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&lt;YourClientSecret&gt;&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;subscriptionId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&lt;YourSubscriptionId&gt;&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;tenantId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&lt;YourTenantId&gt;&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>Replace <code>&lt;YourClientId&gt;</code>, <code>&lt;YourClientSecret&gt;</code>, <code>&lt;YourSubscriptionId&gt;</code>, and <code>&lt;YourTenantId&gt;</code> with the actual values.</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="Prepare-the-deployment-and-service-manifest-yaml-files-for-flask-application-MYSQL-and-Elasticsearch"><a href="#Prepare-the-deployment-and-service-manifest-yaml-files-for-flask-application-MYSQL-and-Elasticsearch" class="headerlink" title="Prepare the deployment and service manifest yaml files for flask application, MYSQL and Elasticsearch"></a>Prepare the deployment and service manifest yaml files for flask application, MYSQL and Elasticsearch</h3><ol>
+<li><p>Create Kubernetes Deployment and service Manifests for Flask app: <code>flask-deployment.yaml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">flask-app</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">2</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">app:</span> <span class="hljs-string">flask-app</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">flask-app</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">flask-app</span><br>          <span class="hljs-attr">image:</span> <span class="hljs-string">&lt;acr-name&gt;.azurecr.io/microblog:latest</span><br>          <span class="hljs-attr">ports:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">5000</span><br>          <span class="hljs-attr">env:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">SECRET_KEY</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;my-secret-key&quot;</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">DATABASE_URL</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;mysql+pymysql://microblog:novirus@mysql/microblog&quot;</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">flask-service</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">LoadBalancer</span><br>  <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">5000</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">flask-app</span><br><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>[!NOTE]</p>
+<p>Noted that the type of service is loadbalancer, which AKS will ask Azure to create the loadbalancer for internet users to access</p>
+</blockquote>
+</li>
+<li><p>Create MYSQL Deployment and service Manifests for mysql: <code>mysql-deployment.yaml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-comment"># MySQL Deployment</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">mysql</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">app:</span> <span class="hljs-string">mysql</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">mysql</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">mysql</span><br>          <span class="hljs-attr">image:</span> <span class="hljs-string">mysql:latest</span><br>          <span class="hljs-attr">env:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">MYSQL_ROOT_PASSWORD</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;yes&quot;</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">MYSQL_DATABASE</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;microblog&quot;</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">MYSQL_USER</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;microblog&quot;</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">MYSQL_PASSWORD</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;novirus&quot;</span><br>          <span class="hljs-attr">ports:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">3306</span><br><span class="hljs-meta">---</span><br><span class="hljs-comment"># MySQL Service</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">mysql</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">ClusterIP</span><br>  <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">3306</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">mysql</span><br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Create Elasticsearch Deployment and service Manifests for elasticsearch: <code>elasticsearch-deployment.yaml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-comment"># Elasticsearch Deployment</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">elasticsearch</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">app:</span> <span class="hljs-string">elasticsearch</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">elasticsearch</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">elasticsearch</span><br>          <span class="hljs-attr">image:</span> <span class="hljs-string">docker.elastic.co/elasticsearch/elasticsearch:8.11.1</span><br>          <span class="hljs-attr">env:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">discovery.type</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;single-node&quot;</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">xpack.security.enabled</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-string">&quot;false&quot;</span><br>          <span class="hljs-attr">ports:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">9200</span><br><span class="hljs-meta">---</span><br><span class="hljs-comment"># Elasticsearch Service</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">elasticsearch</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">ClusterIP</span><br>  <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">9200</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">elasticsearch</span><br><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Initiate-and-setup-the-MYSQL-and-Elasticsearch-on-AKS-firstly"><a href="#Initiate-and-setup-the-MYSQL-and-Elasticsearch-on-AKS-firstly" class="headerlink" title="Initiate and setup the MYSQL and Elasticsearch on AKS firstly"></a>Initiate and setup the MYSQL and Elasticsearch on AKS firstly</h3><p>Apply the mysql and elasticsearch manifests, as these services are not necessary to be included in GitHub actions workflow</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">kubectl apply -f mysql-deployment.yaml<br>kubectl apply -f elasticsearch-deployment.yaml<br></code></pre></td></tr></table></figure>
+
+<h2 id="Test-and-Verify-the-CICD-pipline"><a href="#Test-and-Verify-the-CICD-pipline" class="headerlink" title="Test and Verify the CICD pipline"></a>Test and Verify the CICD pipline</h2><h3 id="Update-the-application-and-commit-x2F-push-the-code-to-GitHub-to-trigger-CICD"><a href="#Update-the-application-and-commit-x2F-push-the-code-to-GitHub-to-trigger-CICD" class="headerlink" title="Update the application and commit&#x2F;push the code to GitHub to trigger CICD"></a>Update the application and commit&#x2F;push the code to GitHub to trigger CICD</h3><p><img src="https://felixyanghui.synology.me:8441/images/2024/01/24/image-20240123173338222.png" srcset="/img/loading.gif" lazyload alt="image-20240123173338222"></p>
+<p>Check the extern-ip as below and access the web application</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">(venv) felixy@USLC-FELIXY-M flask-ussre % kubectl get svc -A<br>NAMESPACE     NAME             TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)         AGE<br>default       elasticsearch    ClusterIP      10.0.66.158    &lt;none&gt;          9200/TCP        46m<br>default       flask-service    LoadBalancer   10.0.173.109   4.156.227.233   80:30663/TCP    99s<br>default       kubernetes       ClusterIP      10.0.0.1       &lt;none&gt;          443/TCP         5h22m<br>default       mysql            ClusterIP      10.0.120.136   &lt;none&gt;          3306/TCP        46m<br>kube-system   kube-dns         ClusterIP      10.0.0.10      &lt;none&gt;          53/UDP,53/TCP   5h21m<br>kube-system   metrics-server   ClusterIP      10.0.54.51     &lt;none&gt;          443/TCP         5h21m<br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://felixyanghui.synology.me:8441/images/2024/01/24/image-20240123173525810.png" srcset="/img/loading.gif" lazyload alt="image-20240123173525810"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" class="category-chain-item">技术文章</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/AKS/" class="print-no-link">#AKS</a>
+      
+        <a href="/tags/CICD/" class="print-no-link">#CICD</a>
+      
+        <a href="/tags/flask/" class="print-no-link">#flask</a>
+      
+        <a href="/tags/ACR/" class="print-no-link">#ACR</a>
+      
+        <a href="/tags/GitHub-actions/" class="print-no-link">#GitHub actions</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>CICD - Build, test, and deploy containers to ACR/AKS using GitHub Actions</div>
+      <div>https://blog.excelsre.com/2024/01/21/cicd-build-test-and-deploy-containers-to-acr-aks-using-github-actions/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Felix Yang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/20/revised-steps-with-iam-role-creation-and-assignment/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/felixyh" target="_blank" rel="nofollow noopener"><span>Yixiao</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/felixyh" target="_blank" rel="nofollow noopener"><span>Yizhen</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
