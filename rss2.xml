@@ -9,8 +9,33 @@
     <atom:link href="https://blog.excelsre.com/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>人生何处不相逢</description>
-    <pubDate>Wed, 24 Jan 2024 00:00:07 GMT</pubDate>
+    <pubDate>Mon, 05 Feb 2024 22:21:09 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title></title>
+      <link>https://blog.excelsre.com/2024/02/04/ussrelab-v1/</link>
+      <guid>https://blog.excelsre.com/2024/02/04/ussrelab-v1/</guid>
+      <pubDate>Mon, 05 Feb 2024 04:10:07 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://felixyanghui.synology.me:8441/images/2024/02/05/image-20240204220718541.png&quot; alt=&quot;image-20240204220718541&quot;&gt;&lt;/p&gt;
+&lt;h1</description>
+          
+        
+      
+      
+      
+      
+      
+      
+      <comments>https://blog.excelsre.com/2024/02/04/ussrelab-v1/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>CICD - Build, test, and deploy containers to ACR/AKS using GitHub Actions</title>
@@ -22,8 +47,7 @@
         
           
           
-      <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://learn.microsoft.com/en-us/azure/architecture/guide/aks/media/ci-cd-gitops-github-actions-aks-push.png&quot; alt=&quot;CI/CD for AKS</description>
+      <description>&lt;h1 id=&quot;CICD-Build-test-and-deploy-containers-to-ACR-AKS-using-GitHub-Actions&quot;&gt;&lt;a href=&quot;#CICD-Build-test-and-deploy-containers-to-ACR-AKS-using-GitHub-Actions&quot;</description>
           
         
       
@@ -35,9 +59,9 @@
       
       <category domain="https://blog.excelsre.com/tags/AKS/">AKS</category>
       
-      <category domain="https://blog.excelsre.com/tags/flask/">flask</category>
-      
       <category domain="https://blog.excelsre.com/tags/CICD/">CICD</category>
+      
+      <category domain="https://blog.excelsre.com/tags/flask/">flask</category>
       
       <category domain="https://blog.excelsre.com/tags/ACR/">ACR</category>
       
@@ -108,39 +132,6 @@
     </item>
     
     <item>
-      <title>Build localstack on local k8s cluster - updated</title>
-      <link>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/</link>
-      <guid>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/</guid>
-      <pubDate>Sun, 10 Dec 2023 14:34:04 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;h1 id=&quot;Localstack-on-local-k8s-cluster-updated&quot;&gt;&lt;a href=&quot;#Localstack-on-local-k8s-cluster-updated&quot; class=&quot;headerlink&quot; title=&quot;Localstack on local k8s cluster -</description>
-          
-        
-      
-      
-      
-      
-      <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
-      
-      
-      <category domain="https://blog.excelsre.com/tags/localstack/">localstack</category>
-      
-      <category domain="https://blog.excelsre.com/tags/k8s/">k8s</category>
-      
-      <category domain="https://blog.excelsre.com/tags/aws/">aws</category>
-      
-      <category domain="https://blog.excelsre.com/tags/api/">api</category>
-      
-      
-      <comments>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
       <title>Build localstack on local k8s cluster</title>
       <link>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/</link>
       <guid>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/</guid>
@@ -170,6 +161,39 @@
       
       
       <comments>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Build localstack on local k8s cluster - updated</title>
+      <link>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/</link>
+      <guid>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/</guid>
+      <pubDate>Sun, 10 Dec 2023 14:34:04 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h1 id=&quot;Localstack-on-local-k8s-cluster-updated&quot;&gt;&lt;a href=&quot;#Localstack-on-local-k8s-cluster-updated&quot; class=&quot;headerlink&quot; title=&quot;Localstack on local k8s cluster -</description>
+          
+        
+      
+      
+      
+      
+      <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      
+      
+      <category domain="https://blog.excelsre.com/tags/localstack/">localstack</category>
+      
+      <category domain="https://blog.excelsre.com/tags/k8s/">k8s</category>
+      
+      <category domain="https://blog.excelsre.com/tags/aws/">aws</category>
+      
+      <category domain="https://blog.excelsre.com/tags/api/">api</category>
+      
+      
+      <comments>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/#disqus_thread</comments>
       
     </item>
     

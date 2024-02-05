@@ -6,7 +6,7 @@
   <link href="https://blog.excelsre.com/atom.xml" rel="self"/>
   
   <link href="https://blog.excelsre.com/"/>
-  <updated>2024-01-24T00:00:07.339Z</updated>
+  <updated>2024-02-05T22:21:09.803Z</updated>
   <id>https://blog.excelsre.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>CICD - Build, test, and deploy containers to ACR/AKS using GitHub Actions</title>
-    <link href="https://blog.excelsre.com/2024/01/21/cicd-build-test-and-deploy-containers-to-acr-aks-using-github-actions/"/>
-    <id>https://blog.excelsre.com/2024/01/21/cicd-build-test-and-deploy-containers-to-acr-aks-using-github-actions/</id>
-    <published>2024-01-21T18:15:53.084Z</published>
-    <updated>2024-01-24T00:00:07.339Z</updated>
+    <title></title>
+    <link href="https://blog.excelsre.com/2024/02/04/ussrelab-v1/"/>
+    <id>https://blog.excelsre.com/2024/02/04/ussrelab-v1/</id>
+    <published>2024-02-05T04:10:07.572Z</published>
+    <updated>2024-02-05T22:21:09.803Z</updated>
     
     
       
@@ -29,7 +29,29 @@
         
         
     <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://learn.microsoft.com/en-us/azure/architecture/guide/aks/media/ci-cd-gitops-github-actions-aks-push.png&quot; alt=&quot;CI/CD for AKS</summary>
+&lt;p&gt;&lt;img src=&quot;https://felixyanghui.synology.me:8441/images/2024/02/05/image-20240204220718541.png&quot; alt=&quot;image-20240204220718541&quot;&gt;&lt;/p&gt;
+&lt;h1</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CICD - Build, test, and deploy containers to ACR/AKS using GitHub Actions</title>
+    <link href="https://blog.excelsre.com/2024/01/21/cicd-build-test-and-deploy-containers-to-acr-aks-using-github-actions/"/>
+    <id>https://blog.excelsre.com/2024/01/21/cicd-build-test-and-deploy-containers-to-acr-aks-using-github-actions/</id>
+    <published>2024-01-21T18:15:53.084Z</published>
+    <updated>2024-01-24T03:16:05.986Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;CICD-Build-test-and-deploy-containers-to-ACR-AKS-using-GitHub-Actions&quot;&gt;&lt;a href=&quot;#CICD-Build-test-and-deploy-containers-to-ACR-AKS-using-GitHub-Actions&quot;</summary>
         
       
     
@@ -40,9 +62,9 @@
     
     <category term="AKS" scheme="https://blog.excelsre.com/tags/AKS/"/>
     
-    <category term="flask" scheme="https://blog.excelsre.com/tags/flask/"/>
-    
     <category term="CICD" scheme="https://blog.excelsre.com/tags/CICD/"/>
+    
+    <category term="flask" scheme="https://blog.excelsre.com/tags/flask/"/>
     
     <category term="ACR" scheme="https://blog.excelsre.com/tags/ACR/"/>
     
@@ -106,18 +128,18 @@
   </entry>
   
   <entry>
-    <title>Build localstack on local k8s cluster - updated</title>
-    <link href="https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/"/>
-    <id>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/</id>
+    <title>Build localstack on local k8s cluster</title>
+    <link href="https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/"/>
+    <id>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/</id>
     <published>2023-12-10T14:34:04.919Z</published>
-    <updated>2023-12-11T09:59:36.943Z</updated>
+    <updated>2023-12-10T14:44:19.157Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Localstack-on-local-k8s-cluster-updated&quot;&gt;&lt;a href=&quot;#Localstack-on-local-k8s-cluster-updated&quot; class=&quot;headerlink&quot; title=&quot;Localstack on local k8s cluster -</summary>
+    <summary type="html">&lt;h1 id=&quot;Localstack-on-local-k8s-cluster&quot;&gt;&lt;a href=&quot;#Localstack-on-local-k8s-cluster&quot; class=&quot;headerlink&quot; title=&quot;Localstack on local k8s cluster&quot;&gt;&lt;/a&gt;Localstack</summary>
         
       
     
@@ -137,18 +159,18 @@
   </entry>
   
   <entry>
-    <title>Build localstack on local k8s cluster</title>
-    <link href="https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/"/>
-    <id>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster/</id>
+    <title>Build localstack on local k8s cluster - updated</title>
+    <link href="https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/"/>
+    <id>https://blog.excelsre.com/2023/12/10/build-localstack-on-local-k8s-cluster-updated/</id>
     <published>2023-12-10T14:34:04.919Z</published>
-    <updated>2023-12-10T14:44:19.157Z</updated>
+    <updated>2023-12-11T09:59:36.943Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Localstack-on-local-k8s-cluster&quot;&gt;&lt;a href=&quot;#Localstack-on-local-k8s-cluster&quot; class=&quot;headerlink&quot; title=&quot;Localstack on local k8s cluster&quot;&gt;&lt;/a&gt;Localstack</summary>
+    <summary type="html">&lt;h1 id=&quot;Localstack-on-local-k8s-cluster-updated&quot;&gt;&lt;a href=&quot;#Localstack-on-local-k8s-cluster-updated&quot; class=&quot;headerlink&quot; title=&quot;Localstack on local k8s cluster -</summary>
         
       
     

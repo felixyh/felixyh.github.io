@@ -16,12 +16,12 @@
   <meta name="author" content="Felix Yang">
   <meta name="keywords" content="Python,SRE,Flask,AWS,Azure,运维， 读书">
   
-    <meta name="description" content="[TOC]  CICD - Build, test, and deploy containers to ACR, AKS using GitHub ActionsRefer to: Build, test, and deploy containers to Azure Kubernetes Service (AKS) using GitHub Actions Authenticate with A">
+    <meta name="description" content="CICD - Build, test, and deploy containers to ACR, AKS using GitHub ActionsRefer to: Build, test, and deploy containers to Azure Kubernetes Service (AKS) using GitHub Actions Authenticate with Azure Co">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CICD - Build, test, and deploy containers to ACR&#x2F;AKS using GitHub Actions">
 <meta property="og:url" content="https://blog.excelsre.com/2024/01/21/cicd-build-test-and-deploy-containers-to-acr-aks-using-github-actions/index.html">
 <meta property="og:site_name" content="Felix Yang&#39;s Blog">
-<meta property="og:description" content="[TOC]  CICD - Build, test, and deploy containers to ACR, AKS using GitHub ActionsRefer to: Build, test, and deploy containers to Azure Kubernetes Service (AKS) using GitHub Actions Authenticate with A">
+<meta property="og:description" content="CICD - Build, test, and deploy containers to ACR, AKS using GitHub ActionsRefer to: Build, test, and deploy containers to Azure Kubernetes Service (AKS) using GitHub Actions Authenticate with Azure Co">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://learn.microsoft.com/en-us/azure/architecture/guide/aks/media/ci-cd-gitops-github-actions-aks-push.png">
 <meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2024/01/22/image-20240121190648384.png">
@@ -29,11 +29,11 @@
 <meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2024/01/24/image-20240123173338222.png">
 <meta property="og:image" content="https://felixyanghui.synology.me:8441/images/2024/01/24/image-20240123173525810.png">
 <meta property="article:published_time" content="2024-01-21T18:15:53.084Z">
-<meta property="article:modified_time" content="2024-01-24T00:00:07.339Z">
+<meta property="article:modified_time" content="2024-01-24T03:16:05.986Z">
 <meta property="article:author" content="Felix Yang">
 <meta property="article:tag" content="AKS">
-<meta property="article:tag" content="flask">
 <meta property="article:tag" content="CICD">
+<meta property="article:tag" content="flask">
 <meta property="article:tag" content="ACR">
 <meta property="article:tag" content="GitHub actions">
 <meta name="twitter:card" content="summary_large_image">
@@ -285,11 +285,10 @@
             
               <div class="markdown-body">
                 
-                <p>[TOC]</p>
-<p><img src="https://learn.microsoft.com/en-us/azure/architecture/guide/aks/media/ci-cd-gitops-github-actions-aks-push.png" srcset="/img/loading.gif" lazyload alt="CI/CD for AKS apps with GitHub Actions and GitFlow - Azure Example  Scenarios | Microsoft Learn"></p>
-<h1 id="CICD-Build-test-and-deploy-containers-to-ACR-AKS-using-GitHub-Actions"><a href="#CICD-Build-test-and-deploy-containers-to-ACR-AKS-using-GitHub-Actions" class="headerlink" title="CICD - Build, test, and deploy containers to ACR, AKS using GitHub Actions"></a>CICD - Build, test, and deploy containers to ACR, AKS using GitHub Actions</h1><p>Refer to:</p>
+                <h1 id="CICD-Build-test-and-deploy-containers-to-ACR-AKS-using-GitHub-Actions"><a href="#CICD-Build-test-and-deploy-containers-to-ACR-AKS-using-GitHub-Actions" class="headerlink" title="CICD - Build, test, and deploy containers to ACR, AKS using GitHub Actions"></a>CICD - Build, test, and deploy containers to ACR, AKS using GitHub Actions</h1><p>Refer to:</p>
 <p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/azure/aks/kubernetes-action">Build, test, and deploy containers to Azure Kubernetes Service (AKS) using GitHub Actions</a></p>
 <p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/azure/aks/cluster-container-registry-integration?tabs=azure-cli">Authenticate with Azure Container Registry (ACR) from Azure Kubernetes Service (AKS)</a></p>
+<p><img src="https://learn.microsoft.com/en-us/azure/architecture/guide/aks/media/ci-cd-gitops-github-actions-aks-push.png" srcset="/img/loading.gif" lazyload alt="CI/CD for AKS apps with GitHub Actions and GitFlow - Azure Example  Scenarios | Microsoft Learn"></p>
 <h2 id="Prepare-ACR-and-AKS"><a href="#Prepare-ACR-and-AKS" class="headerlink" title="Prepare ACR and AKS"></a>Prepare ACR and AKS</h2><ol>
 <li><p>Create ACR, AKS and attach ACR to AKS with AZ CLI</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs shell">MYRG=felixRG<br>MYACR=felixacr<br>MYAKS=felixaks<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">create ACR</span><br>az acr create -n $MYACR -g $MYRG --sku basic<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Enable admin access of ACR, to docker login to acr</span><br>az acr update --name $MYACR --admin-enabled true<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">create AKS</span><br>az aks create -n $MYAKS -g $MYRG --generate-ssh-keys --attach-acr $MYACR<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Attach using acr-name</span><br>az aks update -n $MYAKS -g $MYRG --attach-acr $MYACR<br><span class="hljs-meta prompt_"># </span><span class="language-bash">Option: you can also Attach using acr-resource-id</span><br>az aks update -n $MYAKS -g $MYRG --attach-acr &lt;acr-resource-id&gt;<br><br></code></pre></td></tr></table></figure>
@@ -643,9 +642,9 @@
       
         <a href="/tags/AKS/" class="print-no-link">#AKS</a>
       
-        <a href="/tags/flask/" class="print-no-link">#flask</a>
-      
         <a href="/tags/CICD/" class="print-no-link">#CICD</a>
+      
+        <a href="/tags/flask/" class="print-no-link">#flask</a>
       
         <a href="/tags/ACR/" class="print-no-link">#ACR</a>
       
@@ -705,6 +704,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/02/04/ussrelab-v1/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
