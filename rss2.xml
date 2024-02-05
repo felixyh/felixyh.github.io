@@ -9,11 +9,11 @@
     <atom:link href="https://blog.excelsre.com/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>人生何处不相逢</description>
-    <pubDate>Mon, 05 Feb 2024 22:21:09 GMT</pubDate>
+    <pubDate>Mon, 05 Feb 2024 22:24:27 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
-      <title></title>
+      <title>USSRELAB - Vision One SSO with ADFS Idp and ZTSA Testing</title>
       <link>https://blog.excelsre.com/2024/02/04/ussrelab-v1/</link>
       <guid>https://blog.excelsre.com/2024/02/04/ussrelab-v1/</guid>
       <pubDate>Mon, 05 Feb 2024 04:10:07 GMT</pubDate>
@@ -31,6 +31,18 @@
       
       
       
+      <category domain="https://blog.excelsre.com/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      
+      
+      <category domain="https://blog.excelsre.com/tags/V1/">V1</category>
+      
+      <category domain="https://blog.excelsre.com/tags/Trend/">Trend</category>
+      
+      <category domain="https://blog.excelsre.com/tags/ADFS/">ADFS</category>
+      
+      <category domain="https://blog.excelsre.com/tags/Service-Gateway/">Service Gateway</category>
+      
+      <category domain="https://blog.excelsre.com/tags/ZTSA/">ZTSA</category>
       
       
       <comments>https://blog.excelsre.com/2024/02/04/ussrelab-v1/#disqus_thread</comments>
@@ -694,6 +706,30 @@
     </item>
     
     <item>
+      <title>Github 教程</title>
+      <link>https://blog.excelsre.com/1984/01/24/github-workflow/</link>
+      <guid>https://blog.excelsre.com/1984/01/24/github-workflow/</guid>
+      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;Step-by-step&quot;&gt;&lt;a href=&quot;#Step-by-step&quot; class=&quot;headerlink&quot; title=&quot;Step by step&quot;&gt;&lt;/a&gt;Step by step&lt;/h1&gt;&lt;iframe</description>
+          
+        
+      
+      
+      
+      
+      
+      
+      <comments>https://blog.excelsre.com/1984/01/24/github-workflow/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>k8s and CICD lab</title>
       <link>https://blog.excelsre.com/1984/01/24/cicd-lab/</link>
       <guid>https://blog.excelsre.com/1984/01/24/cicd-lab/</guid>
@@ -719,30 +755,6 @@
       
       
       <comments>https://blog.excelsre.com/1984/01/24/cicd-lab/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Github 教程</title>
-      <link>https://blog.excelsre.com/1984/01/24/github-workflow/</link>
-      <guid>https://blog.excelsre.com/1984/01/24/github-workflow/</guid>
-      <pubDate>Tue, 24 Jan 1984 08:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;Step-by-step&quot;&gt;&lt;a href=&quot;#Step-by-step&quot; class=&quot;headerlink&quot; title=&quot;Step by step&quot;&gt;&lt;/a&gt;Step by step&lt;/h1&gt;&lt;iframe</description>
-          
-        
-      
-      
-      
-      
-      
-      
-      <comments>https://blog.excelsre.com/1984/01/24/github-workflow/#disqus_thread</comments>
       
     </item>
     
